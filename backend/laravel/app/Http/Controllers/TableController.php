@@ -75,7 +75,7 @@ class TableController extends Controller
         //     ], 404);
         // }
 
-        return MesasResource::make(Mesas::where('id', $id)->firstOrFail());
+        return TableResource::make(Table::where('id', $id)->firstOrFail());
 
     }
 
