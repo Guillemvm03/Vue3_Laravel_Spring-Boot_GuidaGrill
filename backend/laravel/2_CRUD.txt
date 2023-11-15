@@ -1,0 +1,136 @@
+1. Passos per com implementar una API REST CRUD en Laravel gastant Postman:
+-------------------------------------------------------------------------------------------
+    - https://medium.com/fabcoding/laravel-rest-api-2-crud-operations-2ca4ef743440
+
+2. Comandes php artisan:
+-------------------------------------------------------------------------------------------
+    - https://jrgonzalez.es/guia-comandos-artisan
+
+3. Què és Eloquent, l'ORM de Laravel:
+-------------------------------------------------------------------------------------------
+    - https://laravel.com/docs/10.x/eloquent
+    - https://laravel.com/docs/10.x/queries
+
+4. Install + configuration:
+-------------------------------------------------------------------------------------------
+    $ composer create-project laravel/laravel 2_CRUD --prefer-dist
+    $ sudo chmod 777 -R 2_CRUD
+    $ cd 2_CRUD/
+    $ php artisan key:generate
+    $ php artisan route:list
+    $ sudo service apache2 start
+    $ sudo service mysql start
+    $ php artisan serve
+    - http://127.0.0.1:8000
+
+    - http://localhost/phpmyadmin/
+    - create database crud_students; use crud_students;
+    - .env: afegir les credencials DB_DATABASE, DB_USERNAME, DB_PASSWORD 
+    - config/database.php: afegir les credencials DB_DATABASE, DB_USERNAME, DB_PASSWORD 
+
+    - Crear el model:
+        $ php artisan make:model Student
+        - Afegir els camps que tindrà el model
+
+    - Crear la taula de DB o migration:
+        $ php artisan make:migration create_students_table
+        - Afegir els camps que tindrà la taula en DB
+
+    - Executar la migration en DB:
+        $ php artisan migrate
+        - En phpmyadmin tindrem la taula students
+
+    - Crear una factoria i un seeder per a la migration students:
+        - En composer.json ja tenim instal.lada la llibreria fakerphp
+        $ php artisan make:factory StudentFactory
+        - Afegir les dades amb què s'omplirà la taula en DB
+
+        $ php artisan make:seeder StudentSeeder
+        - Crear 10 students
+
+    - Executar el seeder anterior per omplir la taula students en DB:
+        $ php artisan db:seed --class=StudentSeeder
+        - Explicació: https://laravel.com/docs/10.x/seeding
+        - En phpmyadmin tindrem la taula students plena
+        
+    - Crear el controller:
+        $ php artisan make:controller StudentController --resource
+        - Afegir el codi del CRUD a StudentController
+        - Xulleta Eloquent: https://www.tutsmake.com/laravel-eloquent-cheat-sheet-eloquent-orm/
+
+    - Afegir les routes del StudentController a api.php:
+        $ php artisan route:list
+
+5. Postman:
+-------------------------------------------------------------------------------------------
+$ php artisan serve
+
+- GET http://127.0.0.1:8000/api/students 
+- GET http://127.0.0.1:8000/api/students/1
+- POST http://127.0.0.1:8000/api/students
+    {
+        "fname": "yomogan",
+        "lname": "yomogan",
+        "email": "yomogan@gmail.com",
+        "password": "Yomogan1"
+    }
+- PUT http://127.0.0.1:8000/api/students/11
+    {
+        "fname": "yomogana",
+        "lname": "yomogana",
+        "email": "yomogana@gmail.com",
+        "password": "Yomogan1"
+    }
+- DELETE http://127.0.0.1:8000/api/students/11
+
+6. Request - validations:
+-------------------------------------------------------------------------------------------
+    - Crear una Request per validar un Student al crear-lo:
+        $ php artisan make:request StoreStudentRequest
+        - Afegir les validations
+        - Modificar el codi de la function store del StudentController
+        - Explicació:
+            - https://laravel.com/docs/10.x/validation
+            - https://styde.net/como-trabajar-con-form-requests-en-laravel/
+
+    $ php artisan serve
+    - POST http://127.0.0.1:8000/api/students
+        {
+            "fname": "yomogan",
+            "lname": "yomogan",
+            "email": "yomogan@gmail.com",
+            "password": "Yomogan1"
+        }
+
+7. Resource - serializers:
+-------------------------------------------------------------------------------------------
+    - Crear un resource -> defineix com pintarem els students en format json
+        $ php artisan make:resource StudentResource
+        - Afegir els camps del model Student per a que es pinten per json
+        - Modificar el codi de les functions en StudentController
+        - Explicació: https://blog.coffeedevs.com/laravel-resources/
+    $ php artisan serve
+    - Provar les operations CRUD en Postman
+
+-------------------------------------------------------------------------------------------
+8. Codi font: https://github.com/Shobuj718/apicrud
+9. Install:
+-------------------------------------------------------------------------------------------
+$ cd 2_CRUD/
+$ php artisan key:generate
+$ php artisan route:list
+$ sudo service apache2 start
+$ sudo service mysql start
+$ php artisan serve
+- http://127.0.0.1:8000
+
+- http://localhost/phpmyadmin/
+- create database crud_students; use crud_students;
+- .env: afegir les credencials DB_DATABASE, DB_USERNAME, DB_PASSWORD 
+- config/database.php: afegir les credencials DB_DATABASE, DB_USERNAME, DB_PASSWORD 
+
+$ php artisan migrate
+$ php artisan db:seed --class=StudentSeeder
+$ php artisan route:list
+$ php artisan serve
+- http://127.0.0.1:8000
