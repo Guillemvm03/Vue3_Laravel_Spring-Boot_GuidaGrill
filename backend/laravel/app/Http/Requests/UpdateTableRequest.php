@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMesasRequest extends FormRequest
+class UpdateTableRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +25,12 @@ class UpdateMesasRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'fname' => 'sometimes|string|max:255',
-            // 'lname' => 'sometimes|string|max:255',
-            // 'email' => 'sometimes|string|max:255',
-            // 'password' => 'sometimes|string|max:255',
-            'numMesa' => 'required',
-            'capacidad' => 'required',
-            'categoria' => 'required',
-            'disponible' => 'required',
+     
+        'table_number' => 'required',
+        'capacity' => 'required',
+        'category' => 'required',
+        'available' => 'required',
+        'status' => 'required',
         ];
     }
 }

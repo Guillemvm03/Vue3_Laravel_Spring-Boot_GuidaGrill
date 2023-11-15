@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Table;
 use Illuminate\Http\Request;
 use App\Http\Resources\TableResource;
-// use App\Http\Requests\StoreMesasRequest;
-// use App\Http\Requests\UpdateMesasRequest;
+
+use App\Http\Requests\UpdateTableRequest;
+use App\Http\Requests\StoreTableRequest;
 
 class TableController extends Controller
 {
@@ -15,46 +16,21 @@ class TableController extends Controller
      */
     public function index()
     {
-        // $mesas = Mesas::all();
-    	//   return response()->json($mesas);
-
-
-
           return TableResource::collection(Table::all());
-
-          
-        //   return StudentResource::collection(Student::all());
-
-        //   return Student::orderBy('numMesa', 'asc')->get();
-        //   return StudentResource::collection(Student::orderBy('fname', 'asc')->paginate(2));
-  
-        //   return Student::offset(0)->limit(2)->get();Requests
-        //   return StudentResource::collection(Student::offset(0)->limit(2)->get());
-  
-        //   $page = $request->has('page') ? $request->get('page') : 1;
-        //   $limit = $request->has('limit') ? $request->get('limit') : 5;
-        //   return StudentResource::collection(Student::limit($limit)->offset(($page - 1) * $limit)->get());
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-        //  @param  \Illuminate\Http\Request  $request
-        //  @return \Illuminate\Http\Response
-    }
+
 
     /**
      * Store a newly created resource in storage.
      */
 
-
-
-    public function store(Request $request)
+    public function store(StoreTableRequest $request)
     {
-        //
+        return TableResource::make(Table::create($request->validated()));
     }
 
     /**
@@ -62,20 +38,9 @@ class TableController extends Controller
      */
     public function show(string $id)
     {
-        //
 
-        //         if(Mesas::where('id', $id)->exists()) {
-        //     $mesas = Mesas::find($id);
-        //     return response()->json([
-        //       "message" => $mesas
-        //     ], 202);
-        // } else {
-        //     return response()->json([
-        //       "message" => "Mesa not found"
-        //     ], 404);
-        // }
 
-        return MesasResource::make(Mesas::where('id', $id)->firstOrFail());
+        return TableResource::make(Table::where('id', $id)->firstOrFail());
 
     }
 
@@ -91,7 +56,7 @@ class TableController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMesasRequest $request, string $id)
+    public function update(UpdateTableRequest $request, string $id)
     {
         //
     //     if (Mesas::where('id', $id)->exists()) {
@@ -107,11 +72,11 @@ class TableController extends Controller
 
     // }
 
-      if (Mesas::where('id', $id)->exists()) {
-        $mesas = Mesas::find($id);
+      if (Table::where('id', $id)->exists()) {
+        $table = Table::find($id);
 
-      $mesas->update($request->validated());
-      return MesasResource::make($mesas);
+      $table->update($request->validated());
+      return TableResource::make($table);
       }else {
       return response()->json([
         "message" => "Student not found"
@@ -127,9 +92,9 @@ class TableController extends Controller
     public function destroy(string $id)
     {
         //
-        if(Mesas::where('id', $id)->exists()) {
-            $mesas = Mesas::find($id);
-            $mesas->delete();
+        if(Table::where('id', $id)->exists()) {
+            $table = Table::find($id);
+            $table->delete();
             return response()->json([
               "message" => "Mesa deleted"
             ], 202);
