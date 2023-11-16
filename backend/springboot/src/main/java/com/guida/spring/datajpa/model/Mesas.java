@@ -1,4 +1,4 @@
-package com.david.spring.datajpa.model;
+package com.guida.spring.datajpa.model;
 
 import jakarta.persistence.*;
 
