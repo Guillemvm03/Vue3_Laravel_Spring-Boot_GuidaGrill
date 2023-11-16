@@ -1,9 +1,9 @@
-package com.david.spring.datajpa.repository;
+package com.guida.spring.datajpa.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.david.spring.datajpa.model.Mesas;
+import com.guida.spring.datajpa.model.Mesas;
 
 public interface MesasRepository extends JpaRepository<Mesas, Long> {
 }

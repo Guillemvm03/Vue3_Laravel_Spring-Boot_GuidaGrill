@@ -1,4 +1,4 @@
-package com.david.spring.datajpa.controller;
+package com.guida.spring.datajpa.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,37 +18,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.david.spring.datajpa.model.Tables;
-import com.david.spring.datajpa.repository.TableRepository;
+import com.guida.spring.datajpa.model.Mesas;
+import com.guida.spring.datajpa.repository.MesasRepository;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api")
-public class TableController {
+public class mesasController {
 
 	@Autowired
-	TableRepository tableRepository;
+	MesasRepository mesasRepository;
 
-	@GetMapping("/tables")
-	public ResponseEntity<List<Tables>> getAllTable(@RequestParam(required = false) String title) {
+	@GetMapping("/mesas")
+	public ResponseEntity<List<Mesas>> getAllMesas(@RequestParam(required = false) String title) {
 		try {
-			List<Tables> table = new ArrayList<Tables>();
+			List<Mesas> mesas = new ArrayList<Mesas>();
 		
-			tableRepository.findAll().forEach(table::add);			
+			mesasRepository.findAll().forEach(mesas::add);			
 
-			return new ResponseEntity<>(table, HttpStatus.OK);
+			return new ResponseEntity<>(mesas, HttpStatus.OK);
 
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	@GetMapping("/tables/{id}")
-	public ResponseEntity<Tables> getTableById(@PathVariable("id") long id) {
-		Optional<Tables> tableData = tableRepository.findById(id);
+	@GetMapping("/mesas/{id}")
+	public ResponseEntity<Mesas> getmesasById(@PathVariable("id") long id) {
+		Optional<Mesas> mesasData = mesasRepository.findById(id);
 
-		if (tableData.isPresent()) {
-			return new ResponseEntity<>(tableData.get(), HttpStatus.OK);
+		if (mesasData.isPresent()) {
+			return new ResponseEntity<>(mesasData.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
