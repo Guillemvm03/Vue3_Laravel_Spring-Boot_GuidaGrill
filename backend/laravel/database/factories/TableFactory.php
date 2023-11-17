@@ -17,15 +17,15 @@ class TableFactory extends Factory
 
         protected $model = \App\Models\Table::class;
 
-    public function definition(): array
+    public function definition()
     {
         return [
             
-            'tablenumber' => fake()->numberBetween(1, 50),
-            'capacity' => fake()->numberBetween(1,20),
-            'category' => fake()->randomElement(['VIP', 'Singular', 'Families', 'Outside',]),
-            'available' => fake()->boolean(),
-            'status' => fake()->randomElement(['Occupied', 'Available', 'Reserved']),
+            'table_number' => $this -> faker ->numberBetween(1, 50),
+            'capacity' => $this -> faker->numberBetween(1,20),
+            'category' => $this -> faker->randomElement(['VIP', 'Singular', 'Families', 'Outside',]),
+            'available' => $this -> faker->boolean(),
+            'status' => $this -> faker->randomElement(['Occupied', 'Available', 'Reserved']),
         ];
     }
 }
