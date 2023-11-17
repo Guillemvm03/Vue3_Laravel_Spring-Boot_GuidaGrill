@@ -26,8 +26,7 @@ class TableResource extends JsonResource
             'category' => $this->category,
             'available' => $this->available,
             'status' => $this->status,
-
-
+            'img_table' => $this->img_table,
         ];
     }
 }

@@ -24,6 +24,8 @@ use App\Http\Controllers\TableController;
 
 Route::resource('tables', TableController::class);
 
+// Route::resorce('menus', MenuController::class);
+
 
 
 // Route::post('/pistas', [PistaController::class,'store']);

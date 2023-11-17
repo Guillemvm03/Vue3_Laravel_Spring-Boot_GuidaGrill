@@ -39,7 +39,6 @@ class TableController extends Controller
     public function show(string $id)
     {
 
-
         return TableResource::make(Table::where('id', $id)->firstOrFail());
 
     }
