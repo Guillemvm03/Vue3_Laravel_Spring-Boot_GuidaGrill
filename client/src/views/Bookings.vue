@@ -1,10 +1,14 @@
 <template>
+    <div class="booking-card">
     <h1>BOOKINGS</h1>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <card_tables v-for="table in state.tables" :key="table.id" :table="table" />
-        <!-- <Card_tables /> -->
     </div>
+    <br>
+</div>
 </template>
+
+
 <script>
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
@@ -27,9 +31,20 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.row{
-    margin-top: 20px;
+// .row{
+    
 
+// }
+
+.booking-card{
+    margin-top: 20px;
+    max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+
+
+  
 }
 </style>
 ```
