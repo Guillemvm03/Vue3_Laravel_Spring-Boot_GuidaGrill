@@ -83,7 +83,7 @@ export default {
 
 
 
-<style lang="scss" scoped>
+<style lang="scss" >
 
 .footer {
   font-size: 14px;
