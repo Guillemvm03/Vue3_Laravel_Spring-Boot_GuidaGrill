@@ -24,17 +24,21 @@ public class Tables {
     @Column(name = "status")
 	private String status;
 
+	@Column (name = "img_table")
+	private String img_table;
+
     public Tables() {
 		
 	}
 
-	public Tables(Integer table_number, Integer capacity, String category, boolean available, String status) {
+	public Tables(Integer table_number, Integer capacity, String category, boolean available, String status, String img_table) {
 
         this.table_number = table_number;
         this.capacity = capacity;
         this.category = category;
         this.available = available;
         this.status = status;
+		this.img_table = img_table;
 	}
 
 	
@@ -83,9 +87,19 @@ public class Tables {
         this.status = status;
     }
 
+	public String getimg_table() {
+		return img_table;
+	}
+
+	public void setimg_table(String img_table) {
+		this.img_table = img_table;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "Tables [id=" + id + ", table_number=" + table_number + ", capacity=" + capacity + ", category=" + category + ", available=" + available + ", status=" + status + "]";
+		return "Tables [id=" + id + ", table_number=" + table_number + ", capacity=" + capacity + ", category=" + category + ", available=" + available + ", status=" + status + ", img_table=" + img_table + "]";
 	}
 
 }

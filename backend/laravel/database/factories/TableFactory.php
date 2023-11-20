@@ -20,7 +20,6 @@ class TableFactory extends Factory
     public function definition()
     {
         return [
-            
             'table_number' => $this -> faker ->numberBetween(1, 50),
             'capacity' => $this -> faker->numberBetween(1,20),
             'category' => $this -> faker->randomElement(['VIP', 'Singular', 'Families', 'Outside',]),

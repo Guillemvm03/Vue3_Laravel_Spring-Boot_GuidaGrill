@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-// import Bookings from "../views/Bookings.vue";
+import Bookings from "../views/Bookings.vue";
+import DetailsTable from "../views/DetailsTable.vue";
 
 const routes = [
   {
@@ -11,12 +12,17 @@ const routes = [
   {
     path: "/Home",
     name: "home",
-    component: () => import("../views/Home.vue"),
+    component: Home,
   },
   {
     path: "/Bookings",
     name: "Bookings",
-    component: () => import("../views/Bookings.vue"),
+    component: Bookings,
+  },
+  {
+    path: "/Bookings/:id",
+    name: "DetailsTable",
+    component: DetailsTable,
   }
 ];
 

@@ -24,7 +24,7 @@ export default {
         const state = reactive({
             tables: computed(() => store.getters["tables/GetTables"])
         })
-        console.log(state.tables);
+        // console.log(state);
 
         return { state }
     }

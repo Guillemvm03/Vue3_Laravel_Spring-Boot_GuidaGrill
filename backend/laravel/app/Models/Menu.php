@@ -7,21 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Mesas extends Model
+class Table extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'numMesa',
-        'capacidad',
-        'categoria',
-        'disponible'
+        'type',
+        'img_Menu',
+        
     ];
+
 }
