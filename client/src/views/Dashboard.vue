@@ -46,7 +46,7 @@
       <a class="text-decoration-none">
         <div class="card p-3 shadow bg-purple text-center border-0">
           <div class="card-body">
-            <p class="card-title lead"><router-link to="/dashboard/menus">List Menus</router-link></p>
+            <p class="card-title lead"><router-link to="/dashboard/menus">Menus</router-link></p>
           </div>
         </div>
       </a>
@@ -57,7 +57,7 @@
         <div class="card p-3 shadow bg-purple text-center border-0">
           <div class="card-body">
             <!-- <p class="card-title lead">Enquiry</p> -->
-            <p class="card-title lead"><router-link to="/dashboard/tables">List Tables</router-link></p>
+            <p class="card-title lead"><router-link to="/dashboard/tables">Tables</router-link></p>
           </div>
         </div>
       </a>

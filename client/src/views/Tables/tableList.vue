@@ -1,6 +1,6 @@
 <template>
         <h1>Table List</h1>
-        <TableDash :tables="tables" />
+        <!-- <TableDash :tables="tables" /> -->
     
 </template>
 <script >

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ use App\Http\Controllers\TableController;
 
 Route::resource('tables', TableController::class);
 
-// Route::resorce('menus', MenuController::class);
+Route::resource('menu', MenuController::class);
 
 
 
