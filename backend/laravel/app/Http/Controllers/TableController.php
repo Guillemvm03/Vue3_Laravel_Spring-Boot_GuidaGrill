@@ -44,33 +44,11 @@ class TableController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-
-}
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateTableRequest $request, string $id)
     {
-        //
-    //     if (Mesas::where('id', $id)->exists()) {
-    //         $mesas = Mesas::find($id);
-    //         $mesas->numMesa = $request->numMesa;
-    //         $mesas->capacidad = $request->capacidad;
-    //         $mesas->categoria = $request->categoria;
-    //         $mesas->disponible = $request->disponible;
-    //         $student->save();
-    //         return response()->json([
-    //           "message" => "Mesa updated successfully"
-    //         ], 200);
-
-    // }
-
+  
       if (Table::where('id', $id)->exists()) {
         $table = Table::find($id);
 
@@ -78,7 +56,7 @@ class TableController extends Controller
       return TableResource::make($table);
       }else {
       return response()->json([
-        "message" => "Student not found"
+        "message" => "Table not found"
       ], 404);
     } 
 
