@@ -14,7 +14,7 @@ class Table extends Model
     protected $fillable = [
         'type',
         'img_Menu',
-        
+
     ];
 
 }

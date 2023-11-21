@@ -29,6 +29,11 @@
           <a class="nav-link" href="#">Bookings</a>
         </router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/Dashboard" class="link">
+          <a class="nav-link">Dashboard</a>
+        </router-link>
+        </li>
 
       </ul>
 

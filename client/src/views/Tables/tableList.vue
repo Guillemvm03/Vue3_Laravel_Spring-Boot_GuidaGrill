@@ -1,9 +1,12 @@
 <template>
-    <div>
         <h1>Table List</h1>
-    </div>
+        <TableDash :tables="tables" />
+    
 </template>
-<script>
+<script >
+
+
+export default {}
     
 
 </script>
