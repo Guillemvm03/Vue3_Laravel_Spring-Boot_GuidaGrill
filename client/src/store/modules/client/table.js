@@ -8,7 +8,7 @@ export const table =  {
             state.tables = payload
         },
         [Constant.INITIALIZE_ONE_STATE_TABLES]: (state, payload) => {
-                state.OneTable = payload;
+            state.OneTable = payload;
         },
     },
     actions: {

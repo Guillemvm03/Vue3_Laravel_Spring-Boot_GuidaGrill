@@ -30,6 +30,7 @@ class StoreTableRequest extends FormRequest
             'category' => 'required',
             'available' => 'required',
             'status' => 'required',
+            'img_table' => 'required'
         ];
     }
 

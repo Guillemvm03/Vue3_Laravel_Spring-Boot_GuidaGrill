@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 
 const routes = [
+  ////////////////////////////CLIENT//////////////////////////////////
   {
     path: "/",
     name: "Home",
@@ -22,6 +23,7 @@ const routes = [
     name: "DetailsTable",
     component: () => import('../views/DetailsTable.vue')
   },
+   ///////////////////////////DASHBOARD//////////////////////////////
   {
     path: "/Dashboard",
     name: "Dashboard",
@@ -32,11 +34,16 @@ const routes = [
     name: "DashboardTables",
     component: () => import('../views/Tables/tableList.vue')
   },
-  // {
-  //   path: "Dashboard/menus",
-  //   name: "DashboardMenus",
-  //   component: () => import('../views/Menus/MenuList.vue')
-  // }
+  {
+    path: "/Dashboard/Tables/tableCreate",
+    name: "tableCreate",
+    component: () => import('../views/Tables/tableCreate.vue')
+  },
+  {
+    path: "/Dashboard/Tables/tableEdit/:id",
+    name: "tableEdit",
+    component: () => import('../views/Tables/tableEdit.vue')
+  }
 ];
 
 const router = createRouter({
