@@ -1,180 +1,92 @@
 <template>
-<!-- <h1>Dashboard</h1> -->
-<!-- 
-<router-link to="/dashboard/menus"><button class="pulse">List Menus</button></router-link>
-<br>
-<router-link to="/dashboard/tables"><button class="pulse">List Tables</button></router-link> -->
-<!-- <nav class="nav bg-purple justify-content-center">
-  <a class="nav-link text-white" href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
-  <a class="nav-link text-white" href="#">Services</a>
-  <a class="nav-link text-white" href="#">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
-</nav> -->
-
 <div class="container py-5">
   <div class="row">
-    <div class="col-lg-12 p-5">
-      <h1> <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</h1>
-      <hr />
+    <div class="col-lg-12 text-center">
+      <h1><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</h1>
+      <hr class="my-4">
     </div>
   </div>
-  <!-- <div class="row">
+<br><br><br><br>
+  <div class="row justify-content-center">
     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
-      <a class="text-decoration-none" href="#">
-        <div class="card p-3 shadow bg-purple text-center border-0">
+      <a href="#" class="text-decoration-none">
+        <div class="card p-3 shadow bg-primary text-white text-center border-0">
           <div class="card-body">
-            <i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i>
-            <hr />
-            <p class="card-title lead">Offer's</p>
-          </div>
-        </div>
-      </a>
-    </div> -->
-
-    <!-- <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
-      <a class="text-decoration-none" href="#">
-        <div class="card p-3 shadow bg-purple text-center border-0">
-          <div class="card-body">
-            <i class="fa fa-edit fa-2x" aria-hidden="true"></i>
-            <hr />
-            <p class="card-title lead">Blog's</p>
-          </div>
-        </div>
-      </a>
-    </div> -->
-
-    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
-      <a class="text-decoration-none">
-        <div class="card p-3 shadow bg-purple text-center border-0">
-          <div class="card-body">
-            <p class="card-title lead"><router-link to="/dashboard/menus">Menus</router-link></p>
+            <p class="card-title lead"><router-link to="/dashboard/menus" class="text-white">Menus</router-link></p>
           </div>
         </div>
       </a>
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
-      <a class="text-decoration-none">
-        <div class="card p-3 shadow bg-purple text-center border-0">
+      <a href="#" class="text-decoration-none">
+        <div class="card p-3 shadow bg-primary text-white text-center border-0">
           <div class="card-body">
-            <!-- <p class="card-title lead">Enquiry</p> -->
-            <p class="card-title lead"><router-link to="/dashboard/tables">Tables</router-link></p>
+            <p class="card-title lead"><router-link to="/dashboard/tables" class="text-white">Tables</router-link></p>
           </div>
         </div>
       </a>
     </div>
-
-    <!-- <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
-      <a class="text-decoration-none" href="#">
-        <div class="card p-3 shadow bg-purple text-center border-0">
-          <div class="card-body">
-            <i class="fa fa-cart-plus fa-2x" aria-hidden="true"></i>
-            <hr />
-            <p class="card-title lead">Order's</p>
-          </div>
-        </div>
-      </a>
-    </div> -->
-
-    <!-- <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
-      <a class="text-decoration-none" href="#" data-toggle="modal" data-target="#modelHELP">
-        <div class="card p-3 shadow bg-purple text-center border-0">
-          <div class="card-body">
-            <i class="fa fa-question fa-2x" aria-hidden="true"></i>
-            <hr />
-            <p class="card-title lead">Support</p>
-          </div>
-        </div>
-      </a>
-    </div> -->
-
-  <!-- </div> -->
+  </div>
 </div>
+<br><br><br><br><br><br>
 
-<!-- <footer class="footer fixed-bottom">
-  <div class="row text-center p-3">
-    <p class="small text-muted">Develop & Design by @imayushshrivastava</p>
-  </div>
-</footer> -->
-
-<!-- Modal -->
-<!-- <div class="modal fade" id="modelHELP" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"><i class="fa fa-question-circle-o" aria-hidden="true"></i> Technical Support
-          24/7</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body p-5">
-        <p>
-          <small>(Mon - Sat / 10AM - 6PM)</small>
-        </p>
-        <hr />
-        <p> <i class="fa fa-envelope mr-3" aria-hidden="true"></i> </p>
-        <p><i class="fa fa-volume-control-phone mr-3" aria-hidden="true"></i> +91-123654789 </p>
-
-      </div>
-
-    </div>
-  </div>
-</div> -->
 </template>
 <script>
 export default {};
 </script>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+  }
 
-<style lang="scss">
-// .pulse:hover,
-// .pulse:focus {
-//   animation: pulse 1s;
-//   box-shadow: 0 0 0 2em transparent;
-// }
+  h1 {
+    color: #343a40;
+  }
 
-// @keyframes pulse {
-//   0% {
-//     box-shadow: 0 0 0 0 var(--hover);
-//   }
-// }
+  hr {
+    border-top: 2px solid #007bff;
+    width: 25%;
+    margin: 0 auto;
+  }
 
-// button.pulse {
-//   color: var(--color);
-//   transition: 0.25s;
+  .card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: none;
+    position: relative;
+  }
 
-//   &:hover,
-//   &:focus {
-//     border-color: var(--hover);
-//     color: #51f842;
-//   }
-// }
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
 
-// button.pulse {
-//   background: none;
-//   border: 2px solid;
-//   font: inherit;
-//   line-height: 1;
-//   margin: 0.5em;
-//   padding: 1em 2em;
-// }
-body {
-  font-family: "Lato", sans-serif;
-}
+  .card-body {
+    padding: 20px;
+  }
 
-:root {
-  --primary: #94618e;
-}
+  .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
 
-.justify {
-  text-align: justify;
-}
+  .text-decoration-none {
+    text-decoration: none;
+  }
 
-.text-purple {
-  color: var(--primary);
-}
+  .bg-primary {
+    background-color: #007bff;
+  }
 
-.bg-purple {
-  background-color: var(--primary);
-  color: white;
-}
+  .text-white {
+    color: #fff;
+    transition: transform 0.3s;
+  }
+
+  .text-white:hover {
+    transform: scale(1.1);
+  }
 </style>
+

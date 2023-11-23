@@ -23,6 +23,7 @@ class Table extends Model
         'capacity',
         'category',
         'available',
-        'status'
+        'status',
+        'img_table'
     ];
 }
