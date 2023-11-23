@@ -45,7 +45,6 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
-        <!-- <i class="fab fa-github fa-2x mx-3 ps-1"></i> -->
         <img src="../assets/logo.png" alt="">
       </a>
       <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
@@ -164,7 +163,7 @@ body {
     }
 
     .nav-link {
-      color: #fff;
+      color: #ffffff;
       text-decoration: none;
     }
 

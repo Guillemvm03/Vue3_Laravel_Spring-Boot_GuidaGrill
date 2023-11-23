@@ -35,9 +35,7 @@
 						<td>{{table.status}}</td>
 						<td>{{table.img_table}}</td>
 						<td>
-                            <button class="btn btn-success" @click="updateTable(table.id)">Edit</button>
-					<!-- <router-link to="/Dashboard/Tables/tableEdit/:id"><a class="btn btn-success" ><span>Edit</span></a> </router-link> -->
-                        
+                            <button class="btn btn-success" @click="updateTable(table.id)">Edit</button>                        
 						</td>
                         <td>
                             <button class="btn btn-danger" @click="deleteTable(table.id)">Delete</button>

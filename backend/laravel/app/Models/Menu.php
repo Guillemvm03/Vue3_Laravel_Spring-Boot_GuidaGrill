@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -23,5 +24,8 @@ class Menu extends Model
         'type',
         'img_Menu'
     ];
-
+    public function tables(): BelongsToMany
+    {
+        return $this->belongsToMany(Table::class, 'tables_menu', 'menus_id', 'tables_id');//comprobar 'tables_menu'
+    }
 }

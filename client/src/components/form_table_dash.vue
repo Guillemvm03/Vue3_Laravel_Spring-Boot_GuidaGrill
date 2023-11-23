@@ -103,7 +103,7 @@ export default {
       router.push('/Dashboard/tables')
     }
     
-    return { sendData, state }
+    return { sendData, state , cancel }
   }
 
 };

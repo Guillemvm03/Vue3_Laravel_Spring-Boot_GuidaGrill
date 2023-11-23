@@ -18,7 +18,16 @@ class TableResource extends JsonResource
 
     public function toArray($request)
     {
-        // return parent::toArray($request);
+        $menus = [];
+        foreach ($this -> menus as $mn) {
+            $menu = [
+                'id' => $mn -> id,
+                'type' => $mn -> type,
+                'img_Menu' => $mn -> img_Menu,
+                
+            ];
+            array_push($menus,$menu);
+        }
         return [
             'id' => $this->id,
             'table_number' => $this->table_number,
@@ -27,6 +36,7 @@ class TableResource extends JsonResource
             'available' => $this->available,
             'status' => $this->status,
             'img_table' => $this->img_table,
+            'menus' => $menus
         ];
     }
 }

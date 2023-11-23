@@ -4,6 +4,7 @@
     <div class="card-body" >
       <h4 class="card-title">número de mesa: {{table.table_number}}</h4>
       <p class="card-text">Descripción: {{ table.category }}</p>
+      <p class="card-text">Estado: {{ table.status }}</p>
     </div>
   </div>
 </template>

@@ -31,10 +31,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-// .row{
-    
-
-// }
 
 .booking-card{
     margin-top: 20px;
@@ -42,9 +38,20 @@ export default {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-
-
-  
 }
+.card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: none;
+    position: relative;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-body {
+    padding: 20px;
+  }
 </style>
 ```
