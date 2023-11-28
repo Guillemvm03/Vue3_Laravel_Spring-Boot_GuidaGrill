@@ -25,6 +25,7 @@ class TableFactory extends Factory
             'category' => $this -> faker->randomElement(['VIP', 'Singular', 'Families', 'Outside',]),
             'available' => $this -> faker->boolean(),
             'status' => $this -> faker->randomElement(['Occupied', 'Available', 'Reserved']),
+            'img_table' => $this -> faker->imageUrl(['https://th.bing.com/th/id/OIG.6tox5x0vX0jw8ZEMcC0o?pid=ImgGn','https://th.bing.com/th/id/OIG.hb2IHDiBv13lzHwMHS4b?pid=ImgGn','https://th.bing.com/th/id/OIG.fIX55Pzz0cGZKCIPEyxf?pid=ImgGn']),
         ];
     }
 }

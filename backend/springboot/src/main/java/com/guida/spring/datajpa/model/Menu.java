@@ -1,20 +1,33 @@
 package com.guida.spring.datajpa.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "menu")
+
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "type")
-    private String  type;
+    private String type;
 
     @Column(name = "img_Menu")
     private String img_Menu;
-    
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, mappedBy = "menu")
+    @JsonIgnore
+
+    private Set<Tables> tables = new HashSet<>();
 
     public Menu() {
 
@@ -51,6 +64,8 @@ public class Menu {
 
     @Override
     public String toString() {
-        return "Menu [id=" + id + ", type=" + type + ", img_Menu=" + img_Menu + "]";
+        return "Menu [id=" + id + 
+        ", type=" + type + 
+        ", img_Menu=" + img_Menu + "]";
     }
 }

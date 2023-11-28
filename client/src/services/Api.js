@@ -7,4 +7,5 @@ export default (URL) => {
     })
 
     return api
+    
 }

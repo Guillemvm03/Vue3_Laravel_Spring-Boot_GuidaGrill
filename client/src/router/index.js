@@ -1,28 +1,65 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
-import Bookings from "../views/Bookings.vue";
-import DetailsTable from "../views/DetailsTable.vue";
+
 
 const routes = [
+  ////////////////////////////CLIENT//////////////////////////////////
   {
     path: "/",
     name: "Home",
-    component: Home,
+    redirect: { name: "home" }
   },
   {
     path: "/Home",
     name: "home",
-    component: Home,
+    component: () => import('../views/Home.vue')
   },
   {
     path: "/Bookings",
     name: "Bookings",
-    component: Bookings,
+    component: () => import('../views/Bookings.vue')
   },
   {
     path: "/Bookings/:id",
     name: "DetailsTable",
-    component: DetailsTable,
+    component: () => import('../views/DetailsTable.vue')
+  },
+   ///////////////////////////DASHBOARD//////////////////////////////
+  {
+    path: "/Dashboard",
+    name: "Dashboard",
+    component: () => import('../views/Dashboard.vue')
+  },
+  // TABLES
+  {
+    path: "/dashboard/tables",
+    name: "DashboardTables",
+    component: () => import('../views/Tables/tableList.vue')
+  },
+  // MENUS
+  {
+    path: "/dashboard/menus",
+    name: "DashboardMenus",
+    component: () => import('../views/Menus/menuList.vue')
+  },
+  {
+    path: "/dashboard/menus/create",
+    name: "CreateMenu",
+    component: () => import('../views/Menus/menuCreate.vue')
+  },
+  {
+    path: "/dashboard/menus/update/:id",
+    name: "updateMenu",
+    component: () => import('../views/Menus/menuUpdate.vue')
+  },
+  {
+    path: "/Dashboard/Tables/tableCreate",
+    name: "tableCreate",
+    component: () => import('../views/Tables/tableCreate.vue')
+  },
+  {
+    path: "/Dashboard/Tables/tableEdit/:id",
+    name: "tableEdit",
+    component: () => import('../views/Tables/tableEdit.vue')
   }
 ];
 

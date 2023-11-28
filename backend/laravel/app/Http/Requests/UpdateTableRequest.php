@@ -31,6 +31,7 @@ class UpdateTableRequest extends FormRequest
         'category' => 'required',
         'available' => 'required',
         'status' => 'required',
+        'menus' => 'sometimes', 'array:type,menus',
         ];
     }
 }

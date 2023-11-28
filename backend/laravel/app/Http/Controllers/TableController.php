@@ -8,6 +8,7 @@ use App\Http\Resources\TableResource;
 
 use App\Http\Requests\UpdateTableRequest;
 use App\Http\Requests\StoreTableRequest;
+use App\Models\Menu;
 
 class TableController extends Controller
 {
@@ -30,7 +31,29 @@ class TableController extends Controller
 
     public function store(StoreTableRequest $request)
     {
-        return TableResource::make(Table::create($request->validated()));
+    //   return $request->validated();
+      //   return TableResource::make(Table::create($request->validated()));
+        $data = $request->except(['menus']);
+        // return $request->menus;
+        // dump(Menu::whereIn('type', $request->menus[0])->get());
+        // die();
+        $menus = Menu::whereIn('type', $request->menus)->get();
+        // return $menus;
+        // die();
+        $menus_id = [];
+        foreach ($menus as $c) {
+            array_push($menus_id, $c->id);
+        }
+  
+        if (count($menus_id) > 0) {
+            $table = Table::create($data);
+            $table->menus()->sync($menus_id);
+            return TableResource::make($table);
+        } else {
+            return response()->json([
+                "Status" => "Not found"
+            ], 404);
+        }
     }
 
     /**
@@ -40,25 +63,54 @@ class TableController extends Controller
     {
 
         return TableResource::make(Table::where('id', $id)->firstOrFail());
+    
 
     }
-
+    
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateTableRequest $request, string $id)
     {
-  
-      if (Table::where('id', $id)->exists()) {
-        $table = Table::find($id);
+      $data = $request-> except(['menus']);
+      $type = [];
+      if ($request->menus !== null) {
+        $type = $request->menus;
+    }
+    
+    $menus = Menu::whereIn('type', $type)->get();
+    $menus_id = [];
+    foreach ($menus as $m) {
+        array_push($menus_id, $m->id);
+    }
+   
+    $update = Table::where('id', $id)->update($data);
 
-      $table->update($request->validated());
-      return TableResource::make($table);
-      }else {
-      return response()->json([
-        "message" => "Table not found"
-      ], 404);
-    } 
+    if ($update === 1) {
+        if (count($menus_id) > 0) {
+            $table = Table::where('id', $id)->firstOrFail();
+            $table->menus()->detach();
+            $table->menus()->sync($menus_id);
+        }
+
+        return response()->json([
+            "Message" => "Updated correctly"
+        ]);
+    } else {
+        return response()->json([
+            "Status" => "Not found"
+        ], 404);
+    };
+    //   if (Table::where('id', $id)->exists()) {
+    //     $table = Table::find($id);
+
+    //   $table->update($request->validated());
+    //   return TableResource::make($table);
+    //   }else {
+    //   return response()->json([
+    //     "message" => "Table not found"
+    //   ], 404);
+    // } 
 
 
     }
@@ -73,11 +125,11 @@ class TableController extends Controller
             $table = Table::find($id);
             $table->delete();
             return response()->json([
-              "message" => "Mesa deleted"
+              "message" => "Table deleted"
             ], 202);
           } else {
             return response()->json([
-              "message" => "Mesa not found"
+              "message" => "Table not found"
             ], 404);
           }
     }
