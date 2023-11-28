@@ -13,7 +13,6 @@ class StoreTableRequest extends FormRequest
      */
     public function authorize()
     {
-        //return false;
         return true;
     }
 
@@ -30,7 +29,8 @@ class StoreTableRequest extends FormRequest
             'category' => 'required',
             'available' => 'required',
             'status' => 'required',
-            'img_table' => 'required'
+            'img_table' => 'required',
+            'menus' => 'required', 'array:type, menus'
         ];
     }
 

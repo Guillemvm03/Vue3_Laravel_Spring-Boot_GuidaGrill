@@ -5,7 +5,7 @@
         <h4 class="card-title">Número de mesa: {{ stateOne.tables.table_number }}</h4>
         <p class="card-text">Tipo de mesa: {{ stateOne.tables.category }}</p>
         <p class="card-text">Libre: {{ stateOne.tables.available }}</p>
-        <p class="card-text">Estado: {{ stateOne.tables.status }}</p>
+        <p class="card-text">Estado: {{ stateOne.tables.status  }}</p>
       </div>
     </div>
 </template>
