@@ -8,6 +8,7 @@ use App\Http\Resources\TableResource;
 
 use App\Http\Requests\UpdateTableRequest;
 use App\Http\Requests\StoreTableRequest;
+use App\Models\Menu;
 
 class TableController extends Controller
 {
@@ -30,7 +31,23 @@ class TableController extends Controller
 
     public function store(StoreTableRequest $request)
     {
-        return TableResource::make(Table::create($request->validated()));
+        // return TableResource::make(Table::create($request->validated()));
+        $data = $request->except(['menus']);
+        $menus = Menu::whereIn('type', $request->menus)->get();
+        $menus_id = [];
+        foreach ($menus as $c) {
+            array_push($menus_id, $c->id);
+        }
+  
+        if (count($menus_id) > 0) {
+            $table = Table::create($data);
+            $table->menus()->sync($menus_id);
+            return TableResource::make($table);
+        } else {
+            return response()->json([
+                "Status" => "Not found"
+            ], 404);
+        }
     }
 
     /**
@@ -40,37 +57,16 @@ class TableController extends Controller
     {
 
         return TableResource::make(Table::where('id', $id)->firstOrFail());
+    
 
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-
-}
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateTableRequest $request, string $id)
     {
-        //
-    //     if (Mesas::where('id', $id)->exists()) {
-    //         $mesas = Mesas::find($id);
-    //         $mesas->numMesa = $request->numMesa;
-    //         $mesas->capacidad = $request->capacidad;
-    //         $mesas->categoria = $request->categoria;
-    //         $mesas->disponible = $request->disponible;
-    //         $student->save();
-    //         return response()->json([
-    //           "message" => "Mesa updated successfully"
-    //         ], 200);
-
-    // }
-
+  
       if (Table::where('id', $id)->exists()) {
         $table = Table::find($id);
 
@@ -78,7 +74,7 @@ class TableController extends Controller
       return TableResource::make($table);
       }else {
       return response()->json([
-        "message" => "Student not found"
+        "message" => "Table not found"
       ], 404);
     } 
 

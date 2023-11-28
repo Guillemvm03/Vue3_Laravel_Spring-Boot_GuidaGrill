@@ -4,9 +4,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Toastr from '@meforma/vue-toaster';
 
 const app = createApp(App);
 app.use(router);
 app.use(store);
+app.use(Toastr);
 app.mount('#app');
 import 'bootstrap/dist/js/bootstrap.min.js'
