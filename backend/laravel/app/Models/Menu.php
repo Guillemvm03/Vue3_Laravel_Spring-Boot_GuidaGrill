@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Menu extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    public $timestamps = false;
 
     protected $table = 'menu';
 

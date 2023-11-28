@@ -21,6 +21,7 @@ export default {
 
         store.dispatch(`tables/${Constant.INITIALIZE_TABLES}`)
 
+        
         const state = reactive({
             tables: computed(() => store.getters["tables/GetTables"])
         })

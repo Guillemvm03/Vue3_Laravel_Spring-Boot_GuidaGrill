@@ -9,5 +9,8 @@ export default{
 
      //MENU
      INITIALIZE_MENU: "InitializeMenus",
-     INITIALIZE_ONE_MENU: "InitializeOneMenus",
+     INITIALIZE_ONE_MENU: "InitializeOneMenu",
+     ADD_MENU: "AddMenu",
+     DELETE_MENU: "DeleteMenu",
+     UPDATE_MENU: "UpdateMenu",
 }
