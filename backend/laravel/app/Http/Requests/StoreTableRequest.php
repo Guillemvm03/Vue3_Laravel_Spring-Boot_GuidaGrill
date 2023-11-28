@@ -30,7 +30,7 @@ class StoreTableRequest extends FormRequest
             'available' => 'required',
             'status' => 'required',
             'img_table' => 'required',
-            'menus' => 'required', 'array: type, menus'
+            'menus' => 'required', 'array:type, menus'
         ];
     }
 

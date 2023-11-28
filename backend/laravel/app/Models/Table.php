@@ -12,7 +12,9 @@ class Table extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-
+    public $timestamps = false;
+    
+    protected $table = 'tables';
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +26,9 @@ class Table extends Model
         'capacity',
         'category',
         'available',
-        'status',        'img_table'
+        'status',        
+        'img_table',
+
     ];
     public function menus(): BelongsToMany
     {
