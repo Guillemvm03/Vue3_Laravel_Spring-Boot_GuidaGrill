@@ -24,8 +24,8 @@
 <br><br><br><br>
   <div class="row justify-content-center">
     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
-      <a href="#" class="text-decoration-none">
-        <div class="card p-3 shadow bg-primary text-white text-center border-0">
+      <a href="/dashboard/menus" class="text-decoration-none">
+        <div class="card p-3 shadow bg-success text-white text-center border-0">
           <div class="card-body">
             <p class="card-title lead"><router-link to="/dashboard/menus" class="text-white">Menus</router-link></p>
           </div>
@@ -34,7 +34,7 @@
     </div>
 
     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
-      <a href="#" class="text-decoration-none">
+      <a href="/dashboard/tables" class="text-decoration-none">
         <div class="card p-3 shadow bg-primary text-white text-center border-0">
           <div class="card-body">
             <p class="card-title lead"><router-link to="/dashboard/tables" class="text-white">Tables</router-link></p>
@@ -53,7 +53,7 @@
 <script>
 export default {};
 </script>
-<style>
+<style scoped>
   body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
@@ -64,7 +64,7 @@ export default {};
   }
 
   hr {
-    border-top: 2px solid #007bff;
+    border-top: 2px solid #727579;
     width: 25%;
     margin: 0 auto;
   }
@@ -95,12 +95,13 @@ export default {};
   }
 
   .bg-primary {
-    background-color: #007bff;
+    background-color: #768594;
   }
 
   .text-white {
-    color: #fff;
+    color: #f0ecec;
     transition: transform 0.3s;
+    text-decoration: none;
   }
 
   .text-white:hover {

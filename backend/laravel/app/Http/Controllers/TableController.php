@@ -8,6 +8,7 @@ use App\Http\Resources\TableResource;
 
 use App\Http\Requests\UpdateTableRequest;
 use App\Http\Requests\StoreTableRequest;
+use App\Models\Menu;
 
 class TableController extends Controller
 {
@@ -30,7 +31,23 @@ class TableController extends Controller
 
     public function store(StoreTableRequest $request)
     {
-        return TableResource::make(Table::create($request->validated()));
+        // return TableResource::make(Table::create($request->validated()));
+        $data = $request->except(['menus']);
+        $menus = Menu::whereIn('type', $request->menus)->get();
+        $menus_id = [];
+        foreach ($menus as $c) {
+            array_push($menus_id, $c->id);
+        }
+  
+        if (count($menus_id) > 0) {
+            $table = Table::create($data);
+            $table->menus()->sync($menus_id);
+            return TableResource::make($table);
+        } else {
+            return response()->json([
+                "Status" => "Not found"
+            ], 404);
+        }
     }
 
     /**
@@ -40,6 +57,7 @@ class TableController extends Controller
     {
 
         return TableResource::make(Table::where('id', $id)->firstOrFail());
+    
 
     }
     
