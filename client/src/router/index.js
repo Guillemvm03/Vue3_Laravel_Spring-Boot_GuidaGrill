@@ -27,16 +27,29 @@ const routes = [
     name: "Dashboard",
     component: () => import('../views/Dashboard.vue')
   },
+  // TABLES
   {
-    path: "/Dashboard/tables",
+    path: "/dashboard/tables",
     name: "DashboardTables",
     component: () => import('../views/Tables/tableList.vue')
   },
-  // {
-  //   path: "Dashboard/menus",
-  //   name: "DashboardMenus",
-  //   component: () => import('../views/Menus/MenuList.vue')
-  // }
+  // MENUS
+  {
+    path: "/dashboard/menus",
+    name: "DashboardMenus",
+    component: () => import('../views/Menus/menuList.vue')
+  },
+  {
+    path: "/dashboard/menus/create",
+    name: "CreateMenu",
+    component: () => import('../views/Menus/menuCreate.vue')
+  },
+  {
+    path: "/dashboard/menus/update/:id",
+    name: "updateMenu",
+    component: () => import('../views/Menus/menuUpdate.vue')
+  },
+
 ];
 
 const router = createRouter({

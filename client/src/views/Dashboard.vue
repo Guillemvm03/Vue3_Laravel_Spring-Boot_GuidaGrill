@@ -1,4 +1,19 @@
 <template>
+
+<!-- NEW  -->
+
+<!-- <div :class="{'nav-open': $sidebar.showSidebar}"></div> -->
+
+
+<!--  -->
+
+
+
+
+
+
+
+
 <!-- <h1>Dashboard</h1> -->
 <!-- 
 <router-link to="/dashboard/menus"><button class="pulse">List Menus</button></router-link>
@@ -120,6 +135,9 @@
     </div>
   </div>
 </div> -->
+
+
+<br><br><br><br><br><br>
 </template>
 <script>
 export default {};
