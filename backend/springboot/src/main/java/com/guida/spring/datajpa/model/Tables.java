@@ -1,6 +1,11 @@
 package com.guida.spring.datajpa.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.*;
+
+// import javax.persistence.*;
 
 @Entity
 @Table(name = "tables")
@@ -14,40 +19,46 @@ public class Tables {
 
 	@Column(name = "capacity")
 	private Integer capacity;
-    
-    @Column(name = "category")
+
+	@Column(name = "category")
 	private String category;
 
 	@Column(name = "available")
 	private boolean available;
 
-    @Column(name = "status")
+	@Column(name = "status")
 	private String status;
 
-	@Column (name = "img_table")
+	@Column(name = "img_table")
 	private String img_table;
 
-    public Tables() {
-		
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {
+			CascadeType.PERSIST,
+			CascadeType.MERGE
+	})
+	@JoinTable(name = "tables_menu", joinColumns = @JoinColumn(name = "tables_id"), inverseJoinColumns = @JoinColumn(name = "menus_id"))
+	private Set<Menu> menu = new HashSet<>();
+
+	public Tables() {
+
 	}
 
-	public Tables(Integer table_number, Integer capacity, String category, boolean available, String status, String img_table) {
+	public Tables(Integer table_number, Integer capacity, String category, boolean available, String status,
+			String img_table) {
 
-        this.table_number = table_number;
-        this.capacity = capacity;
-        this.category = category;
-        this.available = available;
-        this.status = status;
+		this.table_number = table_number;
+		this.capacity = capacity;
+		this.category = category;
+		this.available = available;
+		this.status = status;
 		this.img_table = img_table;
 	}
-
-	
 
 	public long getId() {
 		return id;
 	}
 
-	public Integer gettable_number() {
+	public Integer getTable_number() {
 		return table_number;
 	}
 
@@ -63,7 +74,7 @@ public class Tables {
 		this.capacity = capacity;
 	}
 
-    public String getcategory() {
+	public String getcategory() {
 		return category;
 	}
 
@@ -79,13 +90,13 @@ public class Tables {
 		this.available = isavailable;
 	}
 
-    public String getstatus() {
-        return status;
-    }
+	public String getstatus() {
+		return status;
+	}
 
-    public void setstatus(String status) {
-        this.status = status;
-    }
+	public void setstatus(String status) {
+		this.status = status;
+	}
 
 	public String getimg_table() {
 		return img_table;
@@ -95,11 +106,21 @@ public class Tables {
 		this.img_table = img_table;
 	}
 
-
+	public Set<Menu> getMenu() {
+		return this.menu;
+	}
 
 	@Override
 	public String toString() {
-		return "Tables [id=" + id + ", table_number=" + table_number + ", capacity=" + capacity + ", category=" + category + ", available=" + available + ", status=" + status + ", img_table=" + img_table + "]";
+		return "Tables [id=" + id +
+				", table_number=" + table_number +
+				", capacity=" + capacity +
+				", category=" + category +
+				", available=" + available +
+				", status=" + status +
+				", img_table=" + img_table + 
+				", menu=" + menu +
+				"]";
 	}
 
 }

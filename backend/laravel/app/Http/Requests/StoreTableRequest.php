@@ -27,9 +27,10 @@ class StoreTableRequest extends FormRequest
         return [
             'table_number' => 'required',
             'capacity' => 'required',
-            'category' => 'required',
+            'category' => 'string',
             'available' => 'required',
-            'status' => 'required',
+            'status' => 'string',
+            'img_table' => 'string',
         ];
     }
 

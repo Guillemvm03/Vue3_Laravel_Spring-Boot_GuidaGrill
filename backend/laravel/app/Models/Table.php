@@ -12,7 +12,7 @@ class Table extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
 
-
+    // protected $table = 'tables';
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +23,7 @@ class Table extends Model
         'capacity',
         'category',
         'available',
-        'status'
+        'status',
+        'img_table'
     ];
 }

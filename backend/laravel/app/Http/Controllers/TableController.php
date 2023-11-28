@@ -42,7 +42,7 @@ class TableController extends Controller
         return TableResource::make(Table::where('id', $id)->firstOrFail());
 
     }
-
+    
     /**
      * Update the specified resource in storage.
      */
