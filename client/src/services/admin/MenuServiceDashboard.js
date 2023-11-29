@@ -12,7 +12,7 @@ export default {
     },//Getmenu
 
     DeleteMenu(id) {
-        console.log("DeleteMenu", id);
+   
         return Api(secrets.URL_LARAVEL).delete(`menu/${id}`);
     },//Deletemenu
 

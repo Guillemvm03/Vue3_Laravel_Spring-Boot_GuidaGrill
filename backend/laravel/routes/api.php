@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\mealsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,8 @@ use App\Http\Controllers\MenuController;
 Route::resource('tables', TableController::class);
 
 Route::resource('menu', MenuController::class);
+
+Route::resource('meals', mealsController::class);
 
 
 

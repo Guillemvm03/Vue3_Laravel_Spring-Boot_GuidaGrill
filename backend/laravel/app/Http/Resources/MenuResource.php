@@ -18,11 +18,26 @@ class MenuResource extends JsonResource
 
     public function toArray($request)
     {
+        $meals = [];
+        foreach ($this -> meals as $m) {
+            $meal = [
+                'id' => $m -> id,
+                'id_menu' => $m -> id_menu,
+                'name' => $m -> name,
+                'price' => $m -> price,
+                'quantity' => $m -> quantity,
+                'description' => $m -> description,
+                'img_meal' => $m -> img_meal,
+                
+            ];
+            array_push($meals,$meal);
+        }
         // return parent::toArray($request);
         return [
             'id' => $this->id,
             'type' => $this->type,
             'img_Menu' => $this->img_Menu,
+            'meals' => $meals
         ];
     }
 }

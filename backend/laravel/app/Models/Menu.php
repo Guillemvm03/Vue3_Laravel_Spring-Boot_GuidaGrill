@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -26,6 +27,10 @@ class Menu extends Model
     ];
     public function tables(): BelongsToMany
     {
-        return $this->belongsToMany(Table::class, 'tables_menu', 'menus_id', 'tables_id');//comprobar 'tables_menu'
+        return $this->belongsToMany(Table::class, 'tables_menu', 'menus_id', 'tables_id');
     }
+    public function meals(): HasMany
+    {
+        return $this->hasMany(Meals::class, 'id_menu');
+    }   
 }

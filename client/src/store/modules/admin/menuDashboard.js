@@ -48,7 +48,6 @@ export const menuDashboard = {
             }
         },
         [Constant.UPDATE_MENU]: async (store, payload) => {
-            console.log(payload);
             try {
                 const response = await MenuServiceDashboard.UpdateMenu(payload);
                 if (response.status === 200) {

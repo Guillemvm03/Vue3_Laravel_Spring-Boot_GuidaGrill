@@ -31,15 +31,9 @@ class TableController extends Controller
 
     public function store(StoreTableRequest $request)
     {
-    //   return $request->validated();
-      //   return TableResource::make(Table::create($request->validated()));
+   
         $data = $request->except(['menus']);
-        // return $request->menus;
-        // dump(Menu::whereIn('type', $request->menus[0])->get());
-        // die();
         $menus = Menu::whereIn('type', $request->menus)->get();
-        // return $menus;
-        // die();
         $menus_id = [];
         foreach ($menus as $c) {
             array_push($menus_id, $c->id);

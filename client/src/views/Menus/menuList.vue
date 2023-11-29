@@ -61,20 +61,6 @@ export default {
             { data: 'img_Menu' },
         ];
 
-        
-//         let dt;
-//   const tablete = ref();
-//   onMounted(() => {
-//     // Verifica si el ref tablete está asignado correctamente
-//     if (tablete.value && typeof tablete.value.dt === 'function') {
-//       dt = tablete.value;
-//       console.log(dt);
-//     } else {
-//       console.error('El método dt() no está disponible en la instancia de DataTable.');
-//     }
-//   });
-
-
         let dt;
         const tablete = ref();
         onMounted(() => {
