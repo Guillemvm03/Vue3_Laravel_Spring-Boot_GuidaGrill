@@ -23,6 +23,11 @@ const routes = [
     name: "DetailsTable",
     component: () => import('../views/DetailsTable.vue')
   },
+  {
+    path: "/Bookings/:filters",
+    name: "bookingFilters",
+    component: () => import('../views/Bookings.vue')
+  },
    ///////////////////////////DASHBOARD//////////////////////////////
   {
     path: "/Dashboard",

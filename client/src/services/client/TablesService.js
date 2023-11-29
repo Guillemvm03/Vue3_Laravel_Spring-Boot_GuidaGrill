@@ -1,14 +1,27 @@
 import Api from '../Api'
+import secrets from '../../../secrets.example'
 
-// import { URL_SPRING } from '../../../secrets.example'
-const URL_SPRING = 'http://localhost:8080/api/'
 
 export default {
-    getTables(){
-        return Api(URL_SPRING + 'tables').get()
+
+    FormatFilters(params) {
+        let params_ = [];
+        Object.entries(params).forEach(item => {
+            if (item[0] === 'menus' && item[1].length > 0) {
+                const menu = item[1].map(item => `menu=${item}`).join('&');
+                params_.push(menu)
+            } else if (item[1] != null) {
+                params_.push(`${item[0]}=${item[1]}`);
+            }
+        });
+
+        return params_.join('&')
+    },
+
+    getTables(params){
+        return Api(secrets.URL_SPRING).get(`tables?${this.FormatFilters(params)}`)     
     },
     GetTableById(id) {
-        console.log(id);
-        return Api(URL_SPRING + 'tables/' + id).get();
+        return Api(secrets.URL_SPRING).get('tables/' + id);
     }
 }

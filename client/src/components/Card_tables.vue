@@ -19,7 +19,7 @@
     setup() {
 
         const router = useRouter();
-        // console.log(router.params);
+     
         const showDetails = (id) => {
             router.push({ name: "DetailsTable", params: { id } })
         }
