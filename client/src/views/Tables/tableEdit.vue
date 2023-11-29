@@ -27,7 +27,6 @@ export default {
         });
 
         const updateTable = (table) => {
-            console.log(table);
             store.dispatch(`tableDashboard/${Constant.UPDATE_TABLE}`, table)
             toaster.success("Table updated")
             router.push("/Dashboard/tables")

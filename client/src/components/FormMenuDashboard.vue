@@ -74,7 +74,7 @@ export default {
         const state = reactive({
             menuLocal: { ...menu_ }
         });
-console.log(state.menuLocal);
+
         const sendData = () => {
             emit('data', state.menuLocal);
         }

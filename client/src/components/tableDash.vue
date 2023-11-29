@@ -61,6 +61,7 @@ export default {
         tables: Object,
     },
     setup() {
+	
         const toaster = createToaster({ position: "top-right" });
         const store = useStore();
         const router = useRouter();

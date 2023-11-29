@@ -16,7 +16,6 @@ export default {
         const store = useStore();
         const router = useRouter();
         const create_emit = (data) => {
-            console.log(data);
             store.dispatch(`tableDashboard/${Constant.CREATE_TABLE}`, data)
             toaster.success("Table created")
             router.push("/Dashboard/tables")

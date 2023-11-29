@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-            <CarouselVue :data="state.menus"/>
+            <CarouselVue :data="state.menus" @emitAction="redirectBookings"/>
           <img src="assets/img/hero-img.png" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
         </div>
       </div>
@@ -26,12 +26,15 @@
 import { computed, reactive } from 'vue';
 import { useStore } from 'vuex';
 import Constant from '../Constant';
+import { useRouter } from 'vue-router';
 
 import CarouselVue from '../components/Carousel.vue';
 
    export default{
     components: { CarouselVue },
-    setup() {
+    setup() { 
+
+        const router = useRouter();
         const store = useStore();
 
        
@@ -41,8 +44,26 @@ import CarouselVue from '../components/Carousel.vue';
             menus: computed(()=> store.getters['menus/GetMenu'])
         })
 
-        console.log(state.menus);
-        return {state}
+
+        const redirectBookings = (item) => {
+
+            const filters = {
+                
+                // table_number: 0,
+                // capacity: 0,
+                // category: "",
+                // available: "",
+                // status: "",
+                // img_table: "",
+                menus: [item.id],
+            };
+            
+            const filters_ = btoa(JSON.stringify(filters));
+            router.push({ name: "bookingFilters", params: { filters: filters_ } });
+          }
+
+
+        return {state, redirectBookings}
         
     }
    }

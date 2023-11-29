@@ -30,7 +30,6 @@ export default {
             // toaster.success('Category updated');
             router.push('/dashboard/menus');
         }//updateCategory
-        console.log(updateMenu);
         return { state, updateMenu };
     }
 }
