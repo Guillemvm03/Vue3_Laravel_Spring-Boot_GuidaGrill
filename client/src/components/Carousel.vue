@@ -1,5 +1,5 @@
 <template>
-    <carousel :items-to-show="1" :autoplay="4000" :wrap-around="true">
+    <carousel :items-to-show="1" :autoplay="4000" :wrap-around="true" class="carousel slide">
         <slide v-for="item in data" :key="item.id">
             <carousel_itemVue class="carousel__item" :item="item" @emitAction="emitAction"/>
 
@@ -9,9 +9,6 @@
             <pagination />
         </template>
     </carousel>
-
-
-    
 
 </template>
 
