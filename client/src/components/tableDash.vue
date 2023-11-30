@@ -23,6 +23,7 @@
 						<th>AVAILABLE</th>
 						<th>STATUS</th>
 						<th>IMAGEN TABLE</th>
+						<th>MENUS</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,6 +35,7 @@
 						<td>{{table.available}}</td>
 						<td>{{table.status}}</td>
 						<td>{{table.img_table}}</td>
+						<td>{{table.menus}}</td>
 						<td>
                             <button class="btn btn-success" @click="updateTable(table.id)">Edit</button>                        
 						</td>
