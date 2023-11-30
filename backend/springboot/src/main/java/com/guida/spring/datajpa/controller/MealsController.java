@@ -9,46 +9,41 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.guida.spring.datajpa.model.Menu;
-import com.guida.spring.datajpa.repository.MenuRepository;
-
+import com.guida.spring.datajpa.model.Meals;
+import com.guida.spring.datajpa.repository.MealsRepository;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api")
-public class MenuController {
+public class MealsController {
+    @Autowired
+    MealsRepository mealsRepository;
 
-	@Autowired
-	MenuRepository menurepository;
-
-	@GetMapping("/menus")
-	public ResponseEntity<List<Menu>> getAllMenus(@RequestParam(required = false) String title) {
-		try {
-			List<Menu> menu = new ArrayList<Menu>();
+    @GetMapping("/meals")
+    public ResponseEntity<List<Meals>> getAllMeals(@ModelAttribute Meals meals) {
+        try {
+			List<Meals> meal = new ArrayList<Meals>();
 		
-			menurepository.findAll().forEach(menu::add);			
-
-			return new ResponseEntity<>(menu, HttpStatus.OK);
+			mealsRepository.findAll().forEach(meal::add);
+			return new ResponseEntity<>(meal, HttpStatus.OK);
 
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}
+    }
+    @GetMapping("/meals/{id}")
+	public ResponseEntity<Meals> getMealsById(@PathVariable("id") long id) {
+		Optional<Meals> MealsData = mealsRepository.findById(id);
 
-	@GetMapping("/menus/{id}")
-	public ResponseEntity<Menu> getMenuById(@PathVariable("id") long id) {
-		Optional<Menu> MenuData = menurepository.findById(id);
-
-		if (MenuData.isPresent()) {
-			return new ResponseEntity<>(MenuData.get(), HttpStatus.OK);
+		if (MealsData.isPresent()) {
+			return new ResponseEntity<>(MealsData.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
-    }
+}

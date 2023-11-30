@@ -1,11 +1,9 @@
 package com.guida.spring.datajpa.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "menu")
@@ -21,13 +19,15 @@ public class Menu {
     @Column(name = "img_Menu")
     private String img_Menu;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    }, mappedBy = "menu")
-    @JsonIgnore
+    @OneToMany(mappedBy = "menu") 
+    private Set<Meals> meals;
 
-    private Set<Tables> tables = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+      name = "tables_menu",  
+      joinColumns = @JoinColumn(name = "menus_id"), 
+      inverseJoinColumns = @JoinColumn(name = "tables_id")) 
+    private Set<Tables> tables;
 
     public Menu() {
 
@@ -61,6 +61,16 @@ public class Menu {
     public void setImg_Menu(String img_Menu) {
         this.img_Menu = img_Menu;
     }
+
+    public Set<Meals> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(Set<Meals> meals) {
+        this.meals = meals;
+    }
+
+
 
     @Override
     public String toString() {
