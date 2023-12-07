@@ -35,17 +35,61 @@ public class TableController {
 	public ResponseEntity<List<Tables>> getAllTable(@ModelAttribute TableQueryParam tableQueryParam) {
 		try {
 			List<Tables> table = new ArrayList<Tables>();
-			
-			if (tableQueryParam.getMenu() != null && tableQueryParam.getMenu().length != 0) {
 
-				System.out.println("Params" + tableQueryParam.getMenu());
+			// Get all tables			
+			if (tableQueryParam.getMenu() != null 
+				&& tableQueryParam.getCategory() == null
+				&& tableQueryParam.all() == false
+				) {
 
-				// table = tableRepository.findMenusOnTable(tableQueryParam.getMenu(),tableQueryParam.getTable_number());
+				System.out.println("menu");
+
 				table = tableRepository.findMenusOnTable(tableQueryParam.getMenu());
-
 			}
-			else{
+			//Get available or not available tables
+			else if ((tableQueryParam.isAvailable() == true || tableQueryParam.isAvailable() == false)					 
+					&& tableQueryParam.all() == false 
+					&& tableQueryParam.getCategory() == null 
+					&& tableQueryParam.getMenu() == null) {
+
+					System.out.println("available or not available");
+
+				table = tableRepository.findByAvailable(tableQueryParam.isAvailable());
+			}
+			//get type of tables 
+			else if(tableQueryParam.getCategory() != "" 
+					&& tableQueryParam.all() == false 
+					&& tableQueryParam.getMenu() == null
+					&& (tableQueryParam.isAvailable() == true || tableQueryParam.isAvailable() == false)){
+
+				System.out.println("category");
+
+				table = tableRepository.findByType(tableQueryParam.getCategory(), tableQueryParam.isAvailable());
+			}
+			//get menu on table available or not available not category
+			else if(tableQueryParam.getMenu() != null 
+					&& tableQueryParam.all() == false 
+					&& tableQueryParam.getCategory() == null
+					&& (tableQueryParam.isAvailable() == true || tableQueryParam.isAvailable() == false)){
+						
+				System.out.println("menu and available");
+
+				table = tableRepository.findTablesByMenuAndAvailability(tableQueryParam.getMenu(), tableQueryParam.isAvailable());
+			}
+			//get menu on table available or not available and category
+			else if(tableQueryParam.getMenu() != null 
+					&& tableQueryParam.all() == false 
+					&& tableQueryParam.getCategory() != null
+					&& (tableQueryParam.isAvailable() == true || tableQueryParam.isAvailable() == false)){
+
+				System.out.println("menu and available and category");
+
+				table = tableRepository.findTablesByMenuAndAvailabilityAndCategory(tableQueryParam.getMenu(), tableQueryParam.isAvailable(), tableQueryParam.getCategory());
+			}
+			//Get all tables
+			else {			
 				System.out.println("All");
+
 				tableRepository.findAll().forEach(table::add);
 			}
 

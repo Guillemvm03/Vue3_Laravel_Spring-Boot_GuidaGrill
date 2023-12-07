@@ -20,7 +20,8 @@ public class TableQueryParam {
     private boolean available;
     private String status;
     private String img_table;
-    private String[] menu;  
+    private String[] menu; 
+    private boolean all;
 
     public Integer getTable_number() {
         return table_number;
@@ -76,5 +77,13 @@ public class TableQueryParam {
 
     public void setMenu(String[] menu) {
         this.menu = menu;
+    }
+
+    public boolean all() {
+        return all;
+    }
+    
+    public void setAll(boolean all){
+        this.all = all;
     }
 }
