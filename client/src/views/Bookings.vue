@@ -1,9 +1,16 @@
 <template>
   <div class="booking-card">
     <h1>BOOKINGS</h1>
-    <Filters_sidebar :filters="filter_url"/>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <card_tables v-for="table in state.tables" :key="table.id" :table="table" />
+    <div class="filters">
+      <Filters_sidebar :filters="filter_url"/>
+    </div>
+    <br>
+    <div v-if="state.tables.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
+      <Card_tables v-for="table in state.tables" :key="table.id" :table="table" />
+    </div>
+
+    <div v-else>
+      <h2>There are no tables available with the selected filters.</h2>
     </div>
     <br>
   </div>
@@ -32,6 +39,7 @@ export default {
     const onRouteChanged = (to, from) => {
       filter_url = JSON.parse(atob(to.params.filters));
       state.tables = useTableFilters(filter_url);
+      console.log(state.tables);
     };
 
     // Registra el hook después de que el componente se haya montado
@@ -57,12 +65,12 @@ export default {
       all: true
     };
 
-    // try {
-    //   if (route.params.filters !== '') {
-    //     filter_url = JSON.parse(atob(route.params.filters));
-    //   }
-    // } catch (error) {
-    // }
+    try {
+      if (route.params.filters !== '') {
+        filter_url = JSON.parse(atob(route.params.filters));
+      }
+    } catch (error) {
+    }
 
     const state = reactive({
       tables: useTableFilters(filter_url),
@@ -100,20 +108,10 @@ export default {
   padding: 2rem;
   text-align: center;
 }
-
-.card {
-  transition: transform 0.3s, box-shadow 0.3s;
-  border: none;
-  position: relative;
-}
-
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.card-body {
-  padding: 20px;
+h2{
+  color: red;
+  padding: 40px;
+  text-align: center;
+  font-size: 30px;
 }
 </style>
-```
