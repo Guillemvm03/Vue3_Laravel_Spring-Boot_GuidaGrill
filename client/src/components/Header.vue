@@ -31,10 +31,10 @@
             </router-link>
           </li> -->
 
-          <li><a href="#menu">Menu</a></li>
+          <!-- <li><a href="#menu">Menu</a></li>
           <li><a href="#events">Events</a></li>
           <li><a href="#chefs">Chefs</a></li>
-          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#gallery">Gallery</a></li> -->
           <!-- <li><a href="#contact">Contact</a></li> -->
 
         </ul>
