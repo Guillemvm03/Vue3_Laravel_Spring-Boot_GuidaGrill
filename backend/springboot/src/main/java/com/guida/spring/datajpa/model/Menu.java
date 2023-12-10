@@ -76,6 +76,8 @@ public class Menu {
     public String toString() {
         return "Menu [id=" + id + 
         ", type=" + type + 
-        ", img_Menu=" + img_Menu + "]";
+        ", img_Menu=" + img_Menu + 
+        ", meals=" + meals +
+				"]";
     }
 }

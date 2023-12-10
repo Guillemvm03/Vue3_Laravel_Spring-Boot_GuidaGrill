@@ -36,16 +36,39 @@ public class TableController {
 		try {
 			List<Tables> table = new ArrayList<Tables>();
 			
-			if (tableQueryParam.getMenu() != null && tableQueryParam.getMenu().length != 0) {
+			// Get all tables from home			
+			if (tableQueryParam.getMenu() != null 
+				&& tableQueryParam.getCategory() == null
+				&& tableQueryParam.all() == false
+				) {
 
-				System.out.println("Params" + tableQueryParam.getMenu());
-
-				// table = tableRepository.findMenusOnTable(tableQueryParam.getMenu(),tableQueryParam.getTable_number());
+				System.out.println("menu");
 				table = tableRepository.findMenusOnTable(tableQueryParam.getMenu());
-
 			}
-			else{
+			//get all tables from category
+			else if(tableQueryParam.getMenu() == null 
+					&& tableQueryParam.getCategory() != null
+					&& tableQueryParam.all() == false
+					){
+
+				System.out.println("category");
+
+				table = tableRepository.findCategoriesOnTable(tableQueryParam.getCategory());
+			}
+			//get all tables from category and menu
+			else if(tableQueryParam.getMenu() != null 
+					&& tableQueryParam.getCategory() != null
+					&& tableQueryParam.all() == false
+					){
+
+				System.out.println("category and menu");
+
+				table = tableRepository.findTablesByMenuAndCategory(tableQueryParam.getMenu(), tableQueryParam.getCategory());
+			}					
+			//Get all tables
+			else {			
 				System.out.println("All");
+
 				tableRepository.findAll().forEach(table::add);
 			}
 

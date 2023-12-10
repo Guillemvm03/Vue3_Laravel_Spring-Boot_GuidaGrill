@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\mealsController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,17 @@ Route::resource('tables', TableController::class);
 Route::resource('menu', MenuController::class);
 
 Route::resource('meals', mealsController::class);
+
+Route::resource('users', UserController::class);
+
+Route::post('/login', [UserController::class,'login']);
+
+Route::post('/logout', [UserController::class,'logout']);
+
+Route::get('profile', [UserController::class,'getUserToken']);
+
+Route::put('/api/users/{id}', 'UserController@update');
+
 
 
 

@@ -1,19 +1,5 @@
 <template>
 
-<!-- NEW  -->
-
-<!-- <div :class="{'nav-open': $sidebar.showSidebar}"></div> -->
-
-
-<!--  -->
-
-
-
-
-
-
-
-
 <div class="container py-5">
   <div class="row">
     <div class="col-lg-12 text-center">
