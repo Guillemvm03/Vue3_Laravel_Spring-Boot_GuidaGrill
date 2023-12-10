@@ -32,6 +32,7 @@
             </p>
           </div>
         </div>
+        <button class="btn btn-outline-success">Booking</button>
       </div>
     </div>
     <br><br><br>
@@ -76,7 +77,9 @@ export default {
       width: 100%;
       height: 100%;
     }
-
+    button{
+      margin-top: 10px;
+    }
     .card {
       max-width: 400px;
       width: 100%;
@@ -94,19 +97,6 @@ export default {
     .card-menu {
       margin-left: 20%;
       font-weight: 800;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .card-img-top {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-      margin: 20px auto; /* Centra la imagen y agrega margen superior e inferior */
     }
 
     .card-body {
