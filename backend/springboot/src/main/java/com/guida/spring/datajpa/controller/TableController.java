@@ -35,10 +35,11 @@ public class TableController {
 	public ResponseEntity<List<Tables>> getAllTable(@ModelAttribute TableQueryParam tableQueryParam) {
 		try {
 			List<Tables> table = new ArrayList<Tables>();
-			
-			// Get all tables from home			
+			System.out.println("Lo que entra menu "+tableQueryParam.getMenu());
+			System.out.println("Lo que entra category "+tableQueryParam.getCategory());
+			// Get all tables from menu			
 			if (tableQueryParam.getMenu() != null 
-				&& tableQueryParam.getCategory() == null
+				&& tableQueryParam.getCategory() == ""
 				&& tableQueryParam.all() == false
 				) {
 

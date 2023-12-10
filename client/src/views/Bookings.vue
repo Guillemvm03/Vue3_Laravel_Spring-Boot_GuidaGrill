@@ -2,7 +2,7 @@
   <div class="booking-card">
     <h1>BOOKINGS</h1>
     <div class="filters">
-      <Filters_sidebar :filters="filter_url"/>
+      <Filters_sidebar @filters1="ApplyFilters" @deleteFilters="deleteFilters" :filters="filter_url"/>
     </div>
     <br>
     <div v-if="state.tables.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
@@ -36,22 +36,22 @@ export default {
     const router = useRouter();
     const store = useStore();
 
-    const onRouteChanged = (to, from) => {
-      filter_url = JSON.parse(atob(to.params.filters));
-      state.tables = useTableFilters(filter_url);
-      console.log(state.tables);
-    };
+    // const onRouteChanged = (to, from) => {
+    //   filter_url = JSON.parse(atob(to.params.filters));
+    //   state.tables = useTableFilters(filter_url);
+    //   console.log(state.tables);
+    // };
 
-    // Registra el hook después de que el componente se haya montado
-    onMounted(() => {
-      // Usa el hook proporcionado por Vue Router para detectar cambios en la ruta
-      router.afterEach(onRouteChanged);
-    });
+    // // Registra el hook después de que el componente se haya montado
+    // onMounted(() => {
+    //   // Usa el hook proporcionado por Vue Router para detectar cambios en la ruta
+    //   router.afterEach(onRouteChanged);
+    // });
 
-    // Desregistra el hook antes de que el componente se desmonte para evitar fugas de memoria
-    onUnmounted(() => {
-      router.afterEach(onRouteChanged);
-    });
+    // // Desregistra el hook antes de que el componente se desmonte para evitar fugas de memoria
+    // onUnmounted(() => {
+    //   router.afterEach(onRouteChanged);
+    // });
 
 
     let filter_url = {
@@ -79,24 +79,27 @@ export default {
 
     });
 
-    // const ApplyFilters = (filters) => {
-    //     const filters_64 = btoa(JSON.stringify(filters));
-    //     router.push({ name: "reservationFilters", params: { filters: filters_64 } });
-    //     state.mesas = useMesaFilters(filters);
-    //     state.totalPages = useMesaPaginate(filters);
+    const ApplyFilters = (filters1) => {
+      filters1.all = false;
+        const filters_64 = btoa(JSON.stringify(filters1));
+        router.push({ name: "bookingFilters", params: { filters: filters_64 } });
+        state.tables = useTableFilters(filters1);
+        // state.totalPages = useMesaPaginate(filters);
 
-    // }
+    }
 
-    // const deleteAllFilters = (deleteFilters) => {
-    //     router.push({ name: "reservation" });
-    //     state.mesas = useMesaFilters(deleteFilters);
-    //     state.page = 1;
-    //     filter_url = deleteFilters;
-    //     state.totalPages = useMesaPaginate(deleteFilters);
-    // }
+    const deleteFilters = (deleteFilters) => {
+        console.log("entra");
+      deleteFilters.all = true;
+        router.push({ name: "Bookings" });
+        state.tables = useTableFilters(deleteFilters);
+        // state.page = 1;
+        filter_url = deleteFilters;
+        // state.totalPages = useTableFilters(deleteFilters);
+    }
 
 
-    return { state, filter_url }
+    return { state, filter_url, ApplyFilters, deleteFilters }
   }
 }
 </script>
