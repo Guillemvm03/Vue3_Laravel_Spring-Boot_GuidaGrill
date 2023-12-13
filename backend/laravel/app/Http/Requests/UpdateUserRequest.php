@@ -4,12 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginUserRequest extends FormRequest
+class UpadeUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize()
     {
         // return auth()->user()->tokenCan('login');
         return true;
@@ -20,11 +20,14 @@ class LoginUserRequest extends FormRequest
      *
      * @return array<int, string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'username' => 'required|string',
-            'password' => 'required|string',
+            'username' => 'sometimes',
+            'email' => 'sometimes',
+            'password' => 'sometimes',
+            'is_active' => 'sometimes',
+            'photo' => 'sometimes',
         ];
     }
 }

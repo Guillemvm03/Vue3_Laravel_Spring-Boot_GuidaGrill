@@ -1,18 +1,21 @@
 <template>
-
-<!-- ======= Hero Section ======= -->
-<section id="hero" class="hero d-flex align-items-center section-bg">
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center section-bg">
     <div class="container">
+      <Search :menus="state.menus" @searchMealsValue="searchMeals"/>
+     
       <div class="row justify-content-between gy-5">
-        <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
+        <div
+          class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
           <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
-          <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
+          <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea consequatur
+            eveniet. Eum quas beatae cumque eum quaerat.</p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
             <a href="#book-a-table" class="btn-book-a-table">Book a Table</a>
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-            <CarouselVue :data="state.menus" @emitAction="redirectBookings"/>
+          <CarouselVue :data="state.menus" @emitAction="redirectBookings" />
         </div>
       </div>
     </div>
@@ -20,8 +23,7 @@
   </section>
   <!-- End Hero -->
 
-    <Card_meals v-if="state.menus" :data="state.menus" @page="addInfinite"/>
-     
+  <Card_meals v-if="state.menus" :data="state.menus" />
 </template>
 
 <script>
@@ -34,54 +36,53 @@ import { useRouter } from 'vue-router';
 
 import CarouselVue from '../components/Carousel.vue';
 import Card_meals from '../components/Card_meals.vue';
-// import CountUp from 'vue-countup-v2';
+import Search from '../components/Search.vue';
 
-   export default{
-    
-    components: { CarouselVue, Card_meals },
-    setup() { 
+export default {
 
-        // const menu_number=ref(0);
+  components: { CarouselVue, Card_meals, Search },
+  setup() {
 
-        const router = useRouter();
-        const store = useStore();
-
-       
-        store.dispatch(`menus/${Constant.INITIALIZE_MENU}`)
-
-        const state = reactive({
-            menus: computed(()=> store.getters['menus/GetMenu'])
-        })
+    const router = useRouter();
+    const store = useStore();
 
 
-        const redirectBookings = (item) => {
+    store.dispatch(`menus/${Constant.INITIALIZE_MENU}`)
 
-            const filters = {
-                
-                // table_number: 0,
-                // capacity: 0,
-                // category: "",
-                // available: "",
-                // status: "",
-                // img_table: "",
-                menus: [item.id],
-            };
-            
-            const filters_ = btoa(JSON.stringify(filters));
-            router.push({ name: "bookingFilters", params: { filters: filters_ } });
-          }
+    const state = reactive({
+      menus: computed(() => store.getters['menus/GetMenu']),
+    })
 
-          // console.log(state.menus);
-        return {state, redirectBookings}
-        
+    const redirectBookings = (item) => {
+      const filters = {
+        category: "",
+        menus: [item.id],
+      };
+      console.log(filters);
+
+      const filters_ = btoa(JSON.stringify(filters));
+      router.push({ name: "bookingFilters", params: { filters: filters_ } });
     }
-   }
+
+    const searchMeals = (item) => {
+      console.log(item);
+      const filtersSearch = {
+        meals: item,
+      };
+      console.log(filtersSearch);
+
+      const filtersSearch_ = btoa(JSON.stringify(filtersSearch));
+      router.push({ name: "bookingFilters", params: { filters: filtersSearch_ } });
+    }
+
+    // console.log(state.menus);
+    return { state, redirectBookings , searchMeals}
+
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-
-
-
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -199,5 +200,4 @@ import Card_meals from '../components/Card_meals.vue';
   font-weight: 700;
   color: rgba(255, 255, 255, 0.6);
 }
-
 </style>

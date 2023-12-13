@@ -1,92 +1,168 @@
 <template>
-  <div class="box">
-    <form name="search">
-        <input type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
-    </form>
-    <i class="fas fa-search"></i>
-
-</div>
-<a href="https://www.youtube.com/c/ShortCode" target="_blank" id="ytb">
-<i class="fab fa-youtube"> </i>
-</a>
+  <div class="container-search">
+    <input type="text" placeholder="Search..." v-model="state.searchMeal" @keydown.enter="searchMeals">
+    <div class="search"></div>
+  </div>
 </template>
 
 <script>
+import { computed, reactive } from 'vue';
+import { useStore } from 'vuex';
+import Constant from '../Constant';
+import { getCurrentInstance } from 'vue';
+
 export default {
-  name: "Test",
-  created() {},
-  data() {
-    return {};
+  emits: {
+    searchMealsValue: String,
   },
-  props: {},
-  methods: {},
+  setup() {
+    const store = useStore();
+    const { emit } = getCurrentInstance();
+    const state = reactive({
+      searchMeal: "",
+      // meals: computed(() => store.getters['menu/GetMenu']),
+      // mealsFiltered: computed(() => store.getters['menu/getMenuFiltered']),
+    });
+
+    const searchMeals = () => {
+      console.log(state.searchMeal);
+      emit('searchMealsValue', state.searchMeal);
+    }
+
+    return { state, searchMeals }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-body{
-    margin: 0; 
-    padding: 0;
-    background: #19161c;
-    height: 100vh;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
-    align-content: center;
-}
-.box{
-    position: relative;
-}
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:700');
 
-.input {
-    padding: 10px;
+.container-search {
+  position: relative;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  height: 100px;
+
+  .search {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     width: 80px;
     height: 80px;
-    background: none;
-    border: 4px solid #ffd52d;
-    border-radius: 50px;
-    box-sizing: border-box;
-    font-family: Comic Sans MS;
-    font-size: 26px;
-    color: #ffd52d;
-    outline: none;
-    transition: .5s;
-}
-.box:hover input{
-    width: 350px;
-    background: #3b3640;
-    border-radius: 10px;
-}
-.box i{
+    background: rgb(220, 20, 47);
+    border-radius: 50%;
+    transition: all 1s;
+    z-index: 1;
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.4);
+
+    // box-shadow: 0 0 25px 0 crimson;
+    &:hover {
+      cursor: pointer;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      margin: auto;
+      top: 22px;
+      right: 0;
+      bottom: 0;
+      left: 22px;
+      width: 12px;
+      height: 2px;
+      background: white;
+      transform: rotate(45deg);
+      transition: all .5s;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      margin: auto;
+      top: -5px;
+      right: 0;
+      bottom: 0;
+      left: -5px;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      border: 2px solid white;
+      transition: all .5s;
+    }
+  }
+
+  input {
+    font-family: 'Inconsolata', monospace;
     position: absolute;
-    top: 50%;
-    right: 15px;
-    transform: translate(-50%,-50%);
-    font-size: 26px;
-    color: #ffd52d;
-    transition: .2s;
-}
-.box:hover i{
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    outline: none;
+    border: none;
+    // border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background: crimson;
+    color: white;
+    text-shadow: 0 0 10px crimson;
+    padding: 0 80px 0 20px;
+    border-radius: 30px;
+    box-shadow: 0 0 25px 0 crimson,
+      0 20px 25px 0 rgba(0, 0, 0, 0.2);
+    // box-shadow: inset 0 0 25px 0 rgba(0, 0, 0, 0.5);
+    transition: all 1s;
     opacity: 0;
-    z-index: -1;
-}
+    z-index: 5;
+    font-weight: bolder;
+    letter-spacing: 0.1em;
 
-/* YouTube icon */
-#ytb {
-  height: 50px;
-  width: 50px;
-  text-align: center;
-  line-height: 52px;
-  border: 2px solid transparent;
-  color: #ff1717;
-  font-size: 25px;
-  transition: 0.3s;
-}
+    &:hover {
+      cursor: pointer;
+    }
 
-#ytb:hover{
-  border-radius: 50%;
-  border-color: #ff1717;
-  box-shadow: 0 0 10px #ff4040;
+    &:focus {
+      width: 300px;
+      opacity: 1;
+      cursor: text;
+    }
+
+    &:focus~.search {
+      right: -250px;
+      background: #151515;
+      z-index: 6;
+
+      &::before {
+        top: 0;
+        left: 0;
+        width: 25px;
+      }
+
+      &::after {
+        top: 0;
+        left: 0;
+        width: 25px;
+        height: 2px;
+        border: none;
+        background: white;
+        border-radius: 0%;
+        transform: rotate(-45deg);
+      }
+    }
+
+    &::placeholder {
+      color: white;
+      opacity: 0.5;
+      font-weight: bolder;
+    }
+  }
 }
 </style>

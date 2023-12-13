@@ -23,11 +23,8 @@ class LoginUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'sometimes',
-            'password' => 'sometimes',
-            'email' => 'sometimes',
-            'is_active' => 'sometimes',
-            'photo' => 'sometimes',
+            'username' => 'required',
+            'password' => 'required',
         ];
     }
 }

@@ -19,8 +19,7 @@ export default {
     },
 
     getTables(params){
-        console.log(params);
-        return Api(secrets.URL_SPRING).get(`tables?${this.FormatFilters(params)}`)     
+        return Api(secrets.URL_SPRING).get('tables?'+this.FormatFilters(params))     
     },
     GetTableById(id) {
         return Api(secrets.URL_SPRING).get('tables/' + id);

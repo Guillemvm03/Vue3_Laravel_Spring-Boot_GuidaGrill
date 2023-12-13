@@ -1,4 +1,5 @@
 <template>
+  
   <div class="booking-card">
     <h1>BOOKINGS</h1>
     <div class="filters">
@@ -25,34 +26,16 @@ import Constant from '../Constant.js';
 import { useRouter, useRoute } from 'vue-router';
 import { useTableFilters } from '../composables/tables/useTable';
 import Filters_sidebar from '../components/Filters-sidebar.vue';
-import { onMounted, onUnmounted } from 'vue';
+import Search from '../components/Search.vue';
 
 export default {
-  components: { Card_tables , Filters_sidebar},
+  components: { Card_tables , Filters_sidebar, Search},
 
   setup() {
 
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
-
-    // const onRouteChanged = (to, from) => {
-    //   filter_url = JSON.parse(atob(to.params.filters));
-    //   state.tables = useTableFilters(filter_url);
-    //   console.log(state.tables);
-    // };
-
-    // // Registra el hook después de que el componente se haya montado
-    // onMounted(() => {
-    //   // Usa el hook proporcionado por Vue Router para detectar cambios en la ruta
-    //   router.afterEach(onRouteChanged);
-    // });
-
-    // // Desregistra el hook antes de que el componente se desmonte para evitar fugas de memoria
-    // onUnmounted(() => {
-    //   router.afterEach(onRouteChanged);
-    // });
-
 
     let filter_url = {
       // table_number: 0,

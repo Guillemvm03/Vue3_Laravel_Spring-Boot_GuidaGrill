@@ -21,7 +21,9 @@ public class TableQueryParam {
     private String status;
     private String img_table;
     private String[] menu; 
+    private String meal;
     private boolean all;
+
 
     public Integer getTable_number() {
         return table_number;
@@ -79,6 +81,14 @@ public class TableQueryParam {
         this.menu = menu;
     }
 
+    public String getMeal() {
+        return meal;
+    }
+
+    public void setMeal(String meal){
+        this.meal = meal;
+    }
+    
     public boolean all() {
         return all;
     }

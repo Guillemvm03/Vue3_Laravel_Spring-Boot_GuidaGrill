@@ -6,7 +6,7 @@ use App\Http\Requests\LoginUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\UpdateUserRequest;
 class UserController extends Controller
 {
     protected User $user;
@@ -92,7 +92,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update( $request, $id)
     {
         $user = User::where('id', $id)->firstOrFail();
         if (isset($request->validated()['username'])) {
@@ -117,11 +117,10 @@ class UserController extends Controller
             $user->password = bcrypt($request->validated()['password']);
         }
         if (isset($request->validated()['is_active'])) {
-            $user->is_active = $request->validated()['is_active'];
+            // Rest of the code...
         }
-        if (isset($request->validated()['photo'])) {
-            $user->photo = $request->validated()['photo'];
-        }
+    
+    
 
 
         $user->save();
@@ -150,11 +149,11 @@ class UserController extends Controller
     public function login(LoginUserRequest $request)
     {
         $token = auth()->attempt($request->validated());
-        // if (!$token) {
-        //     return response()->json([
-        //         'message' => 'Invalid credentials'
-        //     ], 400);
-        // }
+        if (!$token) {
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 400);
+        }
         // if(auth()->user()->type != 'admin'){
         //     return response()->json([
         //         'message' => 'Invalid credentials'
@@ -190,6 +189,23 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => 'get user error'
+            ], 401);
+        }
+    }
+    public function isAdmin(){
+        try {
+            if(auth()-> user() == null || auth()->user()->type != 'admin'){
+                return response()->json([
+                    'error' => 'Not authorized'
+                ], 401);
+            }
+            return response()->json([
+                'message' => 'Authorized'
+            ], 200);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => 'Not authorized'
             ], 401);
         }
     }

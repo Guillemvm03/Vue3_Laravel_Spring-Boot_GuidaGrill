@@ -13,4 +13,15 @@ export default{
      ADD_MENU: "AddMenu",
      DELETE_MENU: "DeleteMenu",
      UPDATE_MENU: "UpdateMenu",
+
+     //USER
+     INITIALIZE_USERS: "InitializeUsers",
+     INITIALIZE_USER: "InitializeUser",
+     // INITIALIZE_PROFILE: "InitializeProfile",
+     LOGIN_ADMIN: "Login_Admin",
+     LOGIN: "Login",
+     // LOGOUT: "Logout",
+     // ADD_USER: "AddUser",
+     
+
 }
