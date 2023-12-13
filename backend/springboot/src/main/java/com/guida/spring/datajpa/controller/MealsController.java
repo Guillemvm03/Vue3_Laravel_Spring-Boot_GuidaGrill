@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.guida.spring.datajpa.model.Meals;
 import com.guida.spring.datajpa.repository.MealsRepository;
+import com.guida.spring.datajpa.model.MealsQueryParam;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -44,6 +45,21 @@ public class MealsController {
 			return new ResponseEntity<>(MealsData.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("/meals/mealsInfinite")
+	public ResponseEntity<List<Meals>> getMealsInfinite(@ModelAttribute MealsQueryParam mealsQueryParam) {
+		try {
+			// System.out.println(mealsQueryParam.getPage() * mealsQueryParam.getLimit());
+			List<Meals> meal = new ArrayList<Meals>();
+			Integer limit = mealsQueryParam.getPage() * mealsQueryParam.getLimit();  
+			mealsRepository.findMeals(limit, mealsQueryParam.getId_menu()).forEach(meal::add);
+			// System.out.println(meal);
+			return new ResponseEntity<>(meal, HttpStatus.OK);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

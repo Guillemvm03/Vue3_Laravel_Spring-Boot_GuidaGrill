@@ -1,112 +1,139 @@
 <template>
   <section id="menu" class="menu">
     <div class="container" data-aos="fade-up">
-
       <div class="section-header">
         <h2>Our Menu</h2>
         <p>Check Our <span>Guida Menu</span></p>
       </div>
 
-      <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
-  <li v-for="nav in data" :key="nav.id" class="nav-item" @click="menu_number = nav.id">
-    <a class="nav-link" :class="{ 'active': menu_number === nav.id }" data-bs-toggle="tab">
-      <h4>{{ nav.type }}</h4>
-    </a>
-  </li>
-</ul>
+      <ul
+        class="nav nav-tabs d-flex justify-content-center"
+        data-aos="fade-up"
+        data-aos-delay="200"
+      >
+        <li
+          v-for="nav in data"
+          :key="nav.id"
+          class="nav-item"
+          @click="
+            restartscroll();
+            menu_number = nav.id;
+            $emit('menu_number', menu_number);
+          "
+        >
+          <a
+            class="nav-link"
+            :class="{ active: menu_number === nav.id }"
+            data-bs-toggle="tab"
+          >
+            <h4>{{ nav.type }}</h4>
+          </a>
+        </li>
+      </ul>
 
-<ul>
-
-</ul>
-
+      <ul></ul>
 
       <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
-
         <div class="tab-pane fade active show" id="menu-starters">
-
           <div class="tab-header text-center">
             <p>Menu</p>
-
           </div>
 
           <!-- <div class="tab-pane fade" id="menu-dinner"> -->
 
-            <div class="tab-header text-center">
-            
-              <!-- <h3>{{data.type}}</h3> -->
+          <div class="tab-header text-center">
+            <!-- <h3>{{data.type}}</h3> -->
+          </div>
+
+          <div class="row gy-5">
+            <div class="col-lg-4 menu-item" v-for="meals in dataMeals" :key="meals.id">
+              <!-- v-for="meals in data[menu_number - 1].meals" -->
+
+              <!-- <div class="col-lg-4 menu-item" v-for="meals in dataMeals[(menu_number -1)].meals" :key="meals.id"> -->
+
+              <a href="" class="glightbox"
+                ><img :src="meals.img_meal" class="menu-img img-fluid" alt=""
+              /></a>
+              <h4>{{ meals.name }}</h4>
+              <p class="ingredients">
+                {{ meals.description }}
+              </p>
+
+              <p class="price">{{ meals.price }}€</p>
             </div>
-
-            <div class="row gy-5">
-
-              <div class="col-lg-4 menu-item" v-for="meals in data[(menu_number -1)].meals" :key="meals.id">
-
-
-                <a href="" class="glightbox"><img :src="meals.img_meal" class="menu-img img-fluid" alt=""></a>
-                <h4>{{ meals.name }}</h4>
-                <p class="ingredients">
-                  {{ meals.description }}
-                </p>
-
-                <p class="price">
-                  {{ meals.price }}€
-                </p>
-              </div>
-              
-            </div>
-
+            <InfiniteLoading @infinite="scroll" :distance="1" />
           </div>
         </div>
-
-        <!-- </div> -->
-  
-      <!-- </div> -->
-
+      </div>
     </div>
   </section>
   <!-- End Menu Section -->
 </template>
 
-
 <script>
-import { ref, watch } from 'vue';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import InfiniteLoading from 'vue-infinite-scroll';
-
+import { ref, watch } from "vue";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import InfiniteLoading from "v3-infinite-loading";
+import { getCurrentInstance } from "vue";
 
 export default {
   components: {
     InfiniteLoading,
   },
+  emits: {
+    page: Number,
+  },
   props: {
-    data: Object
+    data: Object,
+    dataMeals: Object,
   },
 
   setup(props) {
     const menu_number = ref(1);
-    
-    AOS.init(); 
+
+    // console.log(props.dataMeals);
+
+    const { emit } = getCurrentInstance();
+
+    AOS.init();
 
     watch(menu_number, () => {
       AOS.refresh();
     });
 
+    let page = 1;
+    const scroll = ($state) => {
+      page++;
+      if (page <= 3) {
+        emit("page", page);
+      } else {
+        // $state.loaded();
+      }
+    };
+    // console.log(menu_number.value);
+    // emit("menu_number", menu_number.value);
 
-    return { menu_number };
-  }
+    const restartscroll = () => {
+      page = 1;
+      // console.log("restartscroll");
+    };
+
+    return { scroll, menu_number, restartscroll };
+  },
 };
 </script>
 
-
 <style lang="scss" scoped>
+@import "v3-infinite-loading/lib/style.css";
+
 /* --------------------------------------------------------------
 # Menu Section
 --------------------------------------------------------------*/
 
-
 .nav-link h4 {
-    text-transform:capitalize;
-  }
+  text-transform: capitalize;
+}
 
 .menu-img {
   width: 200px;
@@ -127,7 +154,7 @@ export default {
   /* Ajusta la escala según tus necesidades */
 }
 
-// 
+//
 
 .menu .nav-tabs {
   border: 0;

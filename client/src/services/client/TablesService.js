@@ -24,5 +24,11 @@ export default {
     },
     GetTableById(id) {
         return Api(secrets.URL_SPRING).get('tables/' + id);
-    }
+    },
+    GetTablesPaginate(params) {
+        return Api(secrets.URL_SPRING).get(`tables/paginate?${this.FormatFilters(params)}`);
+    },
+
+
+
 }

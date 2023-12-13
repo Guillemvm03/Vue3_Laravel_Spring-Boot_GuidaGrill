@@ -9,11 +9,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+// import com.guida.spring.datajpa.model.Meals;
+import com.guida.spring.datajpa.model.MenuQueryParam;
 import com.guida.spring.datajpa.model.Menu;
 import com.guida.spring.datajpa.repository.MenuRepository;
 
@@ -48,6 +51,24 @@ public class MenuController {
 			return new ResponseEntity<>(MenuData.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping("/menus/menusInfinite")
+	public ResponseEntity<List<Menu>> getMealsInfinite(@ModelAttribute MenuQueryParam menuQueryParam) {
+		try {
+			
+			System.out.println(menuQueryParam.getType());
+			List<Menu> menu = new ArrayList<Menu>();
+			Integer limit = menuQueryParam.getPage() * menuQueryParam.getLimit();  
+			// System.out.println(limit);
+			menurepository.findMenusInfinite(limit, menuQueryParam.getType()).forEach(menu::add);
+
+			
+			return new ResponseEntity<>(menu, HttpStatus.OK);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
