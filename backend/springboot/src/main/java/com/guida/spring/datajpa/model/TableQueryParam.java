@@ -21,9 +21,11 @@ public class TableQueryParam {
     private String status;
     private String img_table;
     private String[] menu; 
+    private String meal;
     private boolean all;
     private Integer page;
     private Integer limit;
+
 
 
 
@@ -83,6 +85,14 @@ public class TableQueryParam {
         this.menu = menu;
     }
 
+    public String getMeal() {
+        return meal;
+    }
+
+    public void setMeal(String meal){
+        this.meal = meal;
+    }
+    
     public boolean all() {
         return all;
     }

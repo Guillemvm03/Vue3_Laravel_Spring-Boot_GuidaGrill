@@ -1,4 +1,5 @@
 <template>
+  
   <div class="booking-card">
     <h1>BOOKINGS</h1>
     <div class="filters">
@@ -31,13 +32,17 @@ import Constant from '../Constant.js';
 import { useRouter, useRoute } from 'vue-router';
 import { useTableFilters } from '../composables/tables/useTable';
 import Filters_sidebar from '../components/Filters-sidebar.vue';
-import { onMounted, onUnmounted } from 'vue';
-// import { useTablePaginate } from '../composables/tables/useTable';
+
+import Search from '../components/Search.vue';
 import Paginate from 'vuejs-paginate-next';
 import { useTablePaginate } from '../composables/tables/useTable';
 
 export default {
-  components: { Card_tables , Filters_sidebar, Paginate},
+  components: { Card_tables , Filters_sidebar, Search, Paginate},
+
+
+
+
 
   setup() {
 

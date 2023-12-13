@@ -1,13 +1,13 @@
 <template>
-
-
-<!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center">
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img src="../assets/img/logoletra.png" alt="">
+        <router-link to="/home" class="link">
+          <img src="../assets/img/logoletra.png" alt="">
+        </router-link>
         <!-- <h1>GUIDA GRILL<span>.</span></h1> -->
       </a>
 
@@ -25,12 +25,17 @@
             </router-link>
           </li>
 
-          <!-- <li>
-            <router-link to="/Dashboard" class="link">
-              <a class="nav-link">Dashboard</a>
+          <li>
+            <router-link to="/Login" class="link">
+              <a class="nav-link">LoginAdmin</a>
             </router-link>
-          </li> -->
+          </li>
 
+          <li v-if="state.isAdmin">
+            <router-link to="/Dashboard" class="link">
+              <a class="btn-book-a-table">Dashboard</a>
+            </router-link>
+          </li>
           <!-- <li><a href="#menu">Menu</a></li>
           <li><a href="#events">Events</a></li>
           <li><a href="#chefs">Chefs</a></li>
@@ -40,10 +45,8 @@
         </ul>
       </nav><!-- .navbar -->
 
-      
-      <router-link to="/Dashboard" class="link">
-        <a class="btn-book-a-table">Dashboard</a>
-            </router-link>
+
+
 
 
       <!-- <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
@@ -52,24 +55,39 @@
     </div>
   </header><!-- End Header -->
 
-<br><br><br><br>
-
+  <br><br><br><br>
 </template>
 
 
 <script>
+import { useStore } from 'vuex';
+import Constant from '../Constant';
+import { computed, reactive } from 'vue';
 
 export default {
-   }
+  setup() {
+    // const router = userRouter();
+    const store = useStore();
+    const state = reactive({
+      // profile: computed(() => store.getters['user/GetProfile']),
+      isAdmin: computed(() => store.getters['user/GetIsAdmin']),
+      // isLogged: computed(() => store.getters['user/GetIsAuth']),
+    })
+    const logout = () => {
+      store.dispatch('user/${Constant.LOGOUT}');
+    }
+    return {
+      state,
+      logout,
+    }
+  }
+}
 
 </script>
 
 
 
 <style lang="scss">
-
-
-
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -282,72 +300,73 @@ section {
 
 
 body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f9fa; 
-    }
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
 
-    header {
-      background-color: #000; 
-      color: #fff; 
-      padding: 15px 20px;
-      text-align: center;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+header {
+  background-color: #000;
+  color: #fff;
+  padding: 15px 20px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    header a {
-      text-decoration: none; 
-      color: #fff; 
-      padding: 8px 12px;
-      display: inline-block;
-      border-radius: 5px; 
-      transition: background-color 0.3s, color 0.3s;
-    }
+header a {
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 12px;
+  display: inline-block;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
 
-    header a:hover {
-      background-color: #fff; 
-      color: #000;
-    }
+header a:hover {
+  background-color: #fff;
+  color: #000;
+}
 
-    .navbar-toggler {
-      border: none;
-      background-color: transparent;
-      color: #fff;
-      font-size: 1.5rem;
-    }
+.navbar-toggler {
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1.5rem;
+}
 
-    .navbar-toggler:focus {
-      outline: none;
-    }
+.navbar-toggler:focus {
+  outline: none;
+}
 
-    .navbar-toggler-icon {
-      background-color: #fff;
-      height: 2px;
-      width: 20px;
-    }
+.navbar-toggler-icon {
+  background-color: #fff;
+  height: 2px;
+  width: 20px;
+}
 
-    .navbar-nav {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-    }
+.navbar-nav {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
 
-    .nav-link {
-      color: #ffffff;
-      text-decoration: none;
-    }
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+}
 
-    .nav-link:hover {
-      color: #000;
-    }
-    img{
-      width: 150px;
-      border-radius: 5px;
-    }
 
-    
+.nav-link:hover {
+  color: #000;
+}
+
+img {
+  width: 150px;
+  border-radius: 5px;
+}
+
 </style>

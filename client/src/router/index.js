@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+// import AuthGuard from "./auth-guard";
 
 
 const routes = [
@@ -28,6 +29,30 @@ const routes = [
     name: "bookingFilters",
     component: () => import('../views/Bookings.vue')
   },
+  // {
+  //   path: "/Bookings/:filtersSearch",
+  //   name: "bookingSearch",
+  //   component: () => import('../views/Bookings.vue')
+  // },
+  ////////////////////////////LOGIN//////////////////////////////////
+  {
+    path: "/Login",
+    name: "Login",
+    component: () => import('../views/Login.vue'),
+    // beforeEnter: AuthGuard.noAuthGuard, meta: { requiresAuth: true }
+  },
+  ////////////////////////////REGISTER//////////////////////////////////
+  // {
+  //   path: "/Register",
+  //   name: "Register",
+  //   component: () => import('../views/Register.vue')
+  // },
+  ////////////////////////////PROFILE//////////////////////////////////
+  // {
+  //   path: "/Profile",
+  //   name: "Profile",
+  //   component: () => import('../views/Profile.vue')
+  // },
    ///////////////////////////DASHBOARD//////////////////////////////
   {
     path: "/Dashboard",

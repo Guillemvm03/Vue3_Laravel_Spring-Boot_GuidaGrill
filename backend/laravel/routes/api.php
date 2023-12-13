@@ -39,6 +39,8 @@ Route::post('/logout', [UserController::class,'logout']);
 
 Route::get('profile', [UserController::class,'getUserToken']);
 
+Route::get('isAdmin', [UserController::class,'isAdmin']);
+
 Route::put('/api/users/{id}', 'UserController@update');
 
 

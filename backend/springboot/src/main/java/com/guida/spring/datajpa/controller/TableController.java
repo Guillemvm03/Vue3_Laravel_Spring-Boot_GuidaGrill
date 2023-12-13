@@ -41,10 +41,12 @@ public class TableController {
 			Integer offset = (tableQueryParam.getPage() - 1) * tableQueryParam.getLimit();
 
 			List<Tables> table = new ArrayList<Tables>();
+
 			// Get all tables from menu			
 			if (tableQueryParam.getMenu() != null 
 				&& tableQueryParam.getCategory() == "" || tableQueryParam.getCategory() == null
 				&& tableQueryParam.all() == false 
+   develop
 				) {
 
 				System.out.println("menu");
