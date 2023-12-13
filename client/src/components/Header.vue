@@ -359,6 +359,7 @@ header a:hover {
   text-decoration: none;
 }
 
+
 .nav-link:hover {
   color: #000;
 }
@@ -367,4 +368,5 @@ img {
   width: 150px;
   border-radius: 5px;
 }
+
 </style>

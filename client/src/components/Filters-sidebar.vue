@@ -42,6 +42,7 @@ export default {
       }
     })
     const sendData = () => {
+      console.log(state.filters);
       emit('filters1', state.filters);    
     }
 
@@ -49,6 +50,8 @@ export default {
       state.filters.category = "";
       state.filters.menus = [];
       state.filters.all = true;
+      state.filters.page = 1;
+      state.filters.limit = 3;
       emit('deleteFilters', state.filters);
     }
 

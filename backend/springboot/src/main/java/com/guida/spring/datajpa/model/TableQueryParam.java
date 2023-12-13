@@ -23,6 +23,10 @@ public class TableQueryParam {
     private String[] menu; 
     private String meal;
     private boolean all;
+    private Integer page;
+    private Integer limit;
+
+
 
 
     public Integer getTable_number() {
@@ -96,4 +100,21 @@ public class TableQueryParam {
     public void setAll(boolean all){
         this.all = all;
     }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+    
 }

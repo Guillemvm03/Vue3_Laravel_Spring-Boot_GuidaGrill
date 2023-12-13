@@ -15,6 +15,12 @@
     </div>
     <br>
   </div>
+  <div class="pag-a">
+  <paginate v-model="state.page" :page-count="state.totalPages" :page-range="3" :margin-pages="2"
+            :click-handler="clickCallback" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination'"
+            :page-class="'page-item'">
+        </paginate>
+      </div>
 </template>
 
 
@@ -26,16 +32,24 @@ import Constant from '../Constant.js';
 import { useRouter, useRoute } from 'vue-router';
 import { useTableFilters } from '../composables/tables/useTable';
 import Filters_sidebar from '../components/Filters-sidebar.vue';
+
 import Search from '../components/Search.vue';
+import Paginate from 'vuejs-paginate-next';
+import { useTablePaginate } from '../composables/tables/useTable';
 
 export default {
-  components: { Card_tables , Filters_sidebar, Search},
+  components: { Card_tables , Filters_sidebar, Search, Paginate},
+
+
+
+
 
   setup() {
 
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
+
 
     let filter_url = {
       // table_number: 0,
@@ -45,44 +59,58 @@ export default {
       // status: "",
       // img_table: "",
       menus: [],
-      all: true
+      all: true,
+      page:1,
+      limit:3,
     };
 
     try {
       if (route.params.filters !== '') {
         filter_url = JSON.parse(atob(route.params.filters));
+        // console.log(filter_url);
       }
     } catch (error) {
     }
 
     const state = reactive({
       tables: useTableFilters(filter_url),
-      // page: filter_url.page,
-      // totalPages: useMesaPaginate(filter_url)
+      page: filter_url.page,
+      totalPages: useTablePaginate(filter_url)
 
     });
 
     const ApplyFilters = (filters1) => {
-      filters1.all = false;
+      filters1.all=false
         const filters_64 = btoa(JSON.stringify(filters1));
         router.push({ name: "bookingFilters", params: { filters: filters_64 } });
         state.tables = useTableFilters(filters1);
-        // state.totalPages = useMesaPaginate(filters);
+        state.totalPages = useTablePaginate(filters1);
 
     }
 
     const deleteFilters = (deleteFilters) => {
-        console.log("entra");
-      deleteFilters.all = true;
         router.push({ name: "Bookings" });
         state.tables = useTableFilters(deleteFilters);
-        // state.page = 1;
+        state.page = 1;
         filter_url = deleteFilters;
-        // state.totalPages = useTableFilters(deleteFilters);
+        state.totalPages = useTablePaginate(deleteFilters);
     }
 
+    const clickCallback = (pageNum) => {
+            try {
+                if (route.params.filters !== '') {
+                  filter_url = JSON.parse(atob(route.params.filters));
+                }
+            } catch (error) {
+            }
+            // console.log(pageNum);
+            filter_url.page = pageNum;
+            state.page = pageNum;
+            ApplyFilters(filter_url)
+            // window.location.reload();
+        }
 
-    return { state, filter_url, ApplyFilters, deleteFilters }
+    return { state, filter_url, ApplyFilters, deleteFilters, clickCallback }
   }
 }
 </script>
@@ -99,5 +127,11 @@ h2{
   padding: 40px;
   text-align: center;
   font-size: 30px;
+}
+
+.pag-a{
+display: flex;
+justify-content: center;
+margin: 0;
 }
 </style>

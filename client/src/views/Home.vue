@@ -6,10 +6,15 @@
      
       <div class="row justify-content-between gy-5">
         <div
-          class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-          <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
-          <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea consequatur
-            eveniet. Eum quas beatae cumque eum quaerat.</p>
+
+          class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start"
+        >
+          <h2 data-aos="fade-up">Enjoy Your Healthy<br />Delicious Food</h2>
+          <p data-aos="fade-up" data-aos-delay="100">
+            Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum
+            quas beatae cumque eum quaerat.
+          </p>
+
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
             <a href="#book-a-table" class="btn-book-a-table">Book a Table</a>
           </div>
@@ -19,14 +24,27 @@
         </div>
       </div>
     </div>
-
   </section>
   <!-- End Hero -->
 
-  <Card_meals v-if="state.menus" :data="state.menus" />
+  <!-- <Card_meals v-if="state.menus" :data="state.menus" :dataMeals="state.menusInfinite" @page="addInfinite"/> -->
+  <Card_meals
+    v-if="state.menus"
+    :data="state.menus"
+    :dataMeals="state.mealsInfinite"
+    @page="addInfinite"
+    @menu_number="updateMenuNumber"
+  />
+  <!-- :dataMeals="state.menusInfinite" -->
+
 </template>
 
 <script>
+import { computed, reactive, ref } from "vue";
+import { useStore } from "vuex";
+import Constant from "../Constant";
+import { useRouter } from "vue-router";
+
 
 
 import { computed, reactive } from 'vue';
@@ -37,34 +55,56 @@ import { useRouter } from 'vue-router';
 import CarouselVue from '../components/Carousel.vue';
 import Card_meals from '../components/Card_meals.vue';
 import Search from '../components/Search.vue';
+import { useMealsInfinite } from "../composables/meals/useMeals";
+import { useMenusInfinite } from "../composables/menus/useMenus";
 
 export default {
 
   components: { CarouselVue, Card_meals, Search },
   setup() {
 
+
     const router = useRouter();
     const store = useStore();
 
 
-    store.dispatch(`menus/${Constant.INITIALIZE_MENU}`)
+    const menuNumber = ref(1);
 
+    store.dispatch(`menus/${Constant.INITIALIZE_MENU}`);
+
+    const updateMenuNumber = (newMenuNumber) => {
+      menuNumber.value = newMenuNumber;
+      console.log(menuNumber.value);
+      state.mealsInfinite = useMealsInfinite(1, menuNumber.value, 3);
+
+      // Actualiza el valor
+    };
+    console.log(menuNumber.value);
     const state = reactive({
-      menus: computed(() => store.getters['menus/GetMenu']),
-    })
+      menus: computed(() => store.getters["menus/GetMenu"]),
+
+      // menusInfinite: useMenusInfinite(1, menuNumber.value, 3),
+
+      mealsInfinite: useMealsInfinite(1, menuNumber.value, 3),
+    });
 
     const redirectBookings = (item) => {
       const filters = {
-        category: "",
         menus: [item.id],
+        page: 1,
       };
-      console.log(filters);
 
       const filters_ = btoa(JSON.stringify(filters));
       router.push({ name: "bookingFilters", params: { filters: filters_ } });
-    }
+    };
 
-    const searchMeals = (item) => {
+    const addInfinite = (page) => {
+      console.log(page, menuNumber.value);
+      state.mealsInfinite = useMealsInfinite(page, menuNumber.value, 3);
+      console.log(state.mealsInfinite);
+    };
+    
+        const searchMeals = (item) => {
       console.log(item);
       const filtersSearch = {
         meals: item,
@@ -75,12 +115,21 @@ export default {
       router.push({ name: "bookingFilters", params: { filters: filtersSearch_ } });
     }
 
-    // console.log(state.menus);
-    return { state, redirectBookings , searchMeals}
 
-  }
-}
+    // console.log(state.mealsInfinite);
+
+    return {
+      state,
+      redirectBookings,
+      addInfinite,
+      updateMenuNumber,
+      menuNumber: reactive(menuNumber),
+      searchMeals
+    };
+  },
+};
 </script>
+
 
 <style lang="scss" scoped>
 /*--------------------------------------------------------------
@@ -169,7 +218,8 @@ export default {
 # Stats Counter Section
 --------------------------------------------------------------*/
 .stats-counter {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../src/assets/img/stats-bg.jpg") center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../src/assets/img/stats-bg.jpg") center center;
   background-size: cover;
   padding: 100px 0;
 }
