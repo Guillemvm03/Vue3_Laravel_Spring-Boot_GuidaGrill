@@ -1,87 +1,115 @@
 <template>
-
-<!-- ======= Hero Section ======= -->
-<section id="hero" class="hero d-flex align-items-center section-bg">
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center section-bg">
     <div class="container">
       <div class="row justify-content-between gy-5">
-        <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-          <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
-          <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
+        <div
+          class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start"
+        >
+          <h2 data-aos="fade-up">Enjoy Your Healthy<br />Delicious Food</h2>
+          <p data-aos="fade-up" data-aos-delay="100">
+            Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum
+            quas beatae cumque eum quaerat.
+          </p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
             <a href="#book-a-table" class="btn-book-a-table">Book a Table</a>
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-            <CarouselVue :data="state.menus" @emitAction="redirectBookings"/>
+          <CarouselVue :data="state.menus" @emitAction="redirectBookings" />
         </div>
       </div>
     </div>
-
   </section>
   <!-- End Hero -->
 
-    <Card_meals v-if="state.menus" :data="state.menus" @page="addInfinite"/>
-     
+  <!-- <Card_meals v-if="state.menus" :data="state.menus" :dataMeals="state.menusInfinite" @page="addInfinite"/> -->
+  <Card_meals
+    v-if="state.menus"
+    :data="state.menus"
+    :dataMeals="state.mealsInfinite"
+    @page="addInfinite"
+    @menu_number="updateMenuNumber"
+  />
+  <!-- :dataMeals="state.menusInfinite" -->
 </template>
 
 <script>
+import { computed, reactive, ref } from "vue";
+import { useStore } from "vuex";
+import Constant from "../Constant";
+import { useRouter } from "vue-router";
 
-
-import { computed, reactive } from 'vue';
-import { useStore } from 'vuex';
-import Constant from '../Constant';
-import { useRouter } from 'vue-router';
-
-import CarouselVue from '../components/Carousel.vue';
-import Card_meals from '../components/Card_meals.vue';
+import CarouselVue from "../components/Carousel.vue";
+import Card_meals from "../components/Card_meals.vue";
 // import CountUp from 'vue-countup-v2';
+import { useMealsInfinite } from "../composables/meals/useMeals";
+import { useMenusInfinite } from "../composables/menus/useMenus";
 
-   export default{
-    
-    components: { CarouselVue, Card_meals },
-    setup() { 
+export default {
+  components: { CarouselVue, Card_meals },
+  setup() {
+    // const menu_number=ref(menu);
 
-        // const menu_number=ref(0);
+    const router = useRouter();
+    const store = useStore();
 
-        const router = useRouter();
-        const store = useStore();
+    const menuNumber = ref(1);
 
-       
-        store.dispatch(`menus/${Constant.INITIALIZE_MENU}`)
+    store.dispatch(`menus/${Constant.INITIALIZE_MENU}`);
 
-        const state = reactive({
-            menus: computed(()=> store.getters['menus/GetMenu'])
-        })
+    const updateMenuNumber = (newMenuNumber) => {
+      menuNumber.value = newMenuNumber;
+      console.log(menuNumber.value);
+      state.mealsInfinite = useMealsInfinite(1, menuNumber.value, 3);
 
+      // Actualiza el valor
+    };
+    console.log(menuNumber.value);
+    const state = reactive({
+      menus: computed(() => store.getters["menus/GetMenu"]),
 
-        const redirectBookings = (item) => {
+      // menusInfinite: useMenusInfinite(1, menuNumber.value, 3),
 
-            const filters = {
-                
-                // table_number: 0,
-                // capacity: 0,
-                // category: "",
-                // available: "",
-                // status: "",
-                // img_table: "",
-                menus: [item.id],
-            };
-            
-            const filters_ = btoa(JSON.stringify(filters));
-            router.push({ name: "bookingFilters", params: { filters: filters_ } });
-          }
+      mealsInfinite: useMealsInfinite(1, menuNumber.value, 3),
+    });
 
-          // console.log(state.menus);
-        return {state, redirectBookings}
-        
-    }
-   }
+    const redirectBookings = (item) => {
+      const filters = {
+        // table_number: 0,
+        // capacity: 0,
+        // category: "",
+        // available: "",
+        // status: "",
+        // img_table: "",
+        menus: [item.id],
+        page: 1,
+      };
+
+      const filters_ = btoa(JSON.stringify(filters));
+      router.push({ name: "bookingFilters", params: { filters: filters_ } });
+    };
+
+    const addInfinite = (page) => {
+      console.log(page, menuNumber.value);
+      state.mealsInfinite = useMealsInfinite(page, menuNumber.value, 3);
+      console.log(state.mealsInfinite);
+    };
+
+    // console.log(state.mealsInfinite);
+
+    return {
+      state,
+      redirectBookings,
+      addInfinite,
+      updateMenuNumber,
+      menuNumber: reactive(menuNumber),
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
-
-
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -168,7 +196,8 @@ import Card_meals from '../components/Card_meals.vue';
 # Stats Counter Section
 --------------------------------------------------------------*/
 .stats-counter {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../src/assets/img/stats-bg.jpg") center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../src/assets/img/stats-bg.jpg") center center;
   background-size: cover;
   padding: 100px 0;
 }
@@ -199,5 +228,4 @@ import Card_meals from '../components/Card_meals.vue';
   font-weight: 700;
   color: rgba(255, 255, 255, 0.6);
 }
-
 </style>

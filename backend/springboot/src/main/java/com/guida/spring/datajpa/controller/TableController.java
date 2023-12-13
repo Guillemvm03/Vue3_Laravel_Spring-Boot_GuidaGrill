@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.mapping.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,27 +35,30 @@ public class TableController {
 	@GetMapping("/tables")
 	public ResponseEntity<List<Tables>> getAllTable(@ModelAttribute TableQueryParam tableQueryParam) {
 		try {
+
+
+
+			Integer offset = (tableQueryParam.getPage() - 1) * tableQueryParam.getLimit();
+
 			List<Tables> table = new ArrayList<Tables>();
-			System.out.println("Lo que entra menu "+tableQueryParam.getMenu());
-			System.out.println("Lo que entra category "+tableQueryParam.getCategory());
 			// Get all tables from menu			
 			if (tableQueryParam.getMenu() != null 
-				&& tableQueryParam.getCategory() == ""
-				&& tableQueryParam.all() == false
+				&& tableQueryParam.getCategory() == "" || tableQueryParam.getCategory() == null
+				&& tableQueryParam.all() == false 
 				) {
 
 				System.out.println("menu");
-				table = tableRepository.findMenusOnTable(tableQueryParam.getMenu());
+				table = tableRepository.findMenusOnTable(tableQueryParam.getMenu(),tableQueryParam.getLimit(), offset);
 			}
 			//get all tables from category
 			else if(tableQueryParam.getMenu() == null 
-					&& tableQueryParam.getCategory() != null
+					&& tableQueryParam.getCategory() != "" 
 					&& tableQueryParam.all() == false
 					){
 
 				System.out.println("category");
 
-				table = tableRepository.findCategoriesOnTable(tableQueryParam.getCategory());
+				table = tableRepository.findCategoriesOnTable(tableQueryParam.getCategory(),tableQueryParam.getLimit(), offset);
 			}
 			//get all tables from category and menu
 			else if(tableQueryParam.getMenu() != null 
@@ -67,10 +71,8 @@ public class TableController {
 				table = tableRepository.findTablesByMenuAndCategory(tableQueryParam.getMenu(), tableQueryParam.getCategory());
 			}					
 			//Get all tables
-			else {			
-				System.out.println("All");
-
-				tableRepository.findAll().forEach(table::add);
+			else {		
+				table = tableRepository.findAllTables(tableQueryParam.getLimit(),offset);
 			}
 
 			return new ResponseEntity<>(table, HttpStatus.OK);
@@ -90,6 +92,52 @@ public class TableController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
+	@GetMapping("/tables/paginate")
+	public ResponseEntity<Integer> getTablePaginate(@ModelAttribute TableQueryParam tableQueryParam) {
+		try {
+			Integer total = 0;
+
+			// System.out.println("limit" + tableQueryParam.getLimit());
+			// System.out.println("page" + tableQueryParam.getPage());
+
+			if (tableQueryParam.getMenu() != null && (tableQueryParam.getCategory() == null || tableQueryParam.getCategory().isEmpty())
+					|| tableQueryParam.getCategory() == null && !tableQueryParam.all()) {
+				
+				total = tableRepository.findMenusOnTableAndPaginate(tableQueryParam.getMenu());
+				// System.out.println(total);
+			}else if(
+			tableQueryParam.getMenu() == null 
+					&& tableQueryParam.getCategory() != "" 
+					&& tableQueryParam.all() == false
+				){
+				total = tableRepository.findCategoryPaginate(tableQueryParam.getCategory());
+			} else {
+				// System.out.println("all pag");
+				total = tableRepository.findTablesPaginate();
+				// System.out.println(total);
+			}
+	
+			return new ResponseEntity<>(total, HttpStatus.OK);
+	
+		} catch (Exception e) {
+			System.err.println(e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	// @GetMapping("/tablesInfinite")
+	// public ResponseEntity<List<Tables>> getTableInfinite(@ModelAttribute TableQueryParam tableQueryParam) {
+	// 	try{
+	// 		List<Tables> table= newArrayList<Tables>();
+	// 		Integer limi tableQueryParam.getPage() * tableQueryParam.getLimit();
+	// 		tableRepository.findAll().forEach(table::add);
+	// 	}
+	// 	catch(Exception e){
+	// 		System.err.println(e);
+	// 		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	// 	}
+	// }
 
 	// @PostMapping("/mesas")
 	// public ResponseEntity<Mesas> createTutorial(@RequestBody Mesas mesas) {
