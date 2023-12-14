@@ -2,7 +2,7 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero d-flex align-items-center section-bg">
     <div class="container">
-      <Search :menus="state.menus" @searchMealsValue="searchMeals" />
+      <Search class="search-nav" :menus="state.menus" @searchMealsValue="searchMeals" />
 
       <div class="row justify-content-between gy-5">
         <div
@@ -24,6 +24,48 @@
       </div>
     </div>
   </section>
+
+
+<!-- ======= Stats Counter Section ======= -->
+<section id="stats-counter" class="stats-counter">
+      <div class="container" data-aos="zoom-out">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Clients</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Projects</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Hours Of Support</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="stats-item text-center w-100 h-100">
+              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Workers</p>
+            </div>
+          </div><!-- End Stats Item -->
+
+        </div>
+
+      </div>
+    </section><!-- End Stats Counter Section -->
+
+
   <!-- End Hero -->
 
   <!-- <Card_meals v-if="state.menus" :data="state.menus" :dataMeals="state.menusInfinite" @page="addInfinite"/> -->
@@ -209,7 +251,7 @@ export default {
 --------------------------------------------------------------*/
 .stats-counter {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../src/assets/img/stats-bg.jpg") center center;
+    url("../src/assets/img/paella.jpg") center center;
   background-size: cover;
   padding: 100px 0;
 }
@@ -239,5 +281,17 @@ export default {
   font-size: 16px;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.6);
+}
+
+.search-nav{
+
+  position: absolute;
+  top: -551px;
+  right: 0;
+  z-index: 999;
+  width: 100%;
+  padding: 0 15px;
+  transition: all 0.5s;
+  height: 60px;
 }
 </style>
