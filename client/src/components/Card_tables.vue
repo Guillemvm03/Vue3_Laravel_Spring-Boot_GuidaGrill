@@ -1,9 +1,18 @@
 <template>
-  <div :class="{ 'card': true, 'disabled': !table.available }" tabindex="0" @click="$event => showDetails(table.id)">
-    <div class="overlay" v-if="!table.available">Not Available</div>
-    <img class="card-img-top" :src="table.img_table" alt="">
+  <div
+    :class="{ card: true, disabled: !table.available }"
+    tabindex="0"
+    @click="($event) => showDetails(table.id)"
+  >
+    <div v-if="!table.available">Not Available</div>
+    <img
+      class="card-img-top"
+      :class="[!table.available ? overlay : '']"
+      :src="table.img_table"
+      alt=""
+    />
     <div class="card-body">
-      <h4 class="card-title">Número de mesa: {{table.table_number}}</h4>
+      <h4 class="card-title">Número de mesa: {{ table.table_number }}</h4>
       <p class="card-text">Descripción: {{ table.category }}</p>
       <p class="card-text">Estado: {{ table.status }}</p>
     </div>
@@ -11,13 +20,13 @@
 </template>
 
 <script>
-  import {useRouter} from 'vue-router'
+import { useRouter } from "vue-router";
 
-  export default {
-    props: {
-        table: Object,                
-    },
-    setup(props) {
+export default {
+  props: {
+    table: Object,
+  },
+  setup(props) {
     const router = useRouter();
 
     const showDetails = (id) => {
@@ -28,12 +37,10 @@
 
     return { showDetails };
   },
-}
-
+};
 </script>
 
 <style lang="scss" scoped>
-
 .card {
   transition: transform 0.3s, box-shadow 0.3s;
   border: none;
@@ -46,7 +53,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 0, 0, 0.7); 
+  background-color: rgba(255, 0, 0, 0.7);
   color: white;
   display: flex;
   justify-content: center;
@@ -64,8 +71,7 @@
 }
 
 .disabled {
-  opacity: 0.5; 
+  opacity: 0.5;
   pointer-events: none;
 }
-
 </style>

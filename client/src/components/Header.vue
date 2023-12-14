@@ -2,11 +2,10 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-
       <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <router-link to="/home" class="link">
-          <img src="../assets/img/logoletra.png" alt="">
+          <img src="../assets/img/logoletra.png" alt="" />
         </router-link>
         <!-- <h1>GUIDA GRILL<span>.</span></h1> -->
       </a>
@@ -25,44 +24,29 @@
             </router-link>
           </li>
 
-          <li>
+          <li v-if="!state.isAdmin">
             <router-link to="/Login" class="link">
               <a class="nav-link">LoginAdmin</a>
             </router-link>
           </li>
-
-          <li v-if="state.isAdmin">
-            <router-link to="/Dashboard" class="link">
-              <a class="btn-book-a-table">Dashboard</a>
-            </router-link>
+          <li v-if="state.isAdmin" @click="logout()">
+            <a class="nav-link">Logout</a>
           </li>
-          <!-- <li><a href="#menu">Menu</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#chefs">Chefs</a></li>
-          <li><a href="#gallery">Gallery</a></li> -->
-          <!-- <li><a href="#contact">Contact</a></li> -->
 
+          <router-link to="/Dashboard" class="link" v-if="state.isAdmin">
+            <a class="btn-book-a-table">Dashboard</a>
+          </router-link>
         </ul>
-      </nav><!-- .navbar -->
-
-
-
-
-
-      <!-- <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i> -->
-
+      </nav>
     </div>
-  </header><!-- End Header -->
-
-  <br><br><br><br>
+  </header>
+  <br /><br /><br /><br />
 </template>
 
-
 <script>
-import { useStore } from 'vuex';
-import Constant from '../Constant';
-import { computed, reactive } from 'vue';
+import { useStore } from "vuex";
+import Constant from "../Constant";
+import { computed, reactive } from "vue";
 
 export default {
   setup() {
@@ -70,22 +54,21 @@ export default {
     const store = useStore();
     const state = reactive({
       // profile: computed(() => store.getters['user/GetProfile']),
-      isAdmin: computed(() => store.getters['user/GetIsAdmin']),
+      // isAdmin: computed(() => store.getters["user/GetIsAdmin"]),
+      isAdmin: computed(() => localStorage.getItem("isAdmin")),
       // isLogged: computed(() => store.getters['user/GetIsAuth']),
-    })
+    });
     const logout = () => {
-      store.dispatch('user/${Constant.LOGOUT}');
-    }
+      console.log("logout");
+      store.dispatch(`user/${Constant.LOGOUT}`);
+    };
     return {
       state,
       logout,
-    }
-  }
-}
-
+    };
+  },
+};
 </script>
-
-
 
 <style lang="scss">
 /*--------------------------------------------------------------
@@ -168,7 +151,7 @@ section {
     position: relative;
   }
 
-  .navbar>ul>li {
+  .navbar > ul > li {
     white-space: nowrap;
     padding: 10px 0 10px 28px;
   }
@@ -195,7 +178,7 @@ section {
     margin-left: 5px;
   }
 
-  .navbar>ul>li>a:before {
+  .navbar > ul > li > a:before {
     content: "";
     position: absolute;
     width: 100%;
@@ -209,7 +192,7 @@ section {
   }
 
   .navbar a:hover:before,
-  .navbar li:hover>a:before,
+  .navbar li:hover > a:before,
   .navbar .active:before {
     visibility: visible;
     width: 100%;
@@ -218,7 +201,7 @@ section {
   .navbar a:hover,
   .navbar .active,
   .navbar .active:focus,
-  .navbar li:hover>a {
+  .navbar li:hover > a {
     color: #000;
   }
 
@@ -255,11 +238,11 @@ section {
 
   .navbar .dropdown ul a:hover,
   .navbar .dropdown ul .active:hover,
-  .navbar .dropdown ul li:hover>a {
+  .navbar .dropdown ul li:hover > a {
     color: var(--color-primary);
   }
 
-  .navbar .dropdown:hover>ul {
+  .navbar .dropdown:hover > ul {
     opacity: 1;
     top: 100%;
     visibility: visible;
@@ -271,7 +254,7 @@ section {
     visibility: hidden;
   }
 
-  .navbar .dropdown .dropdown:hover>ul {
+  .navbar .dropdown .dropdown:hover > ul {
     opacity: 1;
     top: 0;
     left: 100%;
@@ -284,23 +267,20 @@ section {
     left: -90%;
   }
 
-  .navbar .dropdown .dropdown:hover>ul {
+  .navbar .dropdown .dropdown:hover > ul {
     left: -100%;
   }
 }
 
 @media (min-width: 1280px) {
-
   .mobile-nav-show,
   .mobile-nav-hide {
     display: none;
   }
 }
 
-
-
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f8f9fa;
@@ -359,7 +339,6 @@ header a:hover {
   text-decoration: none;
 }
 
-
 .nav-link:hover {
   color: #000;
 }
@@ -368,5 +347,4 @@ img {
   width: 150px;
   border-radius: 5px;
 }
-
 </style>

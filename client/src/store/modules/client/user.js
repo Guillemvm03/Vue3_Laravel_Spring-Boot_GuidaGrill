@@ -34,13 +34,14 @@ export const user = {
         },
 
         [Constant.LOGOUT]: async (store) => {
+            console.log("logout store");
             try {
                 const response = await UserService.logout();
                 let data = { status: response.status };
-                if (store.state.isAdmin) {
+                // if (store.state.isAdmin) {
                     const response_admin = await UserService.logout_admin();
                     data.status_admin = response_admin.status;
-                }
+                // }
                 store.commit(Constant.LOGOUT, data);
             } catch (error) {
                 toaster.error('Logout error');
@@ -60,8 +61,11 @@ export const user = {
         },
 
         [Constant.INITIALIZE_PROFILE]: async (store) => {
+            console.log("entra profile");
+            console.log(store);
             try {
                 const response = await UserService.profile();
+
                 if (response.status === 200) {
                     store.commit(Constant.INITIALIZE_PROFILE, response.data);
                 }
@@ -111,6 +115,7 @@ export const user = {
         },
 
         [Constant.LOGOUT]: (state, payload) => {
+            console.log("payload", payload);
             state.user = {};
             state.isAuth = false;
             state.isAdmin = false;

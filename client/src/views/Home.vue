@@ -2,11 +2,10 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero d-flex align-items-center section-bg">
     <div class="container">
-      <Search :menus="state.menus" @searchMealsValue="searchMeals"/>
-     
+      <Search :menus="state.menus" @searchMealsValue="searchMeals" />
+
       <div class="row justify-content-between gy-5">
         <div
-
           class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start"
         >
           <h2 data-aos="fade-up">Enjoy Your Healthy<br />Delicious Food</h2>
@@ -36,7 +35,6 @@
     @menu_number="updateMenuNumber"
   />
   <!-- :dataMeals="state.menusInfinite" -->
-
 </template>
 
 <script>
@@ -45,28 +43,16 @@ import { useStore } from "vuex";
 import Constant from "../Constant";
 import { useRouter } from "vue-router";
 
-
-
-import { computed, reactive } from 'vue';
-import { useStore } from 'vuex';
-import Constant from '../Constant';
-import { useRouter } from 'vue-router';
-
-import CarouselVue from '../components/Carousel.vue';
-import Card_meals from '../components/Card_meals.vue';
-import Search from '../components/Search.vue';
+import CarouselVue from "../components/Carousel.vue";
+import Card_meals from "../components/Card_meals.vue";
+import Search from "../components/Search.vue";
 import { useMealsInfinite } from "../composables/meals/useMeals";
-import { useMenusInfinite } from "../composables/menus/useMenus";
 
 export default {
-
   components: { CarouselVue, Card_meals, Search },
   setup() {
-
-
     const router = useRouter();
     const store = useStore();
-
 
     const menuNumber = ref(1);
 
@@ -79,7 +65,6 @@ export default {
 
       // Actualiza el valor
     };
-    console.log(menuNumber.value);
     const state = reactive({
       menus: computed(() => store.getters["menus/GetMenu"]),
 
@@ -99,12 +84,11 @@ export default {
     };
 
     const addInfinite = (page) => {
-      console.log(page, menuNumber.value);
       state.mealsInfinite = useMealsInfinite(page, menuNumber.value, 3);
       console.log(state.mealsInfinite);
     };
-    
-        const searchMeals = (item) => {
+
+    const searchMeals = (item) => {
       console.log(item);
       const filtersSearch = {
         meals: item,
@@ -113,8 +97,7 @@ export default {
 
       const filtersSearch_ = btoa(JSON.stringify(filtersSearch));
       router.push({ name: "bookingFilters", params: { filters: filtersSearch_ } });
-    }
-
+    };
 
     // console.log(state.mealsInfinite);
 
@@ -124,12 +107,11 @@ export default {
       addInfinite,
       updateMenuNumber,
       menuNumber: reactive(menuNumber),
-      searchMeals
+      searchMeals,
     };
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 /*--------------------------------------------------------------

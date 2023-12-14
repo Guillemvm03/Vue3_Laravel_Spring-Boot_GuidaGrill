@@ -46,7 +46,7 @@ public class TableController {
 			if (tableQueryParam.getMenu() != null 
 				&& tableQueryParam.getCategory() == "" || tableQueryParam.getCategory() == null
 				&& tableQueryParam.all() == false 
-   develop
+  
 				) {
 
 				System.out.println("menu");

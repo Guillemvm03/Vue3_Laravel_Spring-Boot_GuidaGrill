@@ -15,26 +15,26 @@ export default (URL) => {
     baseURL: URL,
   });
 
-  // const token =
-  //   URL === secrets.URL_LARAVEL
-  //     ? localStorage.getItem("token_admin")
-  //     : localStorage.getItem("token");
-  // if (token) {
-  //   api.defaults.headers.common.Authorization = `Bearer ${token}`;
-  // }
+  const token =
+    URL === secrets.URL_LARAVEL
+      ? localStorage.getItem("token_admin")
+      : localStorage.getItem("token");
+  if (token) {
+    api.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
 
-  // api.interceptors.response.use(
-  //   (response) => response,
-  //   (error) => {
-  //     console.error(error);
-  //     if (error.response.status === 401) {
-  //       toaster.error("Forced logout. Unauthorized action");
-  //       store.dispatch(`user/${Constant.LOGOUT}`);
-  //       router.push({ name: "home" });
-  //     }
-  //     return Promise.reject(error);
-  //   }
-  // );
+  api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      console.error(error);
+      if (error.response.status === 401) {
+        toaster.error("Forced logout. Unauthorized action");
+        store.dispatch(`user/${Constant.LOGOUT}`);
+        router.push({ name: "home" });
+      }
+      return Promise.reject(error);
+    }
+  );
 
   return api;
 };
