@@ -107,11 +107,12 @@ export default {
       addInfinite,
       updateMenuNumber,
       menuNumber: reactive(menuNumber),
-      searchMeals,
+      searchMeals
     };
   },
 };
 </script>
+
 
 <style lang="scss" scoped>
 /*--------------------------------------------------------------

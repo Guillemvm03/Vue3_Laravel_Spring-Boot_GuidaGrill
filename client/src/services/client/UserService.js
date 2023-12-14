@@ -6,13 +6,15 @@ export default {
         return Api(secrets.URL_SPRING).post("register", user);
     },
     async login(user) {
+        console.log("entra a login");
         return Api(secrets.URL_SPRING).post("login", user);
     },
     async logout() {
+        console.log("entra logout service");
         return Api(secrets.URL_SPRING).post("logout");
     },
     async login_admin(user) {
-        console.log(user);
+        console.log("entra a loginAdmin");
         return Api(secrets.URL_LARAVEL).post("login", user);
     },
     async logout_admin() {

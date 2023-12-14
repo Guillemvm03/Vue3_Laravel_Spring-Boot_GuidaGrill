@@ -24,12 +24,12 @@
             </router-link>
           </li>
 
-          <li v-if="!state.isAdmin">
+          <li v-if="!state.isAuth">
             <router-link to="/Login" class="link">
-              <a class="nav-link">LoginAdmin</a>
+              <a class="nav-link">Register/Login</a>
             </router-link>
           </li>
-          <li v-if="state.isAdmin" @click="logout()">
+          <li v-if="state.isAuth" @click="logout()">
             <a class="nav-link">Logout</a>
           </li>
 
@@ -53,11 +53,11 @@ export default {
     // const router = userRouter();
     const store = useStore();
     const state = reactive({
-      // profile: computed(() => store.getters['user/GetProfile']),
-      // isAdmin: computed(() => store.getters["user/GetIsAdmin"]),
-      isAdmin: computed(() => localStorage.getItem("isAdmin")),
-      // isLogged: computed(() => store.getters['user/GetIsAuth']),
+      profile: computed(() => store.getters['user/GetProfile']),
+      isAdmin: computed(() => store.getters["user/GetIsAdmin"]),
+      isAuth: computed(() => store.getters['user/GetIsAuth']),
     });
+    console.log(state.isAuth);
     const logout = () => {
       console.log("logout");
       store.dispatch(`user/${Constant.LOGOUT}`);
