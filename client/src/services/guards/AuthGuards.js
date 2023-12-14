@@ -5,7 +5,7 @@ import UserService from '../client/UserService';
 export default {
 
     async authGuardAdmin(to, from, next) {
-
+        console.log("entra authGuardAdmin");
         try {
             if (localStorage.getItem('isAdmin')) {
                 const response = await UserService.isAdmin();
@@ -22,6 +22,7 @@ export default {
     },//authGuardAdmin
 
     async AuthGuard(to, from, next) {
+        console.log("entra authGuard");
         if (localStorage.getItem('isAuth')) {
             await store.dispatch(`user/${Constant.INITIALIZE_PROFILE}`);
         }
@@ -33,6 +34,7 @@ export default {
     },//noAuthGuard
 
     noAuthGuard(to, from, next) {
+        console.log("entra noAuthGuard");
         if (!store.getters['user/GetIsAuth'] && !localStorage.getItem('isAuth')) {
             next();
         } else {

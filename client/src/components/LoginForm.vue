@@ -17,11 +17,6 @@
                     <a href="#">Forgot password?</a>
                 </div>
                 <button type="button" @click="login" class="btn">Login</button>
-                <!-- <div class="register-link">
-                <p>Dont't have an account? <a href="#">
-                        Register
-                    </a></p>
-            </div> -->
             </form>
         </div>
     </body>

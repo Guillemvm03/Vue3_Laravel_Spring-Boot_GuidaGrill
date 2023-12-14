@@ -13,27 +13,32 @@ export const user = {
     },
     actions: {
         [Constant.LOGIN]: async (store, payload) => {
-            console.log(payload);
             try {
-                const response = await UserService.login_admin(payload);///cambiar a login cuando este springboot
-                store.commit(Constant.LOGIN_ADMIN, response);
+                const response = await UserService.login(payload);
 
-                console.log(response);
-                // if (response.status === 200) {
-                //     store.commit(Constant.LOGIN, response.data);
-                //     if (response.data.user.type == "admin") {
-                //         const response_admin = await UserService.login_admin(payload);
-                //         if (response_admin.status === 200) {
-                //             store.commit(Constant.LOGIN_ADMIN, response_admin.data);
-                //         }
-                //     }
-                // }
+                if (response.status === 200) {
+                    console.log(response.data.user.type);
+                    
+                    if (response.data.user.type == "admin") {
+                        console.log("entra admin");
+                        const response_admin = await UserService.login_admin(payload);
+                        console.log(response_admin.status);
+                        if (response_admin.status === 200) {
+                            store.commit(Constant.LOGIN_ADMIN, response_admin.data);
+                        }
+                    }else{
+                        console.log("entra Client");
+                        store.commit(Constant.LOGIN, response.data);
+                    }
+                }
             } catch (error) {
                 toaster.error('Username or password incorrect');
             }
         },
 
         [Constant.LOGOUT]: async (store) => {
+            
+            console.log("logout store");
             try {
                 const response = await UserService.logout();
                 let data = { status: response.status };
@@ -60,10 +65,13 @@ export const user = {
         },
 
         [Constant.INITIALIZE_PROFILE]: async (store) => {
+            console.log("entra profile");
+            console.log(store);
             try {
                 const response = await UserService.profile();
+                console.log(response);
                 if (response.status === 200) {
-                    store.commit(Constant.INITIALIZE_PROFILE, response.data);
+                    store.commit(Constant.INITIALIZE_PROFILE, response.data.data);
                 }
             } catch (error) {
                 console.error(error);
@@ -87,10 +95,11 @@ export const user = {
             console.log(payload);
             if (payload) {
                 toaster.success('Login admin successfuly');
-                localStorage.setItem("token_admin", payload.data.token);
+                localStorage.setItem("token_admin", payload.token);
                 localStorage.setItem("isAdmin", true);
                 state.user = payload.user;
                 state.isAdmin = true;
+                state.isAuth = true;
                 router.push({ name: 'home' });
             }
         },
@@ -101,6 +110,7 @@ export const user = {
             }
         },
         [Constant.INITIALIZE_PROFILE]: (state, payload) => {
+            console.log('mutation_profile', payload);
             if (payload) {
                 state.user = payload;
                 state.isAuth = true;
@@ -111,6 +121,7 @@ export const user = {
         },
 
         [Constant.LOGOUT]: (state, payload) => {
+            console.log("payload", payload);
             state.user = {};
             state.isAuth = false;
             state.isAdmin = false;

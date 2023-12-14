@@ -20,7 +20,7 @@ export default{
      // INITIALIZE_PROFILE: "InitializeProfile",
      LOGIN_ADMIN: "Login_Admin",
      LOGIN: "Login",
-     // LOGOUT: "Logout",
+     LOGOUT: "Logout",
      // ADD_USER: "AddUser",
      
 

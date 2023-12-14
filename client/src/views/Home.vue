@@ -85,16 +85,10 @@ import { useStore } from "vuex";
 import Constant from "../Constant";
 import { useRouter } from "vue-router";
 
-// import { computed, reactive } from "vue";
-// import { useStore } from "vuex";
-// import Constant from "../Constant";
-// import { useRouter } from "vue-router";
-
 import CarouselVue from "../components/Carousel.vue";
 import Card_meals from "../components/Card_meals.vue";
 import Search from "../components/Search.vue";
 import { useMealsInfinite } from "../composables/meals/useMeals";
-// import { useMenusInfinite } from "../composables/menus/useMenus";
 
 export default {
   components: { CarouselVue, Card_meals, Search },
@@ -113,7 +107,6 @@ export default {
 
       // Actualiza el valor
     };
-    console.log(menuNumber.value);
     const state = reactive({
       menus: computed(() => store.getters["menus/GetMenu"]),
 
@@ -133,7 +126,6 @@ export default {
     };
 
     const addInfinite = (page) => {
-      console.log(page, menuNumber.value);
       state.mealsInfinite = useMealsInfinite(page, menuNumber.value, 3);
       console.log(state.mealsInfinite);
     };
@@ -157,11 +149,12 @@ export default {
       addInfinite,
       updateMenuNumber,
       menuNumber: reactive(menuNumber),
-      searchMeals,
+      searchMeals
     };
   },
 };
 </script>
+
 
 <style lang="scss" scoped>
 /*--------------------------------------------------------------

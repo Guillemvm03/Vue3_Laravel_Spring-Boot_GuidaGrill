@@ -13,5 +13,6 @@ export default Vuex.createStore({
     menuDashboard: menuDashboard,
     tableDashboard: tableDashboard,
     user: user,
+    
   },
 });
