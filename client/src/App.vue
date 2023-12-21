@@ -13,14 +13,10 @@ import Constant  from './Constant';
 
 const store = useStore();
 
-if(localStorage.getItem('token')){
-  store.dispatch(`user/${Constant.INITIALIZE_PROFILE}`);
+if(localStorage.getItem(('token'))){
+  console.log("token is present");
+  store.dispatch(`user/${Constant.INITIALIZE_PROFILE}`);  
 }
-// export default{
-//   components: { RouterView },
-//   router
-// }
-
 </script>
 
 

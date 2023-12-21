@@ -20,7 +20,6 @@ export default (URL) => {
       ? localStorage.getItem("token_admin")
       : localStorage.getItem("token");
   if (token) {
-    console.log('token',token);
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
   }
 

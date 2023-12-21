@@ -1,7 +1,7 @@
 <template>
     <body>
         <div class="wrapper">
-            <form action="">
+            <form @keydown.enter="login">
                 <h1>Login</h1>
                 <div class="input-box">
                     <input type="text" placeholder="Username" v-model="state.userAdmin.username" required>
