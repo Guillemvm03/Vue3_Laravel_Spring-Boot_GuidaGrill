@@ -17,17 +17,13 @@ export const user = {
                 const response = await UserService.login(payload);
 
                 if (response.status === 200) {
-                    console.log(response.data.user.type);
                     
                     if (response.data.user.type == "admin") {
-                        console.log("entra admin");
                         const response_admin = await UserService.login_admin(payload);
-                        console.log(response_admin.status);
                         if (response_admin.status === 200) {
                             store.commit(Constant.LOGIN_ADMIN, response_admin.data);
                         }
                     }else{
-                        console.log("entra Client");
                         store.commit(Constant.LOGIN, response.data);
                     }
                 }
@@ -37,8 +33,6 @@ export const user = {
         },
 
         [Constant.LOGOUT]: async (store) => {
-            
-            console.log("logout store");
             try {
                 const response = await UserService.logout();
                 let data = { status: response.status };
@@ -65,23 +59,22 @@ export const user = {
         },
 
         [Constant.INITIALIZE_PROFILE]: async (store) => {
-            console.log("entra profile");
-            console.log(store);
-            try {
+            console.log("entra a initialize profile");
+            // try {
                 const response = await UserService.profile();
-                console.log(response);
                 if (response.status === 200) {
-                    store.commit(Constant.INITIALIZE_PROFILE, response.data.data);
+                    console.log("response.data",response.data);
+                    store.commit(Constant.INITIALIZE_PROFILE,response.data);
                 }
-            } catch (error) {
-                console.error(error);
-            }
+            // } catch (error) {
+            //     console.error(error);
+            // }
         },
 
     },
     mutations: {
         [Constant.LOGIN]: (state, payload) => {
-            console.log(payload);
+            console.log("enta aqui");
             if (payload) {
                 toaster.success('Login successfuly');
                 localStorage.setItem("token", payload.token);
@@ -92,7 +85,6 @@ export const user = {
             }
         },
         [Constant.LOGIN_ADMIN]: (state, payload) => {
-            console.log(payload);
             if (payload) {
                 toaster.success('Login admin successfuly');
                 localStorage.setItem("token_admin", payload.token);
@@ -110,7 +102,7 @@ export const user = {
             }
         },
         [Constant.INITIALIZE_PROFILE]: (state, payload) => {
-            console.log('mutation_profile', payload);
+            console.log("payload");
             if (payload) {
                 state.user = payload;
                 state.isAuth = true;
@@ -119,9 +111,7 @@ export const user = {
                 localStorage.setItem("isAdmin", payload.type === 'admin');
             }
         },
-
         [Constant.LOGOUT]: (state, payload) => {
-            console.log("payload", payload);
             state.user = {};
             state.isAuth = false;
             state.isAdmin = false;
