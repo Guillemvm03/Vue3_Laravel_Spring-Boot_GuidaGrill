@@ -9,6 +9,7 @@ export const menuDashboard = {
             try {
                 const response = await MenuServiceDashboard.GetMenus();
                 store.commit(Constant.INITIALIZE_MENU, response.data.data);
+                console.log(response.data.data);
             } catch (error) {   
                 console.error(error);
             }
@@ -63,6 +64,7 @@ export const menuDashboard = {
 
         [Constant.INITIALIZE_MENU]: (state, payload) => {
             if (payload) {
+                console.log(payload);
                 state.menu = payload;
             }
         },

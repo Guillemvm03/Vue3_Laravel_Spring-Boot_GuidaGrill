@@ -22,7 +22,7 @@ public class Tables {
 
 	@Column(name = "category")
 	private String category;
-
+ 
 	@Column(name = "available")
 	private boolean available;
 
