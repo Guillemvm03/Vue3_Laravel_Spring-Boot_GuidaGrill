@@ -34,7 +34,7 @@ export default {
     },//noAuthGuard
 
     noAuthGuard(to, from, next) {
-        console.log("entra noAuthGuard");
+        // console.log("entra noAuthGuard");
         if (!store.getters['user/GetIsAuth'] && !localStorage.getItem('isAuth')) {
             next();
         } else {

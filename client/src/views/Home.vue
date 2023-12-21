@@ -244,7 +244,7 @@ export default {
 --------------------------------------------------------------*/
 .stats-counter {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../src/assets/img/paella.jpg") center center;
+    url("../src/assets/img/stats-bg.jpg") center center;
   background-size: cover;
   padding: 100px 0;
 }

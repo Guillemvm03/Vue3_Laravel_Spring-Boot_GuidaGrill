@@ -28,6 +28,17 @@
         </div>
       </a>
     </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
+      <a href="/dashboard/users" class="text-decoration-none">
+        <div class="card p-3 shadow bg-primary text-white text-center border-0">
+          <div class="card-body">
+            <p class="card-title lead"><router-link to="/dashboard/users" class="text-white">Users</router-link></p>
+          </div>
+        </div>
+      </a>
+    </div>
+
   </div>
 </div>
 <br><br><br><br><br><br>

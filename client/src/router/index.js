@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import AuthGuard from "./auth-guard";
+import AuthGuards from "../services/guards/AuthGuards";
 
 
 const routes = [
@@ -39,8 +39,10 @@ const routes = [
     path: "/Login",
     name: "Login",
     component: () => import('../views/Login.vue'),
+    beforeEnter: AuthGuards.noAuthGuard, meta: { requiresAuth: true }
     // beforeEnter: AuthGuard.noAuthGuard, meta: { requiresAuth: true }
   },
+  
   ////////////////////////////REGISTER//////////////////////////////////
   // {
   //   path: "/Register",
@@ -70,6 +72,16 @@ const routes = [
     path: "/dashboard/menus",
     name: "DashboardMenus",
     component: () => import('../views/Menus/menuList.vue')
+  },
+  {
+    path: "/dashboard/users",
+    name: "DashboardUsers",
+    component: () => import('../views/Users/userList.vue')
+  },
+  {
+    path: "/dashboard/users/create",
+    name: "CreateUser",
+    component: () => import('../views/Users/userCreate.vue')
   },
   {
     path: "/dashboard/menus/create",

@@ -9,44 +9,52 @@
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Manage <b>MENUS</b></h2>
+							<h2>Manage <b>USERS</b></h2>
 						</div>
 						<div class="col-sm-6">
-							<router-link to="/dashboard/menus/create"><a class="btn btn-success"><span>Add New
-										Menu</span></a> </router-link>
+							<router-link to="/dashboard/users/create"><a class="btn btn-success"><span>Add New
+										User</span></a> </router-link>
 						</div>
 					</div>
 				</div>
 				<table class="table table-striped table-hover">
     
                     <div class="col-sm-6 text-center d-flex align-items-center justify-content-end"> <!-- Clases Bootstrap para centrar y alinear al final -->
-                        <button @click="updateMenu()" class="btn btn-primary mr-2">Update</button>
+                        <!-- <button @click="updateMenu()" class="btn btn-primary mr-2">Update</button> -->
                         <button @click="deleteMenu()" class="btn btn-danger">Delete</button>
                     </div>
 
-                    <DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.menu" ref="tablete">
+                    <DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.users" ref="usersel">
+                    <!-- <DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.users"> -->
 
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>username</th>
+                            <!-- <th>password</th> -->
+                            <th>email</th>
                             <th>type</th>
-                            <th>img_Menu</th>
+                            <th>is_active</th>
+                            <th>photo</th>
                         </tr>
                     </thead>
 					<tbody>
 						
 					</tbody>
                 </DataTable>
-                
+<!--                 
+                <div v-for="user in state.users">
+                <h1>{{ user.username }}</h1>
+                </div>
+                 -->
 				</table>
 			</div>
 		</div>
 	</div>
-
-
 </template>
 
 <script>
+
 import {reactive, computed, ref, onMounted} from 'vue';
 import DataTable from 'datatables.net-vue3';
 import DataTablesLib from 'datatables.net';
@@ -56,64 +64,60 @@ import Constant from '../../Constant.js';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
-
-
 export default {
-    components: { DataTable },
     
-    setup() {
+    components: {DataTable},
 
-        // const toaster = createToaster({ "position": "top-right", "duration": 1500 });
-        const store = useStore();
-        const router = useRouter();
-        DataTable.use(DataTablesLib);
 
-        store.dispatch(`menuDashboard/${Constant.INITIALIZE_MENU}`);
+setup() {
 
-        const state = reactive({
-            menu: computed(() => store.getters['menuDashboard/GetMenus'])
-        });
+const router = useRouter();
+const store = useStore();
+DataTable.use(DataTablesLib);
 
-        const columns = [
-            { data: 'id' },
-            { data: 'type' },
-            { data: 'img_Menu' },
-        ];
 
-        let dt;
-        const tablete = ref();
+store.dispatch(`userDashboard/${Constant.INITIALIZE_USERS}`);
+
+const state = reactive({
+
+users: computed(() => store.getters['userDashboard/getUsers'])
+
+});
+
+let dt;
+        const usersel = ref();
         onMounted(() => {
-            dt = tablete.value.dt;
+            dt = usersel.value.dt;
         });
 
+const columns = [
+{ data: 'id' },
+{ data: 'username' },
+// { data: 'password' },
+{ data: 'email' },
+{ data: 'type' },
+{ data: 'is_active' },
+{ data: 'photo' },
+];
 
-        function updateMenu() {
-            const indexs = dt.rows({ selected: true })[0];
-            if (indexs.length === 1) {
-                const id = state.menu[indexs[0]].id;
-                router.push({ name: 'updateMenu', params: { id } })
-            } else {
-                // toaster.info('You have to select ONE category');
-            }
-        };
-
-        function deleteMenu() {
+function deleteMenu() {
             const indexs = dt.rows({ selected: true })[0];
             if (indexs.length > 0) {
-                dt.rows({ selected: true }).every(index => store.dispatch(`menuDashboard/${Constant.DELETE_MENU}`, state.menu[index].id));
+                dt.rows({ selected: true }).every(index => store.dispatch(`userDashboard/${Constant.DELETE_USER}`, state.users[index].id));
                 router.push('/dashboard/menus');
             } else {
                 // toaster.info('You have to at last ONE Menu');
             }
         };
-        console.log(state);
-        return { state, columns,tablete, deleteMenu, updateMenu};
+// console.log(state);
+return {state, columns, deleteMenu, usersel }
 
-    }
+}
+
 }
 </script>
 
-<style lang="scss">
+<style scoped>
 @import 'datatables.net-dt';
 
 body {

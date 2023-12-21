@@ -17,7 +17,9 @@ export default{
      //USER
      INITIALIZE_USERS: "InitializeUsers",
      INITIALIZE_USER: "InitializeUser",
-     // INITIALIZE_PROFILE: "InitializeProfile",
+     DELETE_USER: "DeleteUser",
+     ADD_USER: "AddUser",
+     INITIALIZE_PROFILE: "InitializeProfile",
      LOGIN_ADMIN: "Login_Admin",
      LOGIN: "Login",
      LOGOUT: "Logout",
