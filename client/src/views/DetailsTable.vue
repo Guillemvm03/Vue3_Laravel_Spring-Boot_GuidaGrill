@@ -149,7 +149,6 @@ export default {
       oneWeekLater.setDate(today.getDate() + 7);
 
       return date < today || date > oneWeekLater;
-      console.log(date);
     },
 
     disableHours(date) {

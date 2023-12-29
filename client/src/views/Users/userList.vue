@@ -109,7 +109,6 @@ function deleteMenu() {
                 // toaster.info('You have to at last ONE Menu');
             }
         };
-// console.log(state);
 return {state, columns, deleteMenu, usersel }
 
 }

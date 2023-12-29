@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\MenuController;
@@ -22,16 +21,13 @@ use App\Http\Controllers\UserController;
 //     return $request->user();
 // });
 
-// Route::get('/mesas', [MesasController::class,'index']);
-// Route::get('/mesas/{id}', [MesasController::class,'show']);
 
-Route::resource('tables', TableController::class);
-
-Route::resource('menu', MenuController::class);
-
-Route::resource('meals', mealsController::class);
-
-Route::resource('users', UserController::class);
+Route::group(['middleware' => ['admin']], function () {
+    Route::resource('tables', TableController::class);
+    Route::resource('menu', MenuController::class);
+    Route::resource('meals', mealsController::class);
+    Route::resource('users', UserController::class);
+});
 
 Route::post('/login', [UserController::class,'login']);
 
@@ -42,11 +38,3 @@ Route::get('profile', [UserController::class,'getUserToken']);
 Route::get('isAdmin', [UserController::class,'isAdmin']);
 
 Route::put('/api/users/{id}', 'UserController@update');
-
-
-
-
-// Route::post('/pistas', [PistaController::class,'store']);
-// Route::get('/pistas/{id}', [PistaController::class,'show']);
-// Route::put('/pistas/{id}', [PistaController::class,'update']);
-// Route::delete('/pistas/{id}', [PistaController::class,'destroy']);

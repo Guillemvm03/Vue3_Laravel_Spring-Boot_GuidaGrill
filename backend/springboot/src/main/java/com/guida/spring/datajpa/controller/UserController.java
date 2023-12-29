@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.guida.spring.datajpa.model.BlacklistToken;
 import com.guida.spring.datajpa.model.User;
 import com.guida.spring.datajpa.model.UserAndToken;
+import com.guida.spring.datajpa.repository.BlacklistTokenRepository;
+import com.guida.spring.datajpa.repository.TableRepository;
 import com.guida.spring.datajpa.repository.UserRepository;
-import com.guida.spring.datajpa.security.jwt.JwtUtils;
+import com.guida.spring.datajpa.security.jwt.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +23,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import jakarta.servlet.http.HttpServletRequest;
+
 
 
 // import jartaka.persistence;
@@ -40,6 +46,12 @@ public class UserController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Autowired
+	BlacklistTokenRepository blacklistTokenRepository;
+
+    @Autowired
+    private AuthTokenFilter authTokenFilter;
 
 
     @GetMapping("/profile")
@@ -106,8 +118,14 @@ public class UserController {
 }
 
 @PostMapping("/logout")
-public ResponseEntity<?> logoutUser() {
+public ResponseEntity<?> logoutUser(HttpServletRequest request) {
     try {
+        String token = authTokenFilter.parseJwt( request);
+        if (blacklistTokenRepository.TokenExist(token) == 0) {
+            BlacklistToken blacklistToken = new BlacklistToken();
+            blacklistToken.setToken(token);
+            blacklistTokenRepository.save(blacklistToken);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
 
     } catch (Exception e) {

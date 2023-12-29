@@ -92,8 +92,6 @@ export default {
   setup(props) {
     const menu_number = ref(1);
 
-    // console.log(props.dataMeals);
-
     const { emit } = getCurrentInstance();
 
     AOS.init();
@@ -111,12 +109,9 @@ export default {
         // $state.loaded();
       }
     };
-    // console.log(menu_number.value);
-    // emit("menu_number", menu_number.value);
 
     const restartscroll = () => {
       page = 1;
-      // console.log("restartscroll");
     };
 
     return { scroll, menu_number, restartscroll };

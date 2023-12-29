@@ -65,8 +65,7 @@ export default {
 	props: {
 		tables: Object,
 	},
-	setup() {
-
+	setup(props) {
 		const toaster = createToaster({ position: "top-right" });
 		const store = useStore();
 		const router = useRouter();

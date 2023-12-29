@@ -3,30 +3,35 @@
     <div class="wrapper" :class="{ 'flipped': !isLogin }">
       <div :class="{'content': !isLogin}">
         <h1>{{ isLogin ? 'Login' : 'Register' }}</h1>
-      <div class="input-box" v-show="isLogin || !isLogin">
-        <input type="text" placeholder="Username" v-model="state.userAdmin.username" required>
-        <i class='bx bxs-user'></i>
+        <div class="input-box" v-if="isLogin">
+        <input type="text" placeholder="Username" v-model="state.user.username" required>
+      </div><div class="input-box" v-else="!isLogin">
+        <input type="text" placeholder="Username" v-model="state.useRegister.username" required>
       </div>
 
-      <div class="input-box" v-show="isLogin || !isLogin">
-        <input type="text" placeholder="Email" v-model="state.userAdmin.email" required>
-        <i class='bx bxs-user'></i>
+      <div class="input-box" v-show="!isLogin">
+        <input type="text" placeholder="Email" v-model="state.useRegister.email" required>
+      </div>
+      <div class="input-box" v-show="isLogin">
+        <input type="password" placeholder="Password" v-model="state.user.password" required>
       </div>
       <div class="input-box" v-show="!isLogin">
-        <input type="password" placeholder="Password" v-model="state.userAdmin.password" required>
-        <i class='bx bxs-lock-alt'></i>
+        <input type="password" placeholder="Password" v-model="state.useRegister.password" required>
       </div>
-      <!-- <div class="input-box" v-show="!isLogin">
-        <input type="password" placeholder="Repeat Password" v-model="state.userAdmin.password" required>
-        <i class='bx bxs-lock-alt'></i>
-      </div> -->
+
+      <div class="input-box" v-show="!isLogin">
+        <input type="password" placeholder="Repeat Password" required>
+      </div>
 
       <!-- <div class="input-box"></div>
       <div class="remember-forgot">
         <label><input type="checkbox">Remember me</label>
         <a href="#">Forgot password?</a>
       </div> -->
-      <button @click="isLogin ? login : register" class="btn">{{ isLogin ? 'Login' : 'Register' }}</button>
+
+      <!-- <button @click="isLogin ? login : register" class="btn">{{ isLogin ? 'Login' : 'Register' }}</button> -->
+      <button v-if="isLogin" class="btn" @click="login" @keydown.enter="login">Login</button>
+      <button v-else="!isLogin" @click="register" class="btn">Register</button>
       <div class="register-link">
         <p>
           {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
@@ -48,7 +53,8 @@ export default {
       isLogin: Boolean,
   },
   emits: {
-      send: Object
+      sendLogin: Object,
+      sendRegister: Object,
   },
 
   setup(props) {
@@ -58,7 +64,7 @@ export default {
       const isLogin = ref(props.isLogin);
 
       const state = reactive({
-          userAdmin: {
+          user: {
               username: '',
               password: '',
           },
@@ -70,16 +76,18 @@ export default {
       });
 
       const login = () => {
-          const emit_data = state.userAdmin;            
 
-          emit('send', emit_data);
+          const emit_data = state.user;            
+
+          emit('sendLogin', emit_data);
       }
 
 
       const register = () => {
+
         const emit_data = state.useRegister;
         
-        emit('send', emit_data);
+        emit('sendRegister', emit_data);
         }
       return { state, login, register, isLogin };
   }

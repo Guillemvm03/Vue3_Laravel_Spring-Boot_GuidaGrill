@@ -1,5 +1,5 @@
 <template>
-    <LoginForm :isLogin="true" @send="login"  />
+    <LoginForm :isLogin="true" @sendLogin="login" @sendRegister="register" />
 </template>
 
 <script> 
@@ -17,11 +17,14 @@ export default {
         const store = useStore();
 
         const login = (data) => {
-            // console.log(data);
             store.dispatch(`user/${Constant.LOGIN}`, data);
         }
+        const register = (data) => {
+            store.dispatch(`user/${Constant.ADD_USER}`, data);
+        }
         return {
-            login
+            login,
+            register
         }
     }
 }
