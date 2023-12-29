@@ -96,11 +96,10 @@ export default {
 
     const { emit } = getCurrentInstance();
 
-    AOS.init();
 
-    watch(menu_number, () => {
-      AOS.refresh();
-    });
+    // watch(menu_number, () => {
+    //   AOS.refresh();
+    // });
 
     let page = 1;
     const scroll = ($state) => {

@@ -3,30 +3,23 @@
     <div class="wrapper" :class="{ 'flipped': !isLogin }">
       <div :class="{'content': !isLogin}">
         <h1>{{ isLogin ? 'Login' : 'Register' }}</h1>
+<br>
+        <errorList/>
+
       <div class="input-box" v-show="isLogin || !isLogin">
         <input type="text" placeholder="Username" v-model="state.userAdmin.username" required>
         <i class='bx bxs-user'></i>
       </div>
 
       <div class="input-box" v-show="isLogin || !isLogin">
-        <input type="text" placeholder="Email" v-model="state.userAdmin.email" required>
-        <i class='bx bxs-user'></i>
-      </div>
-      <div class="input-box" v-show="!isLogin">
         <input type="password" placeholder="Password" v-model="state.userAdmin.password" required>
         <i class='bx bxs-lock-alt'></i>
       </div>
-      <!-- <div class="input-box" v-show="!isLogin">
-        <input type="password" placeholder="Repeat Password" v-model="state.userAdmin.password" required>
-        <i class='bx bxs-lock-alt'></i>
-      </div> -->
 
-      <!-- <div class="input-box"></div>
-      <div class="remember-forgot">
-        <label><input type="checkbox">Remember me</label>
-        <a href="#">Forgot password?</a>
-      </div> -->
-      <button @click="isLogin ? login : register" class="btn">{{ isLogin ? 'Login' : 'Register' }}</button>
+
+      <!-- <button @click="isLogin ? login : register" class="btn">{{ isLogin ? 'Login' : 'Register' }}</button> -->
+      <button v-if="isLogin" class="btn" @click="login">Login</button>
+      <button v-else="!isLogin" class="btn">Register</button>
       <div class="register-link">
         <p>
           {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
@@ -40,10 +33,18 @@
   </body>
 </template>
 <script>
+
+import errorList from './errorList.vue';
+
 import { getCurrentInstance, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
+
+  components: {
+      errorList: errorList,
+  },
+
   props: {
       isLogin: Boolean,
   },
@@ -70,6 +71,7 @@ export default {
       });
 
       const login = () => {
+
           const emit_data = state.userAdmin;            
 
           emit('send', emit_data);

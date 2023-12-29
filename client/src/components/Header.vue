@@ -25,6 +25,8 @@
           </li>
 
           <li v-if="!state.isAuth">
+          <!-- <li v-if="!state.isAuth"> -->
+
             <router-link to="/Login" class="link">
               <a class="nav-link">Register/Login</a>
             </router-link>
@@ -36,6 +38,26 @@
           <router-link to="/Dashboard" class="link" v-if="state.isAdmin">
             <a class="btn-book-a-table">Dashboard</a>
           </router-link>
+
+<li>
+  <div class="btn-group user-profile">
+                    <img src="https://imgs.search.brave.com/jLTwrBSRPcoyhBJs1uPbMl500isS1N2O0JlI3BLUQoY/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJzLmNvbS9p/bWFnZXMvZmVhdHVy/ZWQvY29vbC1wcm9m/aWxlLXBpY3R1cmUt/ODdoNDZnY29iamw1/ZTR4dS5qcGc" alt="" style="border-radius: 50%; width: 50px; height: 50px; margin-top: 8px;">
+                    <div class="drp-dwn">
+                    <button type="button" class="btn dropdown-toggle user-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #000;">
+                        Bonjour, <b>Joel Sims</b>
+                    </button>
+                    <div class="dropdown-menu" style="background-color: transparent ;">
+                        <h6 class="dropdown-header">Développeur Picodev</h6>
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Help</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Logout</a>
+                      </div>
+                    </div>
+                    </div>
+</li>
+
         </ul>
       </nav>
     </div>
@@ -347,4 +369,97 @@ img {
   width: 150px;
   border-radius: 5px;
 }
+
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+#content {
+    width: calc(100% - 250px);
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#content.active {
+    width: 100%;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
+    content: '\e259';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-family: 'Glyphicons Halflings';
+    font-size: 0.6em;
+}
+
+a[aria-expanded="true"]::before {
+    content: '\e260';
+}
+
+.pdr-icon {
+    padding-right: 10px;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+
+.navbar-nav>li>.dropdown-menu {
+    margin-top: 40px;
+}
+
+
+/* ---------------------------------------------------
+    BOOTSTRAP OVERRIDE
+----------------------------------------------------- */
+
+.user-profile > .btn, .user-profile > .btn.focus, .user-profile > .btn:focus, .user-profile > .btn:not(:disabled):not(.disabled).active, .user-profile > .btn:not(:disabled):not(.disabled):active, .user-profile > .show>.btn.dropdown-toggle {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.user-profile > .dropdown-menu {
+    margin: 1.125rem 0 0;
+}
+
+.jumbotron {
+    background-color: #fafafa;
+    border: 1px solid #E5E5E5;
+    padding: 1rem;
+    border-radius: 0;
+}
+
+.drp-dwn{
+  color: #000;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+@media (max-width: 768px) {
+
+    #content {
+        width: 100%;
+    }
+    #content.active {
+        width: calc(100% - 250px);
+    }
+
+}
+
+
+
 </style>

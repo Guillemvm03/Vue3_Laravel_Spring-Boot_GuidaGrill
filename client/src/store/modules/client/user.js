@@ -23,7 +23,8 @@ export const user = {
                         if (response_admin.status === 200) {
                             store.commit(Constant.LOGIN_ADMIN, response_admin.data);
                         }
-                    }else{
+                    }
+                    else{
                         store.commit(Constant.LOGIN, response.data);
                     }
                 }
@@ -60,6 +61,7 @@ export const user = {
 
         [Constant.INITIALIZE_PROFILE]: async (store) => {
             console.log("entra a initialize profile");
+
             // try {
                 const response = await UserService.profile();
                 if (response.status === 200) {
@@ -91,7 +93,7 @@ export const user = {
                 localStorage.setItem("isAdmin", true);
                 state.user = payload.user;
                 state.isAdmin = true;
-                state.isAuth = true;
+                // state.isAuth = true;
                 router.push({ name: 'home' });
             }
         },
@@ -102,7 +104,7 @@ export const user = {
             }
         },
         [Constant.INITIALIZE_PROFILE]: (state, payload) => {
-            console.log("payload");
+            console.log(payload);
             if (payload) {
                 state.user = payload;
                 state.isAuth = true;
