@@ -39,7 +39,7 @@ const routes = [
     path: "/Login",
     name: "Login",
     component: () => import('../views/Login.vue'),
-    beforeEnter: AuthGuards.noAuthGuard, meta: { requiresAuth: true }
+    // beforeEnter: AuthGuards.noAuthGuard, meta: { requiresAuth: true }
     // beforeEnter: AuthGuard.noAuthGuard, meta: { requiresAuth: true }
   },
   
@@ -102,7 +102,13 @@ const routes = [
     path: "/Dashboard/Tables/tableEdit/:id",
     name: "tableEdit",
     component: () => import('../views/Tables/tableEdit.vue')
-  }
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: () => import('../views/Profile.vue'),
+    // beforeEnter: AuthGuards.AuthGuard, meta: { requiresAuth: true }
+  },
 ];
 
 const router = createRouter({

@@ -3,6 +3,9 @@
     <div class="wrapper" :class="{ 'flipped': !isLogin }">
       <div :class="{'content': !isLogin}">
         <h1>{{ isLogin ? 'Login' : 'Register' }}</h1>
+        <errorList/>
+        
+
         <div class="input-box" v-if="isLogin">
         <input type="text" placeholder="Username" v-model="state.user.username" required>
       </div><div class="input-box" v-else="!isLogin">
@@ -32,6 +35,7 @@
       <!-- <button @click="isLogin ? login : register" class="btn">{{ isLogin ? 'Login' : 'Register' }}</button> -->
       <button v-if="isLogin" class="btn" @click="login" @keydown.enter="login">Login</button>
       <button v-else="!isLogin" @click="register" class="btn">Register</button>
+
       <div class="register-link">
         <p>
           {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
@@ -45,10 +49,18 @@
   </body>
 </template>
 <script>
+
+import errorList from './errorList.vue';
+
 import { getCurrentInstance, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {
+
+  components: {
+      errorList: errorList,
+  },
+
   props: {
       isLogin: Boolean,
   },
@@ -76,6 +88,7 @@ export default {
       });
 
       const login = () => {
+
 
           const emit_data = state.user;            
 
