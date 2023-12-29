@@ -140,8 +140,6 @@ export default {
           store.commit('updateTable', state.dataTable);
           toaster.success("Table updated successfully");
         } else {
-          console.log(state.dataTable)
-
           store.commit('createTable', state.dataTable);
           toaster.success("Table created successfully");
         }

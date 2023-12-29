@@ -102,7 +102,6 @@ export default {
 
     const updateMenuNumber = (newMenuNumber) => {
       menuNumber.value = newMenuNumber;
-      console.log(menuNumber.value);
       state.mealsInfinite = useMealsInfinite(1, menuNumber.value, 3);
 
       // Actualiza el valor
@@ -127,21 +126,16 @@ export default {
 
     const addInfinite = (page) => {
       state.mealsInfinite = useMealsInfinite(page, menuNumber.value, 3);
-      console.log(state.mealsInfinite);
     };
 
     const searchMeals = (item) => {
-      console.log(item);
       const filtersSearch = {
         meals: item,
       };
-      console.log(filtersSearch);
 
       const filtersSearch_ = btoa(JSON.stringify(filtersSearch));
       router.push({ name: "bookingFilters", params: { filters: filtersSearch_ } });
     };
-
-    // console.log(state.mealsInfinite);
 
     return {
       state,

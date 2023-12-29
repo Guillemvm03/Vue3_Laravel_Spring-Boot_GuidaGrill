@@ -81,7 +81,6 @@ export default {
     });
 
     const logout = () => {
-      console.log("logout");
       store.dispatch(`user/${Constant.LOGOUT}`);
     };
     return {

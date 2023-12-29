@@ -51,7 +51,6 @@ export const userDashboard = {
     },
     mutations: {
         [Contant.INITIALIZE_USERS](state, playload) {
-            console.log(playload);
             state.users = playload;
         },
         [Contant.GET_USER](state, playload) {

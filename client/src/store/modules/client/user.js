@@ -51,36 +51,48 @@ export const user = {
         [Constant.ADD_USER]: async (store, payload) => {
             try {
                 const response = await UserService.register(payload);
+                console.log(response);
                 if (response.status === 201) {
                     store.commit(Constant.ADD_USER, true);
                 }
             } catch (error) {
-                toaster.error('Register error');
+                console.error('Error in catch block:', error);
+                toaster.error('Register error action');
             }
         },
 
         [Constant.INITIALIZE_PROFILE]: async (store) => {
-            console.log("entra a initialize profile");
 
-            // try {
+            try {
+
                 const response = await UserService.profile();
+                console.log(response);
                 if (response.status === 200) {
-                    console.log("response.data",response.data);
+                    
                     store.commit(Constant.INITIALIZE_PROFILE,response.data);
                 }
-            // } catch (error) {
-            //     console.error(error);
-            // }
+            } catch (error) {
+                console.error(error);
+            }
         },
-
+        [Constant.INITIALIZE_PROFILE_ADMIN]: async (store) => {
+            try {
+                const response = await UserService.profile_admin();
+                if (response.status === 200) {
+                    store.commit(Constant.INITIALIZE_PROFILE_ADMIN,response.data);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
     },
     mutations: {
         [Constant.LOGIN]: (state, payload) => {
-            console.log("enta aqui");
             if (payload) {
                 toaster.success('Login successfuly');
                 localStorage.setItem("token", payload.token);
                 localStorage.setItem("isAuth", true);
+                localStorage.setItem("isAdmin", false);
                 state.user = payload.user;
                 state.isAuth = true;
                 router.push({ name: 'home' });
@@ -98,19 +110,27 @@ export const user = {
             }
         },
         [Constant.ADD_USER]: (state, payload) => {
+            console.log(payload);
             if (payload) {
                 toaster.success('Register successfuly');
-                router.push({ name: 'login' });
+                window.location.reload();
             }
         },
         [Constant.INITIALIZE_PROFILE]: (state, payload) => {
-            console.log(payload);
+
             if (payload) {
                 state.user = payload;
                 state.isAuth = true;
-                state.isAdmin = payload.type === 'admin';
                 localStorage.setItem("isAuth", true);
-                localStorage.setItem("isAdmin", payload.type === 'admin');
+            }
+        },
+        [Constant.INITIALIZE_PROFILE_ADMIN]: (state, payload) => {
+            if (payload) {
+                state.user = payload;
+                state.isAuth = true;
+                state.isAdmin = true;
+                localStorage.setItem("isAuth", true);
+                localStorage.setItem("isAdmin", true);
             }
         },
         [Constant.LOGOUT]: (state, payload) => {

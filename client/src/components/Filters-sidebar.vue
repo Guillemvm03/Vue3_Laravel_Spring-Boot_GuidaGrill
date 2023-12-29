@@ -42,7 +42,6 @@ export default {
       }
     })
     const sendData = () => {
-      console.log(state.filters);
       emit('filters1', state.filters);    
     }
 

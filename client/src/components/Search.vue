@@ -25,7 +25,6 @@ export default {
     });
 
     const searchMeals = () => {
-      console.log(state.searchMeal);
       emit('searchMealsValue', state.searchMeal);
     }
 

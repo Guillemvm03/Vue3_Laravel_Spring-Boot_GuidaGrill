@@ -60,10 +60,12 @@ export default {
 
 
 
+
   setup() {
     const router = useRouter();
     const store = useStore();
     const id = router.currentRoute.value.params.id;
+
 
     store.dispatch(`tables/${Constant.INITIALIZE_ONE_STATE_TABLES}`, id);
     const stateOne = reactive({

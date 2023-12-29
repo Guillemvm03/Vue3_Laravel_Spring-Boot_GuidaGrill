@@ -67,7 +67,6 @@ export default {
     try {
       if (route.params.filters !== '') {
         filter_url = JSON.parse(atob(route.params.filters));
-        // console.log(filter_url);
       }
     } catch (error) {
     }
@@ -103,11 +102,9 @@ export default {
                 }
             } catch (error) {
             }
-            // console.log(pageNum);
             filter_url.page = pageNum;
             state.page = pageNum;
             ApplyFilters(filter_url)
-            // window.location.reload();
         }
 
     return { state, filter_url, ApplyFilters, deleteFilters, clickCallback }
