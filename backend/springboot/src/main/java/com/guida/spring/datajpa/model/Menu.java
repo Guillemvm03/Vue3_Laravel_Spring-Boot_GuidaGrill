@@ -19,6 +19,12 @@ public class Menu {
     @Column(name = "img_Menu")
     private String img_Menu;
 
+    @Column(name="start_time")
+    private String start_time;
+
+    @Column(name="end_time")
+    private String end_time;
+
     @OneToMany(mappedBy = "menu") 
     private Set<Meals> meals;
 
@@ -62,6 +68,22 @@ public class Menu {
         this.img_Menu = img_Menu;
     }
 
+    public String getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(String start_time){
+        this.start_time = start_time;
+    }
+
+    public String getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(String end_time){
+        this.end_time = end_time;
+    }
+
     public Set<Meals> getMeals() {
         return meals;
     }
@@ -78,6 +100,8 @@ public class Menu {
         ", type=" + type + 
         ", img_Menu=" + img_Menu + 
         ", meals=" + meals +
+        ", start_time=" + start_time +
+        ", end_time=" + end_time +
 				"]";
     }
 }

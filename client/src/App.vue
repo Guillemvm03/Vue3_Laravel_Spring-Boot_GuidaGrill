@@ -28,10 +28,11 @@ if(localStorage.getItem(('token'))){
   
     store.dispatch(`user/${Constant.INITIALIZE_PROFILE}`);  
   
-}else{
-  console.log("admin");
-  store.dispatch(`user/${Constant.INITIALIZE_PROFILE_ADMIN}`);
 }
+// else{
+//   console.log("admin");
+//   store.dispatch(`user/${Constant.INITIALIZE_PROFILE_ADMIN}`);
+// }
 </script>
 
 

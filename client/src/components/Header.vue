@@ -35,7 +35,7 @@
             <a class="nav-link">Logout</a>
           </li>
 
-          <router-link to="/Dashboard" class="link" v-if="state.isAdmin">
+          <router-link to="/Dashboard" class="link" v-if="state.isAdmin==true">
             <a class="btn-book-a-table">Dashboard</a>
           </router-link>
 
@@ -83,6 +83,7 @@ export default {
     const logout = () => {
       store.dispatch(`user/${Constant.LOGOUT}`);
     };
+
     return {
       state,
       logout,

@@ -12,7 +12,7 @@
       </div>
     </div> -->
 
-  <div class="card mb-3" style="max-width: 600px;" >
+  <!-- <div class="card mb-3" style="max-width: 600px;" >
       <div class="row g-0">
         <div class="col-md-4">
           <img
@@ -35,7 +35,7 @@
         </div>
         <button class="btn btn-outline-success">Booking</button>
       </div>
-    </div>
+    </div> -->
 
 
     <BookingForm :tables="stateOne.tables"></BookingForm>
