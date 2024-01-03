@@ -54,6 +54,7 @@ const routes = [
     name: "Profile",
     component: () => import('../views/Profile.vue'),
     beforeEnter: AuthGuards.AuthGuard, meta: { requiresAuth: true }
+
   },
    ///////////////////////////DASHBOARD//////////////////////////////
   {
