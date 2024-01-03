@@ -16,13 +16,17 @@ export const user = {
             try {
                 const response = await UserService.login(payload);
                 if (response.status === 200) {
-                    store.commit(Constant.LOGIN, response.data);                    
+                    store.commit(Constant.LOGIN, response.data);
                     if (response.data.user.type == "admin") {
                         const response_admin = await UserService.login_admin(payload);
                         if (response_admin.status === 200) {
                             store.commit(Constant.LOGIN_ADMIN, response_admin.data);
                         }
+
                     }                    
+
+                    
+
                 }
             } catch (error) {
                 toaster.error('Username or password incorrect');

@@ -3,23 +3,31 @@
     <div class="wrapper" :class="{ 'flipped': !isLogin }">
       <div :class="{'content': !isLogin}">
         <h1>{{ isLogin ? 'Login' : 'Register' }}</h1>
-        <errorList/>
+
+
+        <!-- <errorList v-if="hasErrors()" :fieldErrors="state.errors"/> -->
         
 
         <div class="input-box" v-if="isLogin">
         <input type="text" placeholder="Username" v-model="state.user.username" required>
-      </div><div class="input-box" v-else="!isLogin">
+      </div>
+      
+      <div class="input-box" v-else="!isLogin">
         <input type="text" placeholder="Username" v-model="state.useRegister.username" required>
+        <p class="field-error">{{ state.errors.username }}</p>
       </div>
 
       <div class="input-box" v-show="!isLogin">
         <input type="text" placeholder="Email" v-model="state.useRegister.email" required>
+        <p class="field-error">{{ state.errors.email }}</p>
       </div>
-      <div class="input-box" v-show="isLogin">
+
+      <div class="input-box" v-if="isLogin">
         <input type="password" placeholder="Password" v-model="state.user.password" required>
       </div>
-      <div class="input-box" v-show="!isLogin">
+      <div class="input-box" v-else="!isLogin">
         <input type="password" placeholder="Password" v-model="state.useRegister.password" required>
+        <p class="field-error">{{ state.errors.password }}</p>
       </div>
 
       <div class="input-box" v-show="!isLogin">
@@ -48,65 +56,101 @@
     </div>
   </body>
 </template>
-<script>
 
+
+<script>
+import { getCurrentInstance, reactive, ref, watchEffect } from 'vue';
+import { useRouter } from 'vue-router';
 import errorList from './errorList.vue';
 
-import { getCurrentInstance, reactive, ref } from 'vue';
-import { useRouter } from 'vue-router';
-
 export default {
-
   components: {
-      errorList: errorList,
+    errorList: errorList,
   },
-
   props: {
-      isLogin: Boolean,
+    isLogin: Boolean,
   },
   emits: {
-      sendLogin: Object,
-      sendRegister: Object,
+    sendLogin: Object,
+    sendRegister: Object,
   },
-
   setup(props) {
-      const { emit } = getCurrentInstance();
-      const router = useRouter();
+    const { emit } = getCurrentInstance();
+    const router = useRouter();
     
-      const isLogin = ref(props.isLogin);
+    const isLogin = ref(props.isLogin);
 
-      const state = reactive({
-          user: {
-              username: '',
-              password: '',
-          },
-          useRegister:{
-            username: '',
-            email: '',
-            password: '',
-          }
-      });
+    const state = reactive({
+      user: {
+        username: '',
+        password: '',
+      },
+      useRegister: {
+        username: '',
+        email: '',
+        password: '',
+      },
+      errors: {
+        username: '',
+        email: '',
+        password: '',
+      },
+    });
 
-      const login = () => {
+    const login = () => {
+      const emit_data = state.user;
+      emit('sendLogin', emit_data);
+    };
 
+    const register = () => {
+      validateUsername();
+      validateEmail();
+      validatePassword();
 
-          const emit_data = state.user;            
-
-          emit('sendLogin', emit_data);
-      }
-
-
-      const register = () => {
-
+      if (!hasErrors()) {
         const emit_data = state.useRegister;
-        
         emit('sendRegister', emit_data);
-        }
-      return { state, login, register, isLogin };
+      }
+    };
+
+    const validateUsername = () => {
+      const usernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
+      if (!usernameRegex.test(state.useRegister.username)) {
+          state.errors.username = 'The username format is invalid';
+        } else {
+        state.errors.username = '';
+      }
+    };
+
+    const validateEmail = () => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(state.useRegister.email)) {
+          state.errors.email = 'The email format is invalid';
+        } else {
+        state.errors.email = '';
+      }
+    };
+
+    const validatePassword = () => {
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+      if (!passwordRegex.test(state.useRegister.password)) {
+        state.errors.password = 'The password format is invalid';
+      } else {
+        state.errors.password = '';
+      }
+    };
+
+    const hasErrors = () => {
+  return Object.values(state.errors).some(error => error !== '');
+};
+
+
+    return { state, login, register, isLogin, hasErrors };
   }
 }
-
 </script>
+
+
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
@@ -245,4 +289,11 @@ transform: rotate3d(0, 1, 0, 180deg);
 .register-link p a:hover {
   text-decoration: underline;
 }
+
+.field-error {
+  color: red;
+  font-family: 'Roboto', sans-serif;
+  font-style: italic;
+} 
+
 </style>

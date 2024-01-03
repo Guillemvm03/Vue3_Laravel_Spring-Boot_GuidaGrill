@@ -26,22 +26,24 @@
           >
             <div class="row gy-4">
               <div class="col-lg-4 col-md-6">
+                <label for="name">Name:</label>
                 <input
                   type="text"
                   name="name"
                   class="form-control"
                   id="name"
-                  placeholder="Your Name"
                   data-rule="minlen:4"
                   data-msg="Please enter at least 4 chars"
+                  v-model="state.user.username"
                 />
                 <div class="validate"></div>
               </div>
               <div class="col-lg-4 col-md-6">
+                <label for="people">Menu:</label>
                 <select
                   class="form-select"
-                  name="people"
-                  id="people"
+                  name="menu"
+                  id="menu"
                   data-rule="minlen:1"
                   data-msg="Please select an option"
                 >
@@ -56,30 +58,33 @@
                 <div class="validate"></div>
               </div>
               <div class="col-lg-4 col-md-6">
+                <label for="date">Date:</label>
                 <VueDatePicker
-                  v-model="date"
+                  v-model="state.date"
                   :disabled-dates="disableDates"
                 ></VueDatePicker>
               </div>
               <div class="col-lg-4 col-md-6">
+                <label for="email">Email:</label>
                 <input
                   type="email"
                   class="form-control"
                   name="email"
                   id="email"
-                  placeholder="Your Email"
+                  v-model="state.user.email"
                   data-rule="email"
                   data-msg="Please enter a valid email"
                 />
                 <div class="validate"></div>
               </div>
               <div class="col-lg-4 col-md-6">
+                <label for="type">Type:</label>
                 <input
                   type="text"
                   class="form-control"
-                  name="phone"
-                  id="phone"
-                  placeholder="Your Phone"
+                  name="type"
+                  id="type"
+                  v-model="state.tableLocal.category"
                   data-rule="minlen:4"
                   data-msg="Please enter at least 4 chars"
                 />
@@ -96,12 +101,13 @@
                 </div> -->
 
               <div class="col-lg-4 col-md-6">
+                <label for="people">People:</label>
                 <input
                   type="number"
                   class="form-control"
                   name="people"
                   id="people"
-                  placeholder="# of people"
+                  v-model="state.tableLocal.capacity"
                   data-rule="minlen:1"
                   data-msg="Please enter at least 1 chars"
                   :max="tables.capacity"
@@ -110,6 +116,7 @@
               </div>
             </div>
             <div class="form-group mt-3">
+              <label for="message"></label>
               <textarea
                 class="form-control"
                 name="message"
@@ -126,7 +133,7 @@
                 confirm your reservation. Thank you!
               </div>
             </div>
-            <div class="text-center"><button @click="sendData" type="submit">Book a Table</button></div>
+            <div class="text-center"><button @click="sendData" type="button">Book a Table</button></div>
           </form>
         </div>
       </div>
@@ -176,14 +183,30 @@ data() {
     // },
   },
     
-setup() {
+setup(props) {
+  const router = useRouter();
+  const store = useStore();
+  const {emit} = getCurrentInstance();
+  const tables_ = props.tables ? props.tables : { 'type': '', 'img_table': '', 'date':'' };
+  console.log(tables_);
 
-const {emit} = getCurrentInstance();
+  const date = ref(null);
 
     const sendData = () => {
-            // emit('data', state.menuLocal);
-
+            // emit('data', state);
+          console.log(state.tableLocal);
         }
+
+    const state = reactive({
+
+      user: computed(() => store.getters["user/GetProfile"]),
+      tableLocal: { ...tables_ },
+      date: date.value,
+
+      });
+
+      console.log(state.date);
+      return { state, sendData };
 
 }
 
@@ -297,7 +320,7 @@ const {emit} = getCurrentInstance();
   padding: 12px 15px;
 }
 
-.book-a-table .php-email-form button[type="submit"] {
+.book-a-table .php-email-form button[type="button"] {
   background: var(--color-primary);
   border: 0;
   padding: 14px 60px;
@@ -306,7 +329,7 @@ const {emit} = getCurrentInstance();
   border-radius: 50px;
 }
 
-.book-a-table .php-email-form button[type="submit"]:hover {
+.book-a-table .php-email-form button[type="button"]:hover {
   background: #ec2727;
 }
 

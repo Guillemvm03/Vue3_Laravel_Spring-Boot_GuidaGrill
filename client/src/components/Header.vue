@@ -29,7 +29,6 @@
               <a class="nav-link">Register/Login</a>
             </router-link>
           </li>
-
           <li v-if="state.isAuth">
             <div class="btn-group user-profile">
               <img :src="state.profile.photo" alt=""
@@ -75,6 +74,7 @@ export default {
     const logout = () => {
       store.dispatch(`user/${Constant.LOGOUT}`);
     };
+
     return {
       state,
       logout,

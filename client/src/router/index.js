@@ -39,8 +39,7 @@ const routes = [
     path: "/Login",
     name: "Login",
     component: () => import('../views/Login.vue'),
-    // beforeEnter: AuthGuards.noAuthGuard, meta: { requiresAuth: true }
-    // beforeEnter: AuthGuard.noAuthGuard, meta: { requiresAuth: true }
+    beforeEnter: AuthGuards.noAuthGuard, meta: { requiresAuth: true }
   },
   
   ////////////////////////////REGISTER//////////////////////////////////
@@ -53,60 +52,80 @@ const routes = [
   {
     path: "/Profile",
     name: "Profile",
-    component: () => import('../views/Profile.vue')
+    component: () => import('../views/Profile.vue'),
+    beforeEnter: AuthGuards.AuthGuard, meta: { requiresAuth: true }
+
   },
    ///////////////////////////DASHBOARD//////////////////////////////
   {
     path: "/Dashboard",
     name: "Dashboard",
-    component: () => import('../views/Dashboard.vue')
+    component: () => import('../views/Dashboard.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }
+
   },
   // TABLES
   {
     path: "/dashboard/tables",
     name: "DashboardTables",
-    component: () => import('../views/Tables/tableList.vue')
+    component: () => import('../views/Tables/tableList.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }
+
   },
   // MENUS
   {
     path: "/dashboard/menus",
     name: "DashboardMenus",
-    component: () => import('../views/Menus/menuList.vue')
+    component: () => import('../views/Menus/menuList.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }
+
   },
   {
     path: "/dashboard/users",
     name: "DashboardUsers",
-    component: () => import('../views/Users/userList.vue')
+    component: () => import('../views/Users/userList.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }
   },
   {
     path: "/dashboard/users/create",
     name: "CreateUser",
-    component: () => import('../views/Users/userCreate.vue')
+    component: () => import('../views/Users/userCreate.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }
+
   },
   {
     path: "/dashboard/menus/create",
     name: "CreateMenu",
-    component: () => import('../views/Menus/menuCreate.vue')
+    component: () => import('../views/Menus/menuCreate.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }
+
   },
   {
     path: "/dashboard/menus/update/:id",
     name: "updateMenu",
-    component: () => import('../views/Menus/menuUpdate.vue')
+    component: () => import('../views/Menus/menuUpdate.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }
+
   },
   {
     path: "/Dashboard/Tables/tableCreate",
     name: "tableCreate",
-    component: () => import('../views/Tables/tableCreate.vue')
+    component: () => import('../views/Tables/tableCreate.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }
+
   },
   {
     path: "/Dashboard/Tables/tableEdit/:id",
     name: "tableEdit",
-    component: () => import('../views/Tables/tableEdit.vue')
+    component: () => import('../views/Tables/tableEdit.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }
+
   },
   {
     path: "/profile",
     name: "profile",
     component: () => import('../views/Profile.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }    
     // beforeEnter: AuthGuards.AuthGuard, meta: { requiresAuth: true }
   },
 ];
