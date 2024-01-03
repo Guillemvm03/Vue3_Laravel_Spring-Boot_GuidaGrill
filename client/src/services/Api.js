@@ -8,7 +8,7 @@ import secrets from "../../secrets.example";
 
 export default (URL) => {
   const toaster = createToaster({ position: "top-right", duration: 1500 });
-  const store = useStore();
+  // const store = useStore();
   const router = useRoute();
 
   const api = axios.create({
@@ -18,6 +18,7 @@ export default (URL) => {
     URL === secrets.URL_LARAVEL
       ? localStorage.getItem("token_admin")
       : localStorage.getItem("token");
+      
   if (token) {
     api.defaults.headers.common.Authorization = `Bearer ${token}`;
   }
@@ -29,7 +30,7 @@ export default (URL) => {
       if (error.response.status === 401) {
 
         toaster.error("Forced logout. Unauthorized action");
-        store.dispatch(`user/${Constant.LOGOUT}`);
+        // store.dispatch(`user/${Constant.LOGOUT}`);
         router.push({ name: "home" });
       }
       return Promise.reject(error);

@@ -15,18 +15,14 @@ export const user = {
         [Constant.LOGIN]: async (store, payload) => {
             try {
                 const response = await UserService.login(payload);
-
                 if (response.status === 200) {
-                    
+                    store.commit(Constant.LOGIN, response.data);                    
                     if (response.data.user.type == "admin") {
                         const response_admin = await UserService.login_admin(payload);
                         if (response_admin.status === 200) {
                             store.commit(Constant.LOGIN_ADMIN, response_admin.data);
                         }
-                    }
-                    else{
-                        store.commit(Constant.LOGIN, response.data);
-                    }
+                    }                    
                 }
             } catch (error) {
                 toaster.error('Username or password incorrect');
@@ -62,24 +58,11 @@ export const user = {
         },
 
         [Constant.INITIALIZE_PROFILE]: async (store) => {
-
             try {
-
                 const response = await UserService.profile();
                 console.log(response);
-                if (response.status === 200) {
-                    
+                if (response.status === 200) {                    
                     store.commit(Constant.INITIALIZE_PROFILE,response.data);
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        },
-        [Constant.INITIALIZE_PROFILE_ADMIN]: async (store) => {
-            try {
-                const response = await UserService.profile_admin();
-                if (response.status === 200) {
-                    store.commit(Constant.INITIALIZE_PROFILE_ADMIN,response.data);
                 }
             } catch (error) {
                 console.error(error);
@@ -105,7 +88,6 @@ export const user = {
                 localStorage.setItem("isAdmin", true);
                 state.user = payload.user;
                 state.isAdmin = true;
-                // state.isAuth = true;
                 router.push({ name: 'home' });
             }
         },
@@ -117,21 +99,22 @@ export const user = {
             }
         },
         [Constant.INITIALIZE_PROFILE]: (state, payload) => {
-
-            if (payload) {
+            console.log(payload);
+            if (payload.type == "client") {
                 state.user = payload;
                 state.isAuth = true;
+                state.isAdmin = false;
                 localStorage.setItem("isAuth", true);
-            }
-        },
-        [Constant.INITIALIZE_PROFILE_ADMIN]: (state, payload) => {
-            if (payload) {
+                localStorage.setItem("isAdmin", false);
+            }else{
                 state.user = payload;
                 state.isAuth = true;
                 state.isAdmin = true;
                 localStorage.setItem("isAuth", true);
                 localStorage.setItem("isAdmin", true);
             }
+
+            console.log(state);
         },
         [Constant.LOGOUT]: (state, payload) => {
             state.user = {};
@@ -154,12 +137,14 @@ export const user = {
     },
     getters: {
         GetProfile: (state) => {
+            console.log(state);
             return state.user;
         },
         GetIsAuth: (state) => {
             return state.isAuth;
         },
         GetIsAdmin: (state) => {
+            console.log(state.isAdmin);
             return state.isAdmin;
         },
 

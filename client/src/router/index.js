@@ -50,11 +50,11 @@ const routes = [
   //   component: () => import('../views/Register.vue')
   // },
   ////////////////////////////PROFILE//////////////////////////////////
-  // {
-  //   path: "/Profile",
-  //   name: "Profile",
-  //   component: () => import('../views/Profile.vue')
-  // },
+  {
+    path: "/Profile",
+    name: "Profile",
+    component: () => import('../views/Profile.vue')
+  },
    ///////////////////////////DASHBOARD//////////////////////////////
   {
     path: "/Dashboard",

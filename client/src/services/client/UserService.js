@@ -18,7 +18,6 @@ export default {
         return Api(secrets.URL_LARAVEL).post("logout");
     },
     async profile(){
-        console.log("profile");
         return Api(secrets.URL_SPRING).get("profile");
     },
     async profile_admin(){
