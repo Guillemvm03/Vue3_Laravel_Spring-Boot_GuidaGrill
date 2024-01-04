@@ -31,7 +31,7 @@
       </div>
 
       <div class="input-box" v-show="!isLogin">
-        <input type="password" placeholder="Repeat Password" required>
+        <input type="password" placeholder="Repeat Password" v-model="state.useRegister.password2" required>
       </div>
 
       <!-- <div class="input-box"></div>
@@ -89,6 +89,7 @@ export default {
         username: '',
         email: '',
         password: '',
+        password2: '',
       },
       errors: {
         username: '',
@@ -135,7 +136,9 @@ export default {
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
       if (!passwordRegex.test(state.useRegister.password)) {
         state.errors.password = 'The password format is invalid';
-      } else {
+      }else if(state.useRegister.password != state.useRegister.password2){
+        state.errors.password = "The password doesn't match";
+      }else {
         state.errors.password = '';
       }
     };

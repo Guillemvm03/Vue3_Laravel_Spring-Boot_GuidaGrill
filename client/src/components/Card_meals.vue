@@ -141,6 +141,7 @@ export default {
   /* Ajusta el margen inferior según tus necesidades */
   transition: transform 0.3s ease-in-out;
   /* Agrega transición */
+  box-shadow: 7px 5px 10px rgba(0, 0, 0, 0.5)
 }
 
 .menu-img:hover {

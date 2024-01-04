@@ -51,7 +51,6 @@ export const user = {
         [Constant.ADD_USER]: async (store, payload) => {
             try {
                 const response = await UserService.register(payload);
-                console.log(response);
                 if (response.status === 201) {
                     store.commit(Constant.ADD_USER, true);
                 }
@@ -64,7 +63,6 @@ export const user = {
         [Constant.INITIALIZE_PROFILE]: async (store) => {
             try {
                 const response = await UserService.profile();
-                console.log(response);
                 if (response.status === 200) {                    
                     store.commit(Constant.INITIALIZE_PROFILE,response.data);
                 }
@@ -103,7 +101,6 @@ export const user = {
             }
         },
         [Constant.INITIALIZE_PROFILE]: (state, payload) => {
-            console.log(payload);
             if (payload.type == "client") {
                 state.user = payload;
                 state.isAuth = true;
@@ -118,7 +115,6 @@ export const user = {
                 localStorage.setItem("isAdmin", true);
             }
 
-            console.log(state);
         },
         [Constant.LOGOUT]: (state, payload) => {
             state.user = {};
@@ -141,14 +137,12 @@ export const user = {
     },
     getters: {
         GetProfile: (state) => {
-            console.log(state);
             return state.user;
         },
         GetIsAuth: (state) => {
             return state.isAuth;
         },
         GetIsAdmin: (state) => {
-            console.log(state.isAdmin);
             return state.isAdmin;
         },
 

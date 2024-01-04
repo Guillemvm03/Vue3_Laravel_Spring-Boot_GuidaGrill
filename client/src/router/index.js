@@ -41,13 +41,6 @@ const routes = [
     component: () => import('../views/Login.vue'),
     beforeEnter: AuthGuards.noAuthGuard, meta: { requiresAuth: true }
   },
-  
-  ////////////////////////////REGISTER//////////////////////////////////
-  // {
-  //   path: "/Register",
-  //   name: "Register",
-  //   component: () => import('../views/Register.vue')
-  // },
   ////////////////////////////PROFILE//////////////////////////////////
   {
     path: "/Profile",
@@ -126,7 +119,6 @@ const routes = [
     name: "profile",
     component: () => import('../views/Profile.vue'),
     beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }    
-    // beforeEnter: AuthGuards.AuthGuard, meta: { requiresAuth: true }
   },
 ];
 

@@ -113,7 +113,7 @@ export default {
         }
 
         const cancel = () => {
-            router.push('/users');
+            router.push('/Dashboard');
         }
 
         return { state, sendData, cancel };

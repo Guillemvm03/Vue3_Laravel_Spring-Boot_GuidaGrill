@@ -56,12 +56,12 @@ public class UserController {
 
     @GetMapping("/profile")
     public ResponseEntity<User> profile() {
-                // return "hola";
+                
         try {
           
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                     .getPrincipal();
-                    //   System.out.println(userDetails);
+                    
             User user = userRepository.findByUsername(userDetails.getUsername()).get();
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception e) {

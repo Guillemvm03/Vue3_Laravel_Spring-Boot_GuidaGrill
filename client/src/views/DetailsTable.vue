@@ -12,7 +12,7 @@
       </div>
     </div> -->
 
-  <!-- <div class="card mb-3" style="max-width: 600px;" >
+  <div v-if="!stateOne.isAuth" class="card mb-3" style="max-width: 600px;" >
       <div class="row g-0">
         <div class="col-md-4">
           <img
@@ -33,15 +33,11 @@
             </p>
           </div>
         </div>
-        <button class="btn btn-outline-success">Booking</button>
+        <button @click="redirect_login()" class="btn btn-outline-success">Booking</button>
       </div>
-    </div> -->
+    </div>
 
-
-    <BookingForm :tables="stateOne.tables"></BookingForm>
-
-
-
+    <BookingForm v-else :tables="stateOne.tables"></BookingForm>
 
 </template>
 <script>
@@ -54,6 +50,7 @@ import BookingForm from "../components/BookingForm.vue";
 
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import { createToaster } from "@meforma/vue-toaster";
 
 export default {
   components: { BookingForm, Card_tables, VueDatePicker },
@@ -65,15 +62,20 @@ export default {
     const router = useRouter();
     const store = useStore();
     const id = router.currentRoute.value.params.id;
+    const toaster = createToaster({ position: "top-right" });
 
+    const redirect_login = () => {
+            toaster.warning("You must be logged in to book a table")
+      router.push("/Login");
+    }
 
     store.dispatch(`tables/${Constant.INITIALIZE_ONE_STATE_TABLES}`, id);
     const stateOne = reactive({
       tables: computed(() => store.getters["tables/GetTableById"]),
-      // date: ref(null),
+      isAuth: computed(() => store.getters['user/GetIsAuth']),
     });
 
-    return { stateOne };
+    return { stateOne, redirect_login };
   },
 };
 </script>

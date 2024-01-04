@@ -80,7 +80,7 @@ export default {
         }
 
         const cancel = () => {
-            router.push('/menus');
+            router.push('/Dashboard');
         }
 
         return { state, sendData, cancel };

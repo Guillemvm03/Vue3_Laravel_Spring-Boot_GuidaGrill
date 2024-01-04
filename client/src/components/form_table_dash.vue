@@ -155,7 +155,7 @@ export default {
     }
 
     const cancel = () => {
-      router.push('/Dashboard/tables');
+      router.push('/Dashboard');
     }
 
     return { sendData, state, cancel }
