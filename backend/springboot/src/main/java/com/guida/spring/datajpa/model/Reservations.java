@@ -44,5 +44,5 @@ public class Reservations {
 
     @Column(name = "msg")
     private String msg;
-
 }
+

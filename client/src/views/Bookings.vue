@@ -1,5 +1,4 @@
 <template>
-  
   <div class="booking-card">
     <h1>BOOKINGS</h1>
     <div class="filters">

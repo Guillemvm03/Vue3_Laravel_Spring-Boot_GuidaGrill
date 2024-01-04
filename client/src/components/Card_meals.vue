@@ -132,21 +132,16 @@ export default {
 .menu-img {
   width: 200px;
   height: 200px;
-  /* Ajusta la altura según tus necesidades */
   border-radius: 50%;
-
   object-fit: cover;
-  /* Ajusta el comportamiento de la imagen */
   margin-bottom: 10px;
-  /* Ajusta el margen inferior según tus necesidades */
   transition: transform 0.3s ease-in-out;
-  /* Agrega transición */
   box-shadow: 7px 5px 10px rgba(0, 0, 0, 0.5)
 }
 
 .menu-img:hover {
   transform: scale(1.1);
-  /* Ajusta la escala según tus necesidades */
+  // transform: rotate3d(0, 1, 0, 180deg);
 }
 
 //

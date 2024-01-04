@@ -70,7 +70,6 @@ export default {
       isAdmin: computed(() => store.getters["user/GetIsAdmin"]),
       isAuth: computed(() => store.getters['user/GetIsAuth']),
     });
-    console.log(state.isAdmin);
     const logout = () => {
       store.dispatch(`user/${Constant.LOGOUT}`);
     };

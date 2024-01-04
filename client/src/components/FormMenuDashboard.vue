@@ -103,4 +103,6 @@ export default {
         //   border-radius: 5px;
         //   background-color: #f2f2f2;
         // }
+
+
 </style>

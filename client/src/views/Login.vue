@@ -10,8 +10,6 @@ import { createToaster } from "@meforma/vue-toaster";
 
 const toaster = createToaster({ "position": "top-right", "duration": 1200 });
 
-
-
 export default {
     components: {
         LoginForm

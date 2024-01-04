@@ -94,7 +94,6 @@ export const user = {
             }
         },
         [Constant.ADD_USER]: (state, payload) => {
-            console.log(payload);
             if (payload) {
                 toaster.success('Register successfuly');
                 window.location.reload();

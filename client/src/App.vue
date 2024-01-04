@@ -25,6 +25,7 @@ const store = useStore();
 
 
 if(localStorage.getItem(('token')) ){ 
+
     store.dispatch(`user/${Constant.INITIALIZE_PROFILE}`);  
 }  
 </script>
