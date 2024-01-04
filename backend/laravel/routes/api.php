@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\mealsController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::resource('menu', MenuController::class);
     Route::resource('meals', mealsController::class);
     Route::resource('users', UserController::class);
+    Route::resource('reservations', ReservationController::class);
 });
 
 Route::post('/login', [UserController::class,'login']);

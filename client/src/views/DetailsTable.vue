@@ -12,6 +12,7 @@
       </div>
     </div> -->
 
+
 <div v-if="stateOne.isAuth==true">
   <BookingForm :tables="stateOne.tables" @reservation="createReservation"></BookingForm>
 </div>
@@ -64,19 +65,15 @@ export default {
     const store = useStore();
     const id = router.currentRoute.value.params.id;
     const toaster = createToaster({ position: "top-right" });
-
     const redirect_login = () => {
 			toaster.warning("You must be logged in to book a table")
       router.push("/Login");
     }
 
-
     store.dispatch(`tables/${Constant.INITIALIZE_ONE_STATE_TABLES}`, id);
     const stateOne = reactive({
       tables: computed(() => store.getters["tables/GetTableById"]),
       isAuth: computed(() => store.getters['user/GetIsAuth']),
-
-      // date: ref(null),
     });
 
     const createReservation = (reservation) => {
@@ -89,7 +86,6 @@ export default {
 
       // router.push("/Reservations");data
     }
-
 
     return { stateOne, redirect_login, createReservation };
   },

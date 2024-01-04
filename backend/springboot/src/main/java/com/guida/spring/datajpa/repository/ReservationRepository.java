@@ -6,6 +6,7 @@ import com.guida.spring.datajpa.model.Reservations;
 
 public interface ReservationRepository extends JpaRepository<Reservations, Long>{
 
+    
 
 
 

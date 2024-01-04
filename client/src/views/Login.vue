@@ -2,11 +2,13 @@
     <LoginForm :isLogin="true" @sendLogin="login" @sendRegister="register" />
 </template>
 
-<script> 
+<script>
 import LoginForm from '../components/LoginForm.vue'
 import { useStore } from 'vuex'
 import Constant from '../Constant'
+import { createToaster } from "@meforma/vue-toaster";
 
+const toaster = createToaster({ "position": "top-right", "duration": 1200 });
 
 export default {
     components: {
@@ -19,7 +21,10 @@ export default {
             store.dispatch(`user/${Constant.LOGIN}`, data);
         }
         const register = (data) => {
-            store.dispatch(`user/${Constant.ADD_USER}`, data);
+            toaster.success('Register successfully');
+            setTimeout(() => {
+                store.dispatch(`user/${Constant.ADD_USER}`, data);
+            }, 1500);
         }
         return {
             login,
@@ -29,6 +34,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -104,7 +104,7 @@ function deleteMenu() {
             const indexs = dt.rows({ selected: true })[0];
             if (indexs.length > 0) {
                 dt.rows({ selected: true }).every(index => store.dispatch(`userDashboard/${Constant.DELETE_USER}`, state.users[index].id));
-                router.push('/dashboard/menus');
+                router.push('/dashboard');
             } else {
                 // toaster.info('You have to at last ONE Menu');
             }
@@ -140,7 +140,7 @@ body {
 
 .table-title {
 	padding-bottom: 15px;
-	background: #435d7d;
+	background: #e96107;
 	color: #fff;
 	padding: 16px 30px;
 	min-width: 100%;

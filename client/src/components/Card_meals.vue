@@ -137,7 +137,6 @@ export default {
   margin-bottom: 10px;
   transition: transform 0.3s ease-in-out;
   box-shadow: 7px 5px 10px rgba(0, 0, 0, 0.5)
-  
 }
 
 .menu-img:hover {

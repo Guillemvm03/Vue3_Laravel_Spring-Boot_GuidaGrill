@@ -27,7 +27,7 @@
 							<th>MENUS</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody v-if="tables">
 						<tr v-for="table in tables.data" :key="tables.data.id">
 							<td>{{ table.id }}</td>
 							<td>{{ table.table_number }}</td>
@@ -77,11 +77,10 @@ export default {
 		const deleteTable = (id) => {
 			store.dispatch(`tableDashboard/${Constant.DELETE_TABLE}`, id)
 			toaster.success("Table deleted")
-			// router.push( "/Dashboard/tables" )
 			window.location.reload()
 		}
 		const updateTable = (id) => {
-			router.push("Tables/tableEdit/" + id)
+			router.push("/Dashboard/Tables/tableEdit/" + id)
 		}
 		return { deleteTable, tableCreate, updateTable }
 	}
@@ -89,7 +88,7 @@ export default {
 </script>
 <style scoped>
 body {
-	color: #566787;
+	color: #e95e0e;
 	background: #f5f5f5;
 	font-family: 'Varela Round', sans-serif;
 	font-size: 13px;
@@ -109,7 +108,7 @@ body {
 
 .table-title {
 	padding-bottom: 15px;
-	background: #435d7d;
+	background: #e96107;
 	color: #fff;
 	padding: 16px 30px;
 	min-width: 100%;
