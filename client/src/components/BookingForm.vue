@@ -9,12 +9,19 @@
       </div>
 
       <div class="row g-0">
+        <!-- <div
+          class="col-lg-4 reservation-img"
+          :style="{ backgroundImage: 'url(' + tables.img_table + ')' }"
+          data-aos="zoom-out"
+          data-aos-delay="200"
+        ></div> -->
         <div
           class="col-lg-4 reservation-img"
           :style="{ backgroundImage: 'url(' + tables.img_table + ')' }"
           data-aos="zoom-out"
           data-aos-delay="200"
-        ></div>
+        >
+        </div>
         <div class="col-lg-8 d-flex align-items-center reservation-form-bg">
           <form
             action="forms/book-a-table.php"
@@ -46,11 +53,13 @@
                   id="menu"
                   data-rule="minlen:1"
                   data-msg="Please select an option"
+                  v-model="state.tableLocal.menu.id"
                 >
                   <option
-                    v-for="menu in tables.menu"
+                    v-for="menu in state.tableLocal.menu"
                     :key="menu.id"
                     :value="menu.id"
+                    
                   >
                     {{ menu.type }}
                   </option>
@@ -60,7 +69,7 @@
               <div class="col-lg-4 col-md-6">
                 <label for="date">Date:</label>
                 <VueDatePicker
-                  v-model="state.date"
+                  v-model="state.reservation.date"
                   :disabled-dates="disableDates"
                 ></VueDatePicker>
               </div>
@@ -100,28 +109,28 @@
                   <div class="validate"></div>
                 </div> -->
 
-              <div class="col-lg-4 col-md-6">
-                <label for="people">People:</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  name="people"
-                  id="people"
-                  v-model="state.tableLocal.capacity"
-                  data-rule="minlen:1"
-                  data-msg="Please enter at least 1 chars"
-                  :max="tables.capacity"
-                />
-                <div class="validate"></div>
-              </div>
+                <div class="col-lg-4 col-md-6">
+  <label for="people">People:</label>
+  <input
+    type="number"
+    class="form-control"
+    name="people"
+    id="people"
+    v-model="state.tableLocal.capacity"
+    data-rule="minlen:1"
+    data-msg="Please enter at least 1 char"
+    :max="state.tableLocal.capacity"
+  />
+  <div class="validate"></div>
+</div>
             </div>
             <div class="form-group mt-3">
-              <label for="message"></label>
+              <label for="message" ></label>
               <textarea
                 class="form-control"
                 name="message"
                 rows="5"
-                placeholder="Message"
+                v-model="state.reservation.msg"
               ></textarea>
               <div class="validate"></div>
             </div>
@@ -133,7 +142,7 @@
                 confirm your reservation. Thank you!
               </div>
             </div>
-            <div class="text-center"><button @click="sendData" type="button">Book a Table</button></div>
+            <div class="text-center"><button @click="setValues()" type="button">Book a Table</button></div>
           </form>
         </div>
       </div>
@@ -152,7 +161,7 @@ import { getCurrentInstance } from "vue";
 
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-
+import { createToaster } from "@meforma/vue-toaster";
 
 export default {
 
@@ -162,11 +171,11 @@ props: {
     tables: Object
 },
 
-data() {
-    return {
-      date: null,
-    };
-  },
+emit:{
+
+  reservation: Object
+
+},
 
   methods: {
     disableDates(date) {
@@ -187,26 +196,90 @@ setup(props) {
   const router = useRouter();
   const store = useStore();
   const {emit} = getCurrentInstance();
-  const tables_ = props.tables ? props.tables : { 'type': '', 'img_table': '', 'date':'' };
-  console.log(tables_);
+  const toaster = createToaster({ position: "top-right" });
 
-  const date = ref(null);
+  const tables_ = props.tables ? props.tables : { 'type': '', 'img_table': '', 'capacity': '', 'category': '', 'menu': [] };
+  // console.log(tables_);
 
-    const sendData = () => {
-            // emit('data', state);
-          console.log(state.tableLocal);
-        }
+
+  const sendData = () => {
+    // console.log("gola");
+    emit("reservation",state.reservation);
+  }
+
+
+  const setValues = () => {
+    const rawDate = state.reservation.date;
+    const dateObject = new Date(rawDate);
+
+    const year = dateObject.getFullYear();
+    const month = ('0' + (dateObject.getMonth() + 1)).slice(-2);
+    const day = ('0' + dateObject.getDate()).slice(-2);
+
+    state.reservation.reservationDay = `${year}-${month}-${day}`;
+
+    const hours = ('0' + dateObject.getHours()).slice(-2);
+    const minutes = ('0' + dateObject.getMinutes()).slice(-2);
+    const seconds = ('0' + dateObject.getSeconds()).slice(-2);
+
+    state.reservation.reservationTime =`${hours}:${minutes}:${seconds}`;
+
+    state.reservation.table_id = state.tableLocal.id;
+    state.reservation.menu_id = state.tableLocal.menu.id;
+    // state.reservation.user_id = state.user.id;
+    state.reservation.capacity = state.tableLocal.capacity;
+
+    if(state.reservation.table_id == "" || state.reservation.menu_id == "" || state.reservation.reservationDay == "" || state.reservation.reservationTime == "" || state.reservation.capacity == "" || state.reservation.date == ""){
+      toaster.warning("You must fill the required fields")
+      return;
+    }else if(state.reservation.capacity > state.tableLocal.capacity){
+      toaster.warning("The capacity is too big")
+      return;
+    }
+    else if(state.reservation.capacity < 1){
+      toaster.warning("The capacity is too small")
+      return;
+    }
+    else if(state.reservation.msg.length > 255){
+      toaster.warning("The message is too long")
+      return;
+    }
+    else if(state.reservation.reservationTime < "09:00:00" || state.reservationTime > "20:00:00"){
+      toaster.warning("The restaurant is closed at that time")
+      return;
+    
+    }else{
+      toaster.success("Reservation made successfully, check your email")
+      sendData();
+      router.push("/Profile");
+    }
+    
+  }
+
 
     const state = reactive({
 
       user: computed(() => store.getters["user/GetProfile"]),
       tableLocal: { ...tables_ },
-      date: date.value,
-
+      
+      reservation:{
+        // user_id: "",
+        table_id: "",
+        menu_id:"",
+        reservationDay: "",
+        reservationTime: "",
+        capacity:"",
+        date:"",
+        msg:""
+      }
       });
 
-      console.log(state.date);
-      return { state, sendData };
+
+
+      console.log(state.tableLocal.menu);
+
+      console.log(state.reservation);
+      return { state, sendData, setValues };
 
 }
 

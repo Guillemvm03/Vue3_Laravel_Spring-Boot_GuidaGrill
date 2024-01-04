@@ -12,38 +12,33 @@
       </div>
     </div> -->
 
-  <!-- <div class="card mb-3" style="max-width: 600px;" >
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img
-          :src="stateOne.tables.img_table" alt="Title"
-            class="img-fluid rounded-start"
-          />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Type: {{stateOne.tables.category}}</h5>
-            <p class="card-text">Status: {{stateOne.tables.status}}</p>
-            <p class="card-text">Menús:</p>
-            <p class="card-menu" v-for="menu in stateOne.tables.menu" :key="menu.id">{{ menu.type }}</p>
-            <p class="card-text">
-              <small class="text-muted"
-                >Capacity: {{stateOne.tables.capacity}} people</small
-              >
-            </p>
-          </div>
-        </div>
-        <button class="btn btn-outline-success">Booking</button>
+<div v-if="stateOne.isAuth==true">
+  <BookingForm :tables="stateOne.tables" @reservation="createReservation"></BookingForm>
+</div>
+
+  <div v-else="stateOne.isAuth==false" class="card mb-3" style="max-width: 600px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img :src="stateOne.tables.img_table" alt="Title" class="img-fluid rounded-start" />
       </div>
-    </div> -->
-
-
-    <BookingForm :tables="stateOne.tables"></BookingForm>
-
-
-
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Type: {{stateOne.tables.category}}</h5>
+          <p class="card-text">Status: {{stateOne.tables.status}}</p>
+          <p class="card-text">Menús:</p>
+          <p class="card-menu" v-for="menu in stateOne.tables.menu" :key="menu.id">{{ menu.type }}</p>
+          <p class="card-text">
+            <small class="text-muted">Capacity: {{stateOne.tables.capacity}} people</small>
+          </p>
+        </div>
+      </div>
+      <button @click="redirect_login()" class="btn btn-outline-success">Booking</button>
+    </div>
+  </div>
+<br><br><br>
 
 </template>
+
 <script>
 import { computed, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
@@ -51,9 +46,12 @@ import { useStore } from "vuex";
 import Constant from "../Constant";
 import Card_tables from "../components/Card_tables.vue";
 import BookingForm from "../components/BookingForm.vue"; 
+// import { AddBooking } from "../composables/booking/useBooking.js";
+
 
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import { createToaster } from "@meforma/vue-toaster";
 
 export default {
   components: { BookingForm, Card_tables, VueDatePicker },
@@ -65,18 +63,39 @@ export default {
     const router = useRouter();
     const store = useStore();
     const id = router.currentRoute.value.params.id;
+    const toaster = createToaster({ position: "top-right" });
+
+    const redirect_login = () => {
+			toaster.warning("You must be logged in to book a table")
+      router.push("/Login");
+    }
 
 
     store.dispatch(`tables/${Constant.INITIALIZE_ONE_STATE_TABLES}`, id);
     const stateOne = reactive({
       tables: computed(() => store.getters["tables/GetTableById"]),
+      isAuth: computed(() => store.getters['user/GetIsAuth']),
+
       // date: ref(null),
     });
 
-    return { stateOne };
+    const createReservation = (reservation) => {
+      console.log(reservation);
+
+      store.dispatch(`booking/${Constant.ADD_BOOKING}`, reservation)
+
+      // AddBooking(reservation)
+      // toaster.success("Reservation created successfully")
+
+      // router.push("/Reservations");data
+    }
+
+
+    return { stateOne, redirect_login, createReservation };
   },
 };
 </script>
+
 <style scoped>
 
 
@@ -130,5 +149,8 @@ button {
 .card-text {
   color: #555;
 }
+
+
+
 
 </style>

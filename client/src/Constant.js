@@ -27,6 +27,12 @@ export default{
      LOGIN: "Login",
      LOGOUT: "Logout",
      
+
+     // 
+     // //BOOKING
+     INITIALIZE_BOOKING: "InitializeBooking",
+     INITIALIZE_ONE_BOOKING: "InitializeOneBooking",
+     ADD_BOOKING: "AddBooking",
      
 
 }
