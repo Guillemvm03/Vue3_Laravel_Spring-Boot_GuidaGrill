@@ -2,39 +2,54 @@
   <section class="profile">
     <header class="header">
       <div class="details">
-        <img :src="state.user.user.photo" alt="Photo" class="profile-pic">
-        <h1 class="heading">{{ state.user.user.username }}</h1>
-        <h1 v-if="state.user.user.type == 'admin'" class="admin">{{ state.user.user.type }}</h1>
+        <img :src="state.user.photo" alt="Photo" class="profile-pic">
+        <h1 class="heading">{{ state.user.username }}</h1>
+        <h1 v-if="state.user.type == 'admin'" class="admin">{{ state.user.type }}</h1>
         <div class="stats">
           <div class="col-4">
             <h4>Contact</h4>
-            <p>{{ state.user.user.email }}</p>
+            <p>{{ state.user.email }}</p>
           </div>
         </div>
       </div>
     </header>
   </section>
+
   <h1>Your Bookings</h1>
-  <div class="card border-primary">
-    <img class="card-img-top" src="holder.js/100px180/" alt="Title" />
-    <div class="card-body">
-      <h4 class="card-title">Title</h4>
-      <p class="card-text">Text</p>
-    </div>
+  <div v-if="state.bookings.length===0">
+    <p>No bookings yet</p>
   </div>
+  <div v-else>
+    <UserReservationList/>
+  </div>
+
 </template>
 
 <script>
+import { computed, reactive, ref } from 'vue';
 import Constant from '../Constant';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import UserReservationList from '../components/UserReservationList.vue';
+
 export default {
+  
+    components: { UserReservationList },
 
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     store.dispatch(`user/${Constant.INITIALIZE_PROFILE}`);
-    const state = store.state
-    return {
+    store.dispatch(`booking/${Constant.INITIALIZE_USER_BOOKING}`);
+    
+    const state = reactive({
+      user: computed(() => store.getters["user/GetProfile"]),
+      bookings: computed(() => store.getters["booking/GetUserBooking"]),
+    });
+
+    console.log(state.bookings);
+   return {
       state
     }
   },
@@ -106,12 +121,5 @@ body {
   background-color: white;
   box-shadow: 5px 4px 20px 0px rgb(77, 75, 75);
 }
-.card{
-  width: 18rem;
-  margin: 1rem;
-  display: inline-block;
-  border-radius: 6px;
-  border: #fff;
-  box-shadow: 11px 14px 20px 0px rgb(77, 75, 75);
-}
+
 </style>

@@ -14,6 +14,7 @@
 
 
 <div v-if="stateOne.isAuth==true">
+  {{ refresh() }}
   <BookingForm :tables="stateOne.tables" @reservation="createReservation"></BookingForm>
 </div>
 
@@ -57,14 +58,15 @@ import { createToaster } from "@meforma/vue-toaster";
 export default {
   components: { BookingForm, Card_tables, VueDatePicker },
 
-
-
-
   setup() {
+
+
+
     const router = useRouter();
     const store = useStore();
     const id = router.currentRoute.value.params.id;
     const toaster = createToaster({ position: "top-right" });
+
     const redirect_login = () => {
 			toaster.warning("You must be logged in to book a table")
       router.push("/Login");
@@ -75,6 +77,10 @@ export default {
       tables: computed(() => store.getters["tables/GetTableById"]),
       isAuth: computed(() => store.getters['user/GetIsAuth']),
     });
+
+    const refresh = () => {
+    // window.location.reload();
+    }
 
     const createReservation = (reservation) => {
       console.log(reservation);
@@ -87,7 +93,7 @@ export default {
       // router.push("/Reservations");data
     }
 
-    return { stateOne, redirect_login, createReservation };
+    return { stateOne, redirect_login, createReservation, refresh };
   },
 };
 </script>

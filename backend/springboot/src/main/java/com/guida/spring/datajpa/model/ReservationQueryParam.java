@@ -8,7 +8,8 @@ public class ReservationQueryParam {
 
 private Integer user_id;
 private Integer table_id;	
-private Integer menu_id;	
+private Integer menu_id;
+// private String table[];	
 private Time reservation_time;	
 private Boolean approved;	
 private String reservation_day;	
@@ -78,5 +79,14 @@ public String getMsg() {
 public void setMsg(String msg) {
     this.msg = msg;
 }
+
+// public String[] getTable() {
+//     return table;
+// }
+
+// public void setTable(String[] table) {
+//     this.table = table;
+
+// }
 
 }

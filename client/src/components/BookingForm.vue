@@ -54,6 +54,7 @@
                   data-rule="minlen:1"
                   data-msg="Please select an option"
                   v-model="state.tableLocal.menu.id"
+                  @change="updateAvailableHours"
                 >
                   <option
                     v-for="menu in state.tableLocal.menu"
@@ -71,6 +72,10 @@
                 <VueDatePicker
                   v-model="state.reservation.date"
                   :disabled-dates="disableDates"
+                  :min-time="minTime"
+                  :max-time="maxTime"
+  
+                  placeholder="Select a Date"
                 ></VueDatePicker>
               </div>
               <div class="col-lg-4 col-md-6">
@@ -110,19 +115,19 @@
                 </div> -->
 
                 <div class="col-lg-4 col-md-6">
-  <label for="people">People:</label>
-  <input
-    type="number"
-    class="form-control"
-    name="people"
-    id="people"
-    v-model="state.tableLocal.capacity"
-    data-rule="minlen:1"
-    data-msg="Please enter at least 1 char"
-    :max="state.tableLocal.capacity"
-  />
-  <div class="validate"></div>
-</div>
+                  <label for="people">People:</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    name="people"
+                    id="people"
+                    v-model="state.tableLocal.capacity"
+                    data-rule="minlen:1"
+                    data-msg="Please enter at least 1 char"
+                    :max="state.tableLocal.capacity"
+                  />
+                  <div class="validate"></div>
+                </div>
             </div>
             <div class="form-group mt-3">
               <label for="message" ></label>
@@ -131,6 +136,7 @@
                 name="message"
                 rows="5"
                 v-model="state.reservation.msg"
+                placeholder="Tell us if you have any special request..."
               ></textarea>
               <div class="validate"></div>
             </div>
@@ -153,11 +159,11 @@
 
 <script>
 
-import { computed, reactive, ref } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { getCurrentInstance } from "vue";
-
+import Constant from "../Constant";
 
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
@@ -197,13 +203,22 @@ setup(props) {
   const store = useStore();
   const {emit} = getCurrentInstance();
   const toaster = createToaster({ position: "top-right" });
+  const id_booking = router.currentRoute.value.params.id;
 
   const tables_ = props.tables ? props.tables : { 'type': '', 'img_table': '', 'capacity': '', 'category': '', 'menu': [] };
-  // console.log(tables_);
+
+  const selectedMenuId = ref(null); 
+  const minTime = ref({ hours: 0, minutes: 0 });
+  const maxTime = ref({ hours: 0, minutes: 0 });
+
+  watch(selectedMenuId, (newMenuId) => {
+
+  const selectedMenu = state.tableLocal.menu.find(menu => menu.id === newMenuId);
+  state.availableHours = getAvailableHours(selectedMenu);
+});
 
 
   const sendData = () => {
-    // console.log("gola");
     emit("reservation",state.reservation);
   }
 
@@ -224,10 +239,27 @@ setup(props) {
 
     state.reservation.reservationTime =`${hours}:${minutes}:${seconds}`;
 
+
+
     state.reservation.table_id = state.tableLocal.id;
     state.reservation.menu_id = state.tableLocal.menu.id;
-    // state.reservation.user_id = state.user.id;
+
     state.reservation.capacity = state.tableLocal.capacity;
+
+
+    const existingReservation = state.tableReservations.find(reservation => {
+    return (
+      reservation.menu_id === state.reservation.menu_id &&
+      reservation.reservationDay === state.reservation.reservationDay
+    );
+  });
+
+  if (existingReservation) {
+    toaster.warning("There is already an existing reservation for this menu on the same date on this table");
+    return; 
+  }
+
+
 
     if(state.reservation.table_id == "" || state.reservation.menu_id == "" || state.reservation.reservationDay == "" || state.reservation.reservationTime == "" || state.reservation.capacity == "" || state.reservation.date == ""){
       toaster.warning("You must fill the required fields")
@@ -243,11 +275,7 @@ setup(props) {
     else if(state.reservation.msg.length > 255){
       toaster.warning("The message is too long")
       return;
-    }
-    else if(state.reservation.reservationTime < "09:00:00" || state.reservationTime > "20:00:00"){
-      toaster.warning("The restaurant is closed at that time")
-      return;
-    
+      
     }else{
       toaster.success("Reservation made successfully, check your email")
       sendData();
@@ -256,12 +284,59 @@ setup(props) {
     
   }
 
+  const updateAvailableHours = () => {
+  selectedMenuId.value = state.tableLocal.menu.id;
 
+  const selectedMenu = state.tableLocal.menu.find(menu => menu.id === state.tableLocal.menu.id);
+  state.availableHours = getAvailableHours(selectedMenu);
+
+};
+
+const getAvailableHours = (selectedMenu) => {
+  const startTime = selectedMenu.start_time;
+  const endTime = selectedMenu.end_time;
+
+  const [startHour, startMinute] = startTime.split(':').map(Number);
+  const [endHour, endMinute] = endTime.split(':').map(Number);
+
+  const availableHours = [];
+
+  // Primer elemento del array con la hora de inicio
+  availableHours.push({ hours: startHour, minutes: startMinute });
+
+  // Itera sobre las horas y minutos entre la hora de inicio y fin
+  for (let hour = startHour; hour <= endHour; hour++) {
+    for (let minute = 0; minute <= 59; minute++) {
+      // Si es la última hora, solo considera los minutos hasta la hora de fin
+      if (hour === endHour && minute > endMinute) {
+        break;
+      }
+
+      availableHours.push({ hours: hour, minutes: minute });
+    }
+  }
+
+  availableHours.push({ hours: endHour, minutes: endMinute });
+
+  minTime.value = { hours: startHour, minutes: startMinute };
+  maxTime.value = { hours: endHour, minutes: endMinute };
+
+  console.log(minTime.value);
+  console.log(maxTime.value);
+
+  // console.log(availableHours);
+
+  return availableHours;
+};
+
+
+    store.dispatch(`booking/${Constant.INITIALIZE_ONE_BOOKING}`,id_booking);
     const state = reactive({
 
       user: computed(() => store.getters["user/GetProfile"]),
       tableLocal: { ...tables_ },
-      
+      tableReservations: computed(() => store.getters["booking/GetBooking"]),
+
       reservation:{
         // user_id: "",
         table_id: "",
@@ -274,12 +349,8 @@ setup(props) {
       }
       });
 
-
-
-      console.log(state.tableLocal.menu);
-
-      console.log(state.reservation);
-      return { state, sendData, setValues };
+      // console.log(state.tableReservations.menu_id);
+      return { state, sendData, setValues, updateAvailableHours,getAvailableHours, selectedMenuId, minTime, maxTime };
 
 }
 

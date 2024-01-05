@@ -34,11 +34,12 @@ export default{
      INITIALIZE_ONE_BOOKING: "InitializeOneBooking",
      ADD_BOOKING: "AddBooking",
 
+
      // RESERVATION
 
      INITIALIZE_RESERVATIONS: "InitializeReservation",
      INITIALIZE_ONE_RESERVATION: "InitializeOneReservation",
      UPDATE_RESERVATION: "UpdateReservation",
      DELETE_RESERVATION: "DeleteReservation",
-
+     INITIALIZE_USER_BOOKING: "InitializeUserBooking",
 }

@@ -7,9 +7,22 @@ export const booking = {
   namespaced: true,
 
   actions: {
+
+    [Constant.INITIALIZE_ONE_BOOKING]: async (store, payload) => {
+      try {
+        const response = await BookingService.getOneBooking(payload);
+        if (response.status === 200) {
+          store.commit(Constant.INITIALIZE_ONE_BOOKING, response.data);
+        }
+      }
+      catch (error) {
+        console.error("Error in catch block:", error);
+      }
+    },
+
+
     [Constant.ADD_BOOKING]: async (store, payload) => {
       try {
-        console.log("payload", payload);
         const response = await BookingService.addBooking(payload);
         if (response.status === 201) {
           store.commit(Constant.ADD_BOOKING, true);
@@ -20,7 +33,22 @@ export const booking = {
       }
     },
 
+    [Constant.INITIALIZE_USER_BOOKING]: async (store, payload) => {
+      try {
+        const response = await BookingService.getUserBooking();
+        if (response.status === 200) {
+          store.commit(Constant.INITIALIZE_USER_BOOKING, response.data);
+        }
+      }
+      catch (error) {
+        console.error("Error in catch block:", error);
+      }
+    }
+
+
   },
+
+
 
   mutations: {
 
@@ -31,7 +59,22 @@ export const booking = {
     }
     },
 
+    [Constant.INITIALIZE_ONE_BOOKING]: (state, payload) => {
+      state.booking = payload;
+    },
+
+    [Constant.INITIALIZE_USER_BOOKING]: (state, payload) => {
+      state.userBooking = payload;
+    },
+
   },
 
-  getters: {},
+  getters: {
+    GetBooking: (state) => {
+      return state.booking;
+    },
+    GetUserBooking: (state) => {
+      return state.userBooking;
+    },
+  },
 };
