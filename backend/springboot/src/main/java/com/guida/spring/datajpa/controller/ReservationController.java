@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,6 +64,36 @@ public class ReservationController {
         }
     }
 
+    @GetMapping("/reservations/table/{id}")
+    public ResponseEntity<List<Reservations>> getReservationByTableId(@PathVariable("id") long id) {
+        try {
+            List<Reservations> reservations = reservationRepository.findByTableId(id);
+            return new ResponseEntity<>(reservations, HttpStatus.OK);
+    
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/reservations/user")
+    public ResponseEntity<List<Reservations>> getReservationByUserId() {
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                    .getPrincipal();
+    
+            User user = UserRepository.findByUsername(userDetails.getUsername()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    
+            System.out.println(user.getId());
+            List<Reservations> reservations = reservationRepository.findByUserId(user.getId());
+            return new ResponseEntity<>(reservations, HttpStatus.OK);
+    
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    
+
     @PostMapping("/reservations")
     public ResponseEntity<Reservations> createReservation(@RequestBody Reservations reservation, HttpServletRequest request) {
         try {
@@ -76,6 +107,37 @@ public class ReservationController {
             return new ResponseEntity<>(_reservation, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @DeleteMapping("/reservations/{id}")
+    public ResponseEntity<HttpStatus> deleteReservation(@PathVariable("id") long id) {
+        try {
+            reservationRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // @PutMapping("/reservations/{id}")
+    public ResponseEntity<Reservations> updateReservation(@PathVariable("id") long id, @RequestBody Reservations reservation) {
+        Optional<Reservations> ReservationData = reservationRepository.findById(id);
+
+        if (ReservationData.isPresent()) {
+            Reservations _reservation = ReservationData.get();
+            // _reservation.setUserId(reservation.getUserId());
+            // _reservation.setTableId(reservation.getTableId());
+            // _reservation.setMenuId(reservation.getMenuId());
+            _reservation.setReservationTime(reservation.getReservationTime());
+            _reservation.setApproved(reservation.isApproved());
+            _reservation.setReservationDay(reservation.getReservationDay());
+            _reservation.setCapacity(reservation.getCapacity());
+            _reservation.setMsg(reservation.getMsg());
+            return new ResponseEntity<>(reservationRepository.save(_reservation), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

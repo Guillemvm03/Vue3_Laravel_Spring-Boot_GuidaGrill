@@ -33,6 +33,7 @@ export default{
      INITIALIZE_BOOKING: "InitializeBooking",
      INITIALIZE_ONE_BOOKING: "InitializeOneBooking",
      ADD_BOOKING: "AddBooking",
+     INITIALIZE_USER_BOOKING: "InitializeUserBooking",
      
 
 }
