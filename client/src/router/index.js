@@ -120,6 +120,12 @@ const routes = [
     component: () => import('../views/Profile.vue'),
     beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }    
   },
+  {
+    path: "/Dashboard/Reservation/reservationList", 
+    name: "reservationList",
+    component: () => import('../views/Reservation/ReservationList.vue'),
+    beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }        
+  }
 ];
 
 const router = createRouter({

@@ -1,9 +1,5 @@
 <template>
-
-<br><br>
-
-
-<div class="container-xl">
+	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
@@ -18,31 +14,33 @@
 					</div>
 				</div>
 				<table class="table table-striped table-hover">
-    
-                    <div class="col-sm-6 text-center d-flex align-items-center justify-content-end"> <!-- Clases Bootstrap para centrar y alinear al final -->
-                        <!-- <button @click="updateMenu()" class="btn btn-primary mr-2">Update</button> -->
-                        <button @click="deleteMenu()" class="btn btn-danger">Delete</button>
-                    </div>
 
-                    <DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.users" ref="usersel">
-                    <!-- <DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.users"> -->
+					<div class="col-sm-6 text-center d-flex align-items-center justify-content-end">
+						<!-- Clases Bootstrap para centrar y alinear al final -->
+						<!-- <button @click="updateMenu()" class="btn btn-primary mr-2">Update</button> -->
+						<button @click="deleteMenu()" class="btn btn-danger">Delete</button>
+					</div>
 
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>username</th>
-                            <!-- <th>password</th> -->
-                            <th>email</th>
-                            <th>type</th>
-                            <th>is_active</th>
-                            <th>photo</th>
-                        </tr>
-                    </thead>
-					<tbody>
-						
-					</tbody>
-                </DataTable>
-<!--                 
+					<DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.users"
+						ref="usersel">
+						<!-- <DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.users"> -->
+
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>username</th>
+								<!-- <th>password</th> -->
+								<th>email</th>
+								<th>type</th>
+								<th>is_active</th>
+								<th>photo</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</DataTable>
+					<!--                 
                 <div v-for="user in state.users">
                 <h1>{{ user.username }}</h1>
                 </div>
@@ -55,7 +53,7 @@
 
 <script>
 
-import {reactive, computed, ref, onMounted} from 'vue';
+import { reactive, computed, ref, onMounted } from 'vue';
 import DataTable from 'datatables.net-vue3';
 import DataTablesLib from 'datatables.net';
 import 'datatables.net-select';
@@ -65,53 +63,53 @@ import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 export default {
-    
-    components: {DataTable},
+
+	components: { DataTable },
 
 
-setup() {
+	setup() {
 
-const router = useRouter();
-const store = useStore();
-DataTable.use(DataTablesLib);
+		const router = useRouter();
+		const store = useStore();
+		DataTable.use(DataTablesLib);
 
 
-store.dispatch(`userDashboard/${Constant.INITIALIZE_USERS}`);
+		store.dispatch(`userDashboard/${Constant.INITIALIZE_USERS}`);
 
-const state = reactive({
+		const state = reactive({
 
-users: computed(() => store.getters['userDashboard/getUsers'])
+			users: computed(() => store.getters['userDashboard/getUsers'])
 
-});
+		});
 
-let dt;
-        const usersel = ref();
-        onMounted(() => {
-            dt = usersel.value.dt;
-        });
+		let dt;
+		const usersel = ref();
+		onMounted(() => {
+			dt = usersel.value.dt;
+		});
 
-const columns = [
-{ data: 'id' },
-{ data: 'username' },
-// { data: 'password' },
-{ data: 'email' },
-{ data: 'type' },
-{ data: 'is_active' },
-{ data: 'photo' },
-];
+		const columns = [
+			{ data: 'id' },
+			{ data: 'username' },
+			// { data: 'password' },
+			{ data: 'email' },
+			{ data: 'type' },
+			{ data: 'is_active' },
+			{ data: 'photo' },
+		];
 
-function deleteMenu() {
-            const indexs = dt.rows({ selected: true })[0];
-            if (indexs.length > 0) {
-                dt.rows({ selected: true }).every(index => store.dispatch(`userDashboard/${Constant.DELETE_USER}`, state.users[index].id));
-                router.push('/dashboard');
-            } else {
-                // toaster.info('You have to at last ONE Menu');
-            }
-        };
-return {state, columns, deleteMenu, usersel }
+		function deleteMenu() {
+			const indexs = dt.rows({ selected: true })[0];
+			if (indexs.length > 0) {
+				dt.rows({ selected: true }).every(index => store.dispatch(`userDashboard/${Constant.DELETE_USER}`, state.users[index].id));
+				router.push('/dashboard');
+			} else {
+				// toaster.info('You have to at last ONE Menu');
+			}
+		};
+		return { state, columns, deleteMenu, usersel }
 
-}
+	}
 
 }
 </script>
@@ -235,5 +233,4 @@ table.table td a.edit {
 table.table td a.delete {
 	color: #F44336;
 }
-
 </style>
