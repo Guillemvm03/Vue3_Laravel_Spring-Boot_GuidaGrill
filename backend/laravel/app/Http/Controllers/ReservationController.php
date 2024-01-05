@@ -17,18 +17,25 @@ class ReservationController extends Controller {
         return ReservationResource::make(Reservation::findOrFail($id));
     }
 
-    public function update(Request $request, $id) {
-        $data = $request-> except(['id','user_id','table_id','reservation_time','reservation_day','capacity','msg']);
-    
-        $update = Reservation::where('id', $id)->update($data);
-            if ($update == 1) {
-                return response()->json([
-                    "Message" => "Updated correctly"
-                ]);
-            } else {
-                return response()->json([
-                    "Status" => "Not found"
-                ], 404);
-            };
+    public function update($id) {
+    // Actualiza el campo 'approved' a true directamente
+    $update = Reservation::where('id', $id)->update(['approved' => true]);
+
+    if ($update == 1) {
+        return response()->json([
+            "Message" => "Updated correctly"
+        ]);
+    } else {
+        return response()->json([
+            "Status" => "Not found"
+        ], 404);
+    }
+}
+    public function destroy($id) {
+        $reservation = Reservation::findOrFail($id);
+        $reservation->delete();
+        return response()->json([
+            "Message" => "Deleted correctly"
+        ]);
     }
 }

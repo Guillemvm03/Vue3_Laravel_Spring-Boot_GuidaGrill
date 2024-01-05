@@ -30,6 +30,7 @@
         <tableList v-if="instance == 'tableList'" />
         <userList v-if="instance == 'userList'" />
         <menuList v-if="instance == 'menuList'" />
+        <ReservationList v-if="instance == 'reservation'" />
       </div>
     </div>
 
@@ -41,9 +42,10 @@
 import tableList from "../views/Tables/tableList.vue";
 import userList from "../views/Users/userList.vue";
 import menuList from "../views/Menus/menuList.vue";
+import ReservationList from "../views/Reservation/ReservationList.vue";
 import { ref } from "vue";
 export default {
-  components: { tableList, userList, menuList },
+  components: { tableList, userList, menuList, ReservationList },
   setup() {
     const instance = ref('userList')
     return { instance }

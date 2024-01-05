@@ -7,6 +7,7 @@ import { menuDashboard } from './modules/admin/menuDashboard.js';
 import { user } from './modules/client/user.js';
 import { userDashboard } from './modules/admin/UserDashboard.js';
 import { booking } from "./modules/client/booking.js";
+import { reservationDashboard } from "./modules/admin/reservationDashboard.js";
 
 export default Vuex.createStore({
   modules: {
@@ -16,7 +17,7 @@ export default Vuex.createStore({
     tableDashboard: tableDashboard,
     user: user,
     userDashboard: userDashboard,
-    
+    reservationDashboard: reservationDashboard,
     booking: booking,
   },
 });

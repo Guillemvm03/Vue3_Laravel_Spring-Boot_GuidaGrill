@@ -6,6 +6,7 @@ export const tableDashboard = {
     mutations: {
         [Constant.INITIALIZE_TABLES](state, payload) {
             state.tables = payload
+            console.log(state.tables);
         },
         [Constant.DELETE_TABLE](state, payload) {
             state.tables = state.tables.filter((itemTable) => itemTable.id !== payload)
@@ -45,6 +46,7 @@ export const tableDashboard = {
     },
     getters: {
         getTables(state) {
+            console.log(state.tables);
             return state.tables
         },
         getOneTable(state) {
