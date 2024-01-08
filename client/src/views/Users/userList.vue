@@ -16,20 +16,15 @@
 				<table class="table table-striped table-hover">
 
 					<div class="col-sm-6 text-center d-flex align-items-center justify-content-end">
-						<!-- Clases Bootstrap para centrar y alinear al final -->
-						<!-- <button @click="updateMenu()" class="btn btn-primary mr-2">Update</button> -->
 						<button @click="deleteMenu()" class="btn btn-danger">Delete</button>
 					</div>
 
 					<DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.users"
 						ref="usersel">
-						<!-- <DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.users"> -->
-
 						<thead>
 							<tr>
 								<th>ID</th>
 								<th>username</th>
-								<!-- <th>password</th> -->
 								<th>email</th>
 								<th>type</th>
 								<th>is_active</th>
@@ -40,11 +35,6 @@
 
 						</tbody>
 					</DataTable>
-					<!--                 
-                <div v-for="user in state.users">
-                <h1>{{ user.username }}</h1>
-                </div>
-                 -->
 				</table>
 			</div>
 		</div>
@@ -91,7 +81,6 @@ export default {
 		const columns = [
 			{ data: 'id' },
 			{ data: 'username' },
-			// { data: 'password' },
 			{ data: 'email' },
 			{ data: 'type' },
 			{ data: 'is_active' },
@@ -103,8 +92,6 @@ export default {
 			if (indexs.length > 0) {
 				dt.rows({ selected: true }).every(index => store.dispatch(`userDashboard/${Constant.DELETE_USER}`, state.users[index].id));
 				router.push('/dashboard');
-			} else {
-				// toaster.info('You have to at last ONE Menu');
 			}
 		};
 		return { state, columns, deleteMenu, usersel }

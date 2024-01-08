@@ -119,10 +119,7 @@ public class ReservationController {
 
     @DeleteMapping("/reservations/{id}")
     public ResponseEntity<HttpStatus> deleteReservation(@PathVariable("id") long id) {
-        try {
-
-            System.out.println("id: " + id);
-            
+        try {            
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                     .getPrincipal();
 
@@ -134,11 +131,6 @@ public class ReservationController {
             if (user.getId() != reservation.getUser_id()) {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
             }
-
-            // if (reservation.isApproved()==true) {
-            //     return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-            // }
-
         
             reservationRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -173,8 +165,6 @@ public class ReservationController {
             reservation.setReservationDay(reservation_.getReservationDay());
             reservation.setReservationTime(reservation_.getReservationTime());
             reservation.setCapacity(reservation_.getCapacity());
-
-            // return new ResponseEntity<>(HttpStatus.OK);
 
                     return new ResponseEntity<>(reservation, HttpStatus.OK);
 

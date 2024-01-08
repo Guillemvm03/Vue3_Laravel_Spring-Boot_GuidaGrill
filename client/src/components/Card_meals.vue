@@ -6,26 +6,13 @@
         <p>Check Our <span>Guida Menu</span></p>
       </div>
 
-      <ul
-        class="nav nav-tabs d-flex justify-content-center"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        <li
-          v-for="nav in data"
-          :key="nav.id"
-          class="nav-item"
-          @click="
-            restartscroll();
-            menu_number = nav.id;
-            $emit('menu_number', menu_number);
-          "
-        >
-          <a
-            class="nav-link"
-            :class="{ active: menu_number === nav.id }"
-            data-bs-toggle="tab"
-          >
+      <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
+        <li v-for="nav in data" :key="nav.id" class="nav-item" @click="
+          restartscroll();
+        menu_number = nav.id;
+        $emit('menu_number', menu_number);
+        ">
+          <a class="nav-link" :class="{ active: menu_number === nav.id }" data-bs-toggle="tab">
             <h4>{{ nav.type }}</h4>
           </a>
         </li>
@@ -38,22 +25,12 @@
           <div class="tab-header text-center">
             <p>Menu</p>
           </div>
-
-          <!-- <div class="tab-pane fade" id="menu-dinner"> -->
-
           <div class="tab-header text-center">
-            <!-- <h3>{{data.type}}</h3> -->
           </div>
 
           <div class="row gy-5">
             <div class="col-lg-4 menu-item" v-for="meals in dataMeals" :key="meals.id">
-              <!-- v-for="meals in data[menu_number - 1].meals" -->
-
-              <!-- <div class="col-lg-4 menu-item" v-for="meals in dataMeals[(menu_number -1)].meals" :key="meals.id"> -->
-
-              <a href="" class="glightbox"
-                ><img :src="meals.img_meal" class="menu-img img-fluid" alt=""
-              /></a>
+              <a href="" class="glightbox"><img :src="meals.img_meal" class="menu-img img-fluid" alt="" /></a>
               <h4>{{ meals.name }}</h4>
               <p class="ingredients">
                 {{ meals.description }}
@@ -67,7 +44,6 @@
       </div>
     </div>
   </section>
-  <!-- End Menu Section -->
 </template>
 
 <script>
@@ -91,13 +67,7 @@ export default {
 
   setup(props) {
     const menu_number = ref(1);
-
     const { emit } = getCurrentInstance();
-
-
-    // watch(menu_number, () => {
-    //   AOS.refresh();
-    // });
 
     let page = 1;
     const scroll = ($state) => {
@@ -105,7 +75,6 @@ export default {
       if (page <= 3) {
         emit("page", page);
       } else {
-        // $state.loaded();
       }
     };
 
@@ -141,10 +110,7 @@ export default {
 
 .menu-img:hover {
   transform: scale(1.1);
-  // transform: rotate3d(0, 1, 0, 180deg);
 }
-
-//
 
 .menu .nav-tabs {
   border: 0;

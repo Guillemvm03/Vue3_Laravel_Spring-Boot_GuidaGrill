@@ -51,11 +51,9 @@ public class MealsController {
 	@GetMapping("/meals/mealsInfinite")
 	public ResponseEntity<List<Meals>> getMealsInfinite(@ModelAttribute MealsQueryParam mealsQueryParam) {
 		try {
-			// System.out.println(mealsQueryParam.getPage() * mealsQueryParam.getLimit());
 			List<Meals> meal = new ArrayList<Meals>();
 			Integer limit = mealsQueryParam.getPage() * mealsQueryParam.getLimit();  
 			mealsRepository.findMeals(limit, mealsQueryParam.getId_menu()).forEach(meal::add);
-			// System.out.println(meal);
 			return new ResponseEntity<>(meal, HttpStatus.OK);
 
 		} catch (Exception e) {

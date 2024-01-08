@@ -13,7 +13,6 @@ import com.guida.spring.datajpa.model.BlacklistToken;
 import com.guida.spring.datajpa.model.User;
 import com.guida.spring.datajpa.model.UserAndToken;
 import com.guida.spring.datajpa.repository.BlacklistTokenRepository;
-import com.guida.spring.datajpa.repository.TableRepository;
 import com.guida.spring.datajpa.repository.UserRepository;
 import com.guida.spring.datajpa.security.jwt.*;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +23,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.servlet.http.HttpServletRequest;
-
-
-
-// import jartaka.persistence;
-
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -70,12 +64,9 @@ public class UserController {
         }
     }
 
-
-
     @PostMapping("/login")
     public ResponseEntity<UserAndToken> loginUser(@RequestBody User user) {
         try {
-            System.out.println(user.getUsername());
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -98,43 +89,36 @@ public class UserController {
            
 
             if (userRepository.existsByUsername(user.getUsername()) > 0) {
-                System.out.println("username exists");
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             } else if (userRepository.existsByEmail(user.getEmail()) > 0) {
-                System.out.println("email exists");
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             } else {
                 user.setType("client");
                 user.setIs_active(true);
                 user.setPassword(encoder.encode(user.getPassword()));
                 User _user = userRepository.save(user);
-
-                 System.out.println(_user);
                 return new ResponseEntity<>(_user, HttpStatus.CREATED);
             }
-
-            // return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 }
 
-@PostMapping("/logout")
-public ResponseEntity<?> logoutUser(HttpServletRequest request) {
-    try {
-        String token = authTokenFilter.parseJwt( request);
-        if (blacklistTokenRepository.TokenExist(token) == 0) {
-            BlacklistToken blacklistToken = new BlacklistToken();
-            blacklistToken.setToken(token);
-            blacklistTokenRepository.save(blacklistToken);
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser(HttpServletRequest request) {
+        try {
+            String token = authTokenFilter.parseJwt( request);
+            if (blacklistTokenRepository.TokenExist(token) == 0) {
+                BlacklistToken blacklistToken = new BlacklistToken();
+                blacklistToken.setToken(token);
+                blacklistTokenRepository.save(blacklistToken);
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
 
-    } catch (Exception e) {
-        System.err.println(e);
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            System.err.println(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-}
 
 }

@@ -1,25 +1,21 @@
 import Constant from "../../../Constant";
 import BookingService from "../../../services/client/BookingService.js";
 import { createToaster } from "@meforma/vue-toaster";
-import router from "../../../router/index.js";
-const toaster = createToaster({ "position": "top-right", "duration": 2000 });
+const toaster = createToaster({ position: "top-right", duration: 2000 });
 export const booking = {
   namespaced: true,
 
   actions: {
-
     [Constant.INITIALIZE_TABLES_RESERVATION]: async (store, payload) => {
       try {
         const response = await BookingService.getTablesBooking(payload);
         if (response.status === 200) {
           store.commit(Constant.INITIALIZE_TABLES_RESERVATION, response.data);
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.error("Error in catch block:", error);
       }
     },
-
 
     [Constant.ADD_BOOKING]: async (store, payload) => {
       try {
@@ -29,7 +25,6 @@ export const booking = {
         }
       } catch (error) {
         console.error("Error in catch block:", error);
-        // toaster.error("Booking error action");
       }
     },
 
@@ -39,8 +34,7 @@ export const booking = {
         if (response.status === 200) {
           store.commit(Constant.INITIALIZE_USER_BOOKING, response.data);
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.error("Error in catch block:", error);
       }
     },
@@ -51,12 +45,10 @@ export const booking = {
         if (response.status === 200) {
           store.dispatch(Constant.INITIALIZE_USER_BOOKING);
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.error("Error in catch block:", error);
       }
     },
-
 
     [Constant.INITIALIZE_ONE_BOOKING]: async (store, payload) => {
       try {
@@ -64,8 +56,7 @@ export const booking = {
         if (response.status === 200) {
           store.commit(Constant.INITIALIZE_ONE_BOOKING, response.data);
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.error("Error in catch block:", error);
       }
     },
@@ -76,26 +67,13 @@ export const booking = {
         if (response.status === 200) {
           store.dispatch(Constant.INITIALIZE_USER_BOOKING);
         }
-      }
-      catch (error) {
+      } catch (error) {
         console.error("Error in catch block:", error);
       }
-    }
-
-
-
+    },
   },
 
-
-
   mutations: {
-
-    [Constant.ADD_BOOKING]: (state, payload) => {
-      if (payload) {
-        // window.location.reload();
-    }
-    },
-
     [Constant.INITIALIZE_TABLES_RESERVATION]: (state, payload) => {
       state.booking = payload;
     },
@@ -108,13 +86,11 @@ export const booking = {
       state.userBooking = payload;
     },
     [Constant.INITIALIZE_ONE_BOOKING]: (state, payload) => {
-      
       state.bookingone = payload;
     },
     [Constant.UPDATE_USER_BOOKING]: (state, payload) => {
       state.userBooking = payload;
-    }
-
+    },
   },
 
   getters: {
@@ -126,6 +102,6 @@ export const booking = {
     },
     GetBookingOne: (state) => {
       return state.bookingone;
-    }
+    },
   },
 };
