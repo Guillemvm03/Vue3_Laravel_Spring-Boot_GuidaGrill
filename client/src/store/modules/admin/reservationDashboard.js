@@ -58,6 +58,10 @@ export const reservationDashboard = {
             console.log(payload);
             state.reservations = payload;
         },
+
+        // [Constant.DELETE_RESERVATION]: (state, payload) => {
+        //     state.reservations = payload;
+        // }
     },
     getters:{
         GetReservations: (state) => {

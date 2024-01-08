@@ -1,20 +1,7 @@
 <template>
-  <!-- <div class="card text-start">
-      <img class="card-img-top" :src="stateOne.tables.img_table" alt="Title">
-      <div class="card-body">
-        <h4 class="card-title">Número de mesa: {{ stateOne.tables.table_number }}</h4>
-        <p class="card-text">Tipo de mesa: {{ stateOne.tables.category }}</p>
-        <p class="card-text">Libre: {{ stateOne.tables.available }}</p>
-        <p class="card-text">Estado: {{ stateOne.tables.status  }}</p>
-        <p class="card-text">Capacidad: {{ stateOne.tables.capacity }}</p>
-        <p class="card-text">Menús:</p>
-        <p class="card-menu" v-for="menu in stateOne.tables.menu" :key="menu.id">{{ menu.type }}</p>
-      </div>
-    </div> -->
-
 
 <div v-if="stateOne.isAuth==true">
-  {{ refresh() }}
+
   <BookingForm :tables="stateOne.tables" @reservation="createReservation"></BookingForm>
 </div>
 
@@ -78,22 +65,19 @@ export default {
       isAuth: computed(() => store.getters['user/GetIsAuth']),
     });
 
-    const refresh = () => {
-    // window.location.reload();
-    }
+
 
     const createReservation = (reservation) => {
-      console.log(reservation);
 
       store.dispatch(`booking/${Constant.ADD_BOOKING}`, reservation)
 
       // AddBooking(reservation)
-      // toaster.success("Reservation created successfully")
 
       // router.push("/Reservations");data
     }
 
-    return { stateOne, redirect_login, createReservation, refresh };
+    // console.log(stateOne.tables);
+    return { stateOne, redirect_login, createReservation };
   },
 };
 </script>

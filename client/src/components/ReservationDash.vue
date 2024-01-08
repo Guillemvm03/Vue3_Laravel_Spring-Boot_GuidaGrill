@@ -67,14 +67,14 @@ export default {
         const updateReservation = (id) => {
             store.dispatch(`reservationDashboard/${Constant.UPDATE_RESERVATION}`, id)
             toaster.success('Reservation Accepted');
-            window.location.reload();
-            // router.push('/Dashboard');
+            // console.log(id);
+            router.push('/Dashboard');
 
         }
         const deleteReservation = (id) => {
             store.dispatch(`reservationDashboard/${Constant.DELETE_RESERVATION}`, id)
             toaster.success('Reservation Deleted');
-            window.location.reload();
+            // window.location.reload();
             //  router.push('/Dashboard');
             
         }

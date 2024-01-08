@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,11 @@ import com.guida.spring.datajpa.repository.UserRepository;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 
+import com.resend.*;
+import com.resend.services.emails.model.Attachment;
+import com.resend.services.emails.model.SendEmailRequest;
+import com.resend.services.emails.model.SendEmailResponse;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -83,7 +89,6 @@ public class ReservationController {
     
             User user = UserRepository.findByUsername(userDetails.getUsername()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     
-            System.out.println(user.getId());
             List<Reservations> reservations = reservationRepository.findByUserId(user.getId());
             return new ResponseEntity<>(reservations, HttpStatus.OK);
     
@@ -97,6 +102,7 @@ public class ReservationController {
     @PostMapping("/reservations")
     public ResponseEntity<Reservations> createReservation(@RequestBody Reservations reservation, HttpServletRequest request) {
         try {
+
             UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                     .getPrincipal();
             User user = UserRepository.findByUsername(userDetails.getUsername()).get();
@@ -114,32 +120,77 @@ public class ReservationController {
     @DeleteMapping("/reservations/{id}")
     public ResponseEntity<HttpStatus> deleteReservation(@PathVariable("id") long id) {
         try {
+
+            System.out.println("id: " + id);
+            
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                    .getPrincipal();
+
+            User user = UserRepository.findByUsername(userDetails.getUsername()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+            Reservations reservation = reservationRepository.findById(id).orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+
+            
+            if (user.getId() != reservation.getUser_id()) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            // if (reservation.isApproved()==true) {
+            //     return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            // }
+
+        
             reservationRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // @PutMapping("/reservations/{id}")
-    public ResponseEntity<Reservations> updateReservation(@PathVariable("id") long id, @RequestBody Reservations reservation) {
-        Optional<Reservations> ReservationData = reservationRepository.findById(id);
+    @PutMapping("/reservations/{id}")
+    public ResponseEntity<Reservations> updateReservation(@PathVariable long id, @RequestBody Reservations reservation_) {
+        
+        try {
 
-        if (ReservationData.isPresent()) {
-            Reservations _reservation = ReservationData.get();
-            // _reservation.setUserId(reservation.getUserId());
-            // _reservation.setTableId(reservation.getTableId());
-            // _reservation.setMenuId(reservation.getMenuId());
-            _reservation.setReservationTime(reservation.getReservationTime());
-            _reservation.setApproved(reservation.isApproved());
-            _reservation.setReservationDay(reservation.getReservationDay());
-            _reservation.setCapacity(reservation.getCapacity());
-            _reservation.setMsg(reservation.getMsg());
-            return new ResponseEntity<>(reservationRepository.save(_reservation), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+           
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                    .getPrincipal();
+
+            User user = UserRepository.findByUsername(userDetails.getUsername()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+            Reservations reservation = reservationRepository.findById(id).orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+
+
+            if (user.getId() != reservation.getUser_id()) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+
+            if(reservation.isApproved()==true){
+                return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+            }
+
+            reservation.setMsg(reservation_.getMsg());
+            reservation.setReservationDay(reservation_.getReservationDay());
+            reservation.setReservationTime(reservation_.getReservationTime());
+            reservation.setCapacity(reservation_.getCapacity());
+
+            // return new ResponseEntity<>(HttpStatus.OK);
+
+                    return new ResponseEntity<>(reservation, HttpStatus.OK);
+
+                } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+
     }
 
+
+    
+   
+
 }
+
+
+
 

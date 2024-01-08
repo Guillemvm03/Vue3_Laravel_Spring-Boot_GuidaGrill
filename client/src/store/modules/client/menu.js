@@ -21,13 +21,30 @@ export const menu = {
             console.error(error);
           }
         },
+
+        [Constant.INITIALIZE_ONE_MENU]: async ({ commit }, id) => {
+            try {
+              const response = await MenuService.getOneMenu(id);
+              commit(Constant.INITIALIZE_ONE_MENU, response.data);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+
       },
     mutations: {
         [Constant.INITIALIZE_MENU]: (state, payload) => {
             if (payload) {
                 state.menu = payload;
             }
+        },
+
+        [Constant.INITIALIZE_ONE_MENU]: (state, payload) => {
+            if (payload) {
+                state.menuOne = payload;
+            }
         }
+
     },
     getters: {
         GetMenu(state) {
@@ -35,6 +52,10 @@ export const menu = {
         },
         GetMenuFiltered(state){
             return state.menuFiltered;
+        },
+        GetOneMenu(state){
+
+            return state.menuOne;
         }
     }
 }

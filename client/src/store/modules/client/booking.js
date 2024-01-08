@@ -8,11 +8,11 @@ export const booking = {
 
   actions: {
 
-    [Constant.INITIALIZE_ONE_BOOKING]: async (store, payload) => {
+    [Constant.INITIALIZE_TABLES_RESERVATION]: async (store, payload) => {
       try {
-        const response = await BookingService.getOneBooking(payload);
+        const response = await BookingService.getTablesBooking(payload);
         if (response.status === 200) {
-          store.commit(Constant.INITIALIZE_ONE_BOOKING, response.data);
+          store.commit(Constant.INITIALIZE_TABLES_RESERVATION, response.data);
         }
       }
       catch (error) {
@@ -43,7 +43,45 @@ export const booking = {
       catch (error) {
         console.error("Error in catch block:", error);
       }
+    },
+
+    [Constant.DELETE_USER_BOOKING]: async (store, payload) => {
+      try {
+        const response = await BookingService.deleteUserBooking(payload);
+        if (response.status === 200) {
+          store.dispatch(Constant.INITIALIZE_USER_BOOKING);
+        }
+      }
+      catch (error) {
+        console.error("Error in catch block:", error);
+      }
+    },
+
+
+    [Constant.INITIALIZE_ONE_BOOKING]: async (store, payload) => {
+      try {
+        const response = await BookingService.getOneBooking(payload);
+        if (response.status === 200) {
+          store.commit(Constant.INITIALIZE_ONE_BOOKING, response.data);
+        }
+      }
+      catch (error) {
+        console.error("Error in catch block:", error);
+      }
+    },
+
+    [Constant.UPDATE_USER_BOOKING]: async (store, payload) => {
+      try {
+        const response = await BookingService.updateUserBooking(payload);
+        if (response.status === 200) {
+          store.dispatch(Constant.INITIALIZE_USER_BOOKING);
+        }
+      }
+      catch (error) {
+        console.error("Error in catch block:", error);
+      }
     }
+
 
 
   },
@@ -54,18 +92,28 @@ export const booking = {
 
     [Constant.ADD_BOOKING]: (state, payload) => {
       if (payload) {
-        toaster.success('Booking made successfuly, check your mail to confirm');
         // window.location.reload();
     }
     },
 
-    [Constant.INITIALIZE_ONE_BOOKING]: (state, payload) => {
+    [Constant.INITIALIZE_TABLES_RESERVATION]: (state, payload) => {
       state.booking = payload;
     },
 
     [Constant.INITIALIZE_USER_BOOKING]: (state, payload) => {
       state.userBooking = payload;
     },
+
+    [Constant.DELETE_USER_BOOKING]: (state, payload) => {
+      state.userBooking = payload;
+    },
+    [Constant.INITIALIZE_ONE_BOOKING]: (state, payload) => {
+      
+      state.bookingone = payload;
+    },
+    [Constant.UPDATE_USER_BOOKING]: (state, payload) => {
+      state.userBooking = payload;
+    }
 
   },
 
@@ -76,5 +124,8 @@ export const booking = {
     GetUserBooking: (state) => {
       return state.userBooking;
     },
+    GetBookingOne: (state) => {
+      return state.bookingone;
+    }
   },
 };

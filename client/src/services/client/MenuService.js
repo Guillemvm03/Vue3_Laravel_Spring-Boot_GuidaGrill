@@ -10,4 +10,7 @@ export default {
     GetmenusInfinite(page,menu_number, limit) {
         return Api(secrets.URL_SPRING).get('menus/menusInfinite', { params: { page: page, type: menu_number, limit: limit } });
     },//
+    getOneMenu(id){
+        return Api(URL_SPRING + 'menus/' + id).get()
+    },
 }

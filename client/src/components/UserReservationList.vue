@@ -3,12 +3,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
 <section class="restaurants" id="restaurants">
-  <h2 class="restaurants__title">Your Bookings</h2>
+  <!-- <h2 class="restaurants__title">Your Bookings</h2> -->
 
   <div class="restaurants__block--container">
   
-    <div class="card__restaurant--link">
-      <article class="card" v-for="booking in state.bookings">
+    <div class="card__restaurant--link" v-for="booking in state.bookings">
+      <article class="card" >
         <a href="#" v-if="booking.approved==true">
           <img class="card__restaurant--img" src="https://c8.alamy.com/compes/2bkwnxd/sello-reservado-signo-redondo-reservado-etiqueta-2bkwnxd.jpg" alt="Photo d'un plat au restaurant - Le délice des sens">
         </a>
@@ -22,11 +22,18 @@
           <p class="card__restaurant--subtitle"><b>Day: </b>{{booking.reservationDay}}</p>
           <p class="card__restaurant--subtitle"><strong>Hour: </strong> {{booking.reservationTime}}</p>
           <p class="card__restaurant--subtitle"><b>People: </b>{{booking.capacity}}</p>
+          <!-- <p class="card__restaurant--subtitle"><b>Manu</b>{{ booking.menu }}</p> -->
 
           <div class="icons">
           <i v-if="booking.approved==false" class="fa-solid fa-check" style="color: red;">  Pending approval </i>
          <i v-else class="fa-solid fa-check-double" style="color: green;">    APPROVED</i>
         </div>
+
+        <div class="buttons" v-if="booking.approved==false">
+          <button type="button" @click="deleteBooking(booking.id)" class="btn btn-danger">Cancel</button>
+          <!-- <button type="button" @click="updateBooking(booking.id)" class="btn btn-primary">Update</button> -->
+        </div>
+
         </div>
 
       </article>
@@ -36,43 +43,55 @@
 </section>
 
 
-    <!-- <div class="card-container">
-      <div v-for="booking in state.bookings" :key="booking.id" class="card border-primary">
-        <div class="card-body">
-          <h4 class="card-title">Table: {{ booking.table_id }}</h4>
-          <p class="card-text">Date: {{ booking.date }}</p>
-          <p class="card-text">Time: {{ booking.time }}</p>
-          <p class="card-text">Number of people: {{ booking.number_of_people }}</p>
-          <p class="card-text">Name: {{ booking.name }}</p>
-          <p class="card-text">Phone: {{ booking.phone }}</p>
-          <p class="card-text">Email: {{ booking.email }}</p>
-          <p class="card-text">Message: {{ booking.message }}</p>
-        </div>
-      </div>
-    </div> -->
+
+
+
   </template>
   
   <script>
   import { computed, reactive } from "vue";
   import { useStore } from "vuex";
+  import { useRouter } from "vue-router";
   import Constant from "../Constant";
   
   export default {
     setup() {
       const store = useStore();
+      const router = useRouter();
+
+      const deleteBooking = (id) => {
+        store.dispatch(`booking/${Constant.DELETE_USER_BOOKING}`, id);
+        window.location.reload();
+      };
+
+      const updateBooking = (id) => {
+        router.push({ name: "updateReservationUser", params: { id } })
+      };
   
       store.dispatch(`booking/${Constant.INITIALIZE_USER_BOOKING}`);
       const state = reactive({
         bookings: computed(() => store.getters["booking/GetUserBooking"]),
       });
   
-      console.log(state.bookings);
-      return { state };
+      
+      return { state, deleteBooking, updateBooking };
     },
   };
   </script>
   
   <style lang="scss" scoped>
+
+  .icons {
+    position: absolute;
+    top: 189px;
+    right: 8px;
+}
+
+.buttons{
+  position: absolute;
+    top: 304px;
+    right: 16px;
+}
 
   /*=============== GOOGLE FONT ===============*/
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Shrikhand&display=swap");

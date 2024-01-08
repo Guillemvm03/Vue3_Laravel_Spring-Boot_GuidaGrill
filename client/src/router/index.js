@@ -120,6 +120,14 @@ const routes = [
     component: () => import('../views/Profile.vue'),
     beforeEnter: AuthGuards.authGuardAdmin, meta: { requiresAuth: true }    
   },
+
+  // {
+  //   path: "/profile/reservation/:id",danger
+  //   name: "updateReservationUser",
+  //   component: () => import('../views/Profile/ProfileUpdate.vue'),
+  //   beforeEnter: AuthGuards.AuthGuard, meta: { requiresAuth: true }
+  // },
+  
   {
     path: "/Dashboard/Reservation/reservationList", 
     name: "reservationList",

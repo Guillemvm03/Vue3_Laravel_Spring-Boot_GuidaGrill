@@ -42,4 +42,8 @@ export default{
      UPDATE_RESERVATION: "UpdateReservation",
      DELETE_RESERVATION: "DeleteReservation",
      INITIALIZE_USER_BOOKING: "InitializeUserBooking",
+     DELETE_USER_BOOKING: "DeleteUserBooking",
+     INITIALIZE_TABLES_RESERVATION: "InitializeTablesReservation",
+     UPDATE_USER_BOOKING: "UpdateUserBooking",
+
 }

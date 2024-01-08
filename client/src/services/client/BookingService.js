@@ -7,7 +7,7 @@ export default {
         return Api(secrets.URL_SPRING).post('reservations', params);
     },
 
-    getOneBooking(id) {
+    getTablesBooking(id) {
         return Api(secrets.URL_SPRING).get('reservations/table/' + id);
         
     },
@@ -15,5 +15,17 @@ export default {
     getUserBooking() {
         return Api(secrets.URL_SPRING).get('reservations/user');
         
+    },
+
+    deleteUserBooking(id) {
+        return Api(secrets.URL_SPRING).delete('reservations/' + id);
+    },
+
+    getOneBooking(id) {
+        return Api(secrets.URL_SPRING).get('reservations/' + id);
+    },
+
+    updateUserBooking(id, params) {
+        return Api(secrets.URL_SPRING).put('reservations/' + id, params);
     }
 }

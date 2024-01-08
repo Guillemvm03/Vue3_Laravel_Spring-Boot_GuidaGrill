@@ -15,9 +15,9 @@
     </header>
   </section>
 
-  <h1>Your Bookings</h1>
+  <h1 class="titleaa">Your Bookings</h1>
   <div v-if="state.bookings.length===0">
-    <p>No bookings yet</p>
+    <p class="nobookings">No bookings yet</p>
   </div>
   <div v-else>
     <UserReservationList/>
@@ -48,7 +48,6 @@ export default {
       bookings: computed(() => store.getters["booking/GetUserBooking"]),
     });
 
-    console.log(state.bookings);
    return {
       state
     }
@@ -62,6 +61,30 @@ export default {
 body {
   margin: 0;
   font-family: 'Lato', sans-serif;
+}
+
+.titleaa{
+  text-align: center;
+  font-size: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  color: #009FFF;
+  background: #ec2F4B;
+  background: linear-gradient(to right, #ec2F4B, #009FFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nobookings{
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  color: #009FFF;
+  background: #ec2F4B;
+  background: linear-gradient(to right, #ec2F4B, #009FFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .header {
