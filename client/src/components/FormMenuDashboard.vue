@@ -80,7 +80,7 @@ export default {
         }
 
         const cancel = () => {
-            router.push('/menus');
+            router.push('/Dashboard');
         }
 
         return { state, sendData, cancel };
@@ -103,4 +103,6 @@ export default {
         //   border-radius: 5px;
         //   background-color: #f2f2f2;
         // }
+
+
 </style>

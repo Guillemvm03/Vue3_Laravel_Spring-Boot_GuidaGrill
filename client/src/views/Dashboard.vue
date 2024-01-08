@@ -1,111 +1,167 @@
 <template>
+  <nav>
 
-<!-- NEW  -->
-
-<!-- <div :class="{'nav-open': $sidebar.showSidebar}"></div> -->
-
-
-<!--  -->
-
-
-
-
-
-
-
-
-<div class="container py-5">
-  <div class="row">
-    <div class="col-lg-12 text-center">
-      <h1><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</h1>
-      <hr class="my-4">
+    <div class="nav-left">
+      <h2>Dashboard</h2>
     </div>
-  </div>
-<br><br><br><br>
-  <div class="row justify-content-center">
-    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
-      <a href="/dashboard/menus" class="text-decoration-none">
-        <div class="card p-3 shadow bg-success text-white text-center border-0">
-          <div class="card-body">
-            <p class="card-title lead"><router-link to="/dashboard/menus" class="text-white">Menus</router-link></p>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-2">
+        <div class="left-sidebar">
+          <div class="imp-links">
+            <a @click="instance = 'userList'"><img
+                src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/setting.png?raw=true"
+                alt="news">Users</a>
+            <a @click="instance = 'tableList'"><img
+                src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/setting.png?raw=true"
+                alt="news">Tables</a>
+            <a @click="instance = 'menuList'"><img
+                src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/setting.png?raw=true"
+                alt="news">Menus</a>
+            <a @click="instance = 'reservation'"><img
+                src="https://github.com/sanketbodke/sbook/blob/main/Socialbook_img/marketplace.png?raw=true"
+                alt="news">Reservations</a>
           </div>
         </div>
-      </a>
+      </div>
+      <div class="col-10">
+        <tableList v-if="instance == 'tableList'" />
+        <userList v-if="instance == 'userList'" />
+        <menuList v-if="instance == 'menuList'" />
+        <ReservationList v-if="instance == 'reservation'" />
+      </div>
     </div>
 
-    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 p-2">
-      <a href="/dashboard/tables" class="text-decoration-none">
-        <div class="card p-3 shadow bg-primary text-white text-center border-0">
-          <div class="card-body">
-            <p class="card-title lead"><router-link to="/dashboard/tables" class="text-white">Tables</router-link></p>
-          </div>
-        </div>
-      </a>
-    </div>
   </div>
-</div>
-<br><br><br><br><br><br>
 
-
-
-<br><br><br><br><br><br>
+  <br><br><br><br><br><br>
 </template>
 <script>
-export default {};
+import tableList from "../views/Tables/tableList.vue";
+import userList from "../views/Users/userList.vue";
+import menuList from "../views/Menus/menuList.vue";
+import ReservationList from "../views/Reservation/ReservationList.vue";
+import { ref } from "vue";
+export default {
+  components: { tableList, userList, menuList, ReservationList },
+  setup() {
+    const instance = ref('userList')
+    return { instance }
+  }
+};
 </script>
 <style scoped>
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background: #efefef;
+}
+
+
+/* /............Navbar............../ */
+
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f25d18;
+  padding: 5px 5%;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo a {
+  width: 160px;
+  margin-right: 45px;
+  color: #fff;
+  text-decoration: none;
+}
+
+
+.nav-left ul li {
+  list-style: none;
+  display: inline-block;
+}
+
+.nav-left ul li img {
+  width: 28px;
+  margin: 0 15px;
+}
+
+.container {
+  justify-content: center;
+  height: 100%;
+  padding: 2% 1%;
+}
+
+.left-sidebar {
+  flex-basis: 25%;
+  position: sticky;
+  top: 70px;
+  align-self: flex-start;
+}
+
+.imp-links a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  color: #080808;
+  width: fit-content;
+}
+
+.imp-links a img {
+  width: 25px;
+  margin-right: 15px;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.imp-links {
+  border-bottom: 1px solid #ccc;
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: #f7f5f4;
+  padding: 1rem;
+}
+.row{
+  height: 100%;
+  
+}
+
+
+
+
+
+
+
+
+/* ///......media query....../// */
+
+
+@media(min-width: 280px) and (max-width: 868px) {
+  /* .nav-right .search-box{
+       display: none;
+   } */
+
+  .nav-left .icons-nav {
+    display: none;
   }
 
-  h1 {
-    color: #343a40;
-  }
 
-  hr {
-    border-top: 2px solid #727579;
-    width: 25%;
-    margin: 0 auto;
-  }
-
-  .card {
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: none;
-    position: relative;
-  }
-
-  .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-
-  .card-body {
-    padding: 20px;
-  }
-
-  .card-title {
-    font-size: 1.5rem;
-    margin-bottom: 0;
-    text-decoration: none;
-  }
-
-  .text-decoration-none {
-    text-decoration: none;
-  }
-
-  .bg-primary {
-    background-color: #768594;
-  }
-
-  .text-white {
-    color: #f0ecec;
-    transition: transform 0.3s;
-    text-decoration: none;
-  }
-
-  .text-white:hover {
-    transform: scale(1.1);
-  }
+}
 </style>
 

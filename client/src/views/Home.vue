@@ -1,30 +1,33 @@
 <template>
-
-<!-- ======= Hero Section ======= -->
-<section id="hero" class="hero d-flex align-items-center section-bg">
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center section-bg">
     <div class="container">
+      <Search class="search-nav" :menus="state.menus" @searchMealsValue="searchMeals" />
+
       <div class="row justify-content-between gy-5">
-        <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-          <h2 data-aos="fade-up">Enjoy Your Healthy<br>Delicious Food</h2>
-          <p data-aos="fade-up" data-aos-delay="100">Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum quas beatae cumque eum quaerat.</p>
+        <div
+          class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start"
+        >
+          <h2 data-aos="fade-up">Enjoy Your Healthy<br />Delicious Food</h2>
+          <p data-aos="fade-up" data-aos-delay="100">
+            Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum
+            quas beatae cumque eum quaerat.
+          </p>
+
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
             <a href="#book-a-table" class="btn-book-a-table">Book a Table</a>
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-            <CarouselVue :data="state.menus" @emitAction="redirectBookings"/>
-          <img src="assets/img/hero-img.png" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+          <CarouselVue :data="state.menus" @emitAction="redirectBookings" />
         </div>
       </div>
     </div>
-
   </section>
-  <!-- End Hero -->
 
-    <div>
-    
-    <!-- ======= Stats Counter Section ======= -->
-    <section id="stats-counter" class="stats-counter">
+
+<!-- ======= Stats Counter Section ======= -->
+<section id="stats-counter" class="stats-counter">
       <div class="container" data-aos="zoom-out">
 
         <div class="row gy-4">
@@ -61,67 +64,93 @@
 
       </div>
     </section><!-- End Stats Counter Section -->
-    </div>
-<!--  -->
-    <div>
-    <Card_meals :data="state.menus"/>
-    </div>
 
+
+  <!-- End Hero -->
+
+  <!-- <Card_meals v-if="state.menus" :data="state.menus" :dataMeals="state.menusInfinite" @page="addInfinite"/> -->
+  <Card_meals
+    v-if="state.menus"
+    :data="state.menus"
+    :dataMeals="state.mealsInfinite"
+    @page="addInfinite"
+    @menu_number="updateMenuNumber"
+  />
+  <!-- :dataMeals="state.menusInfinite" -->
 </template>
 
 <script>
-import { computed, reactive } from 'vue';
-import { useStore } from 'vuex';
-import Constant from '../Constant';
-import { useRouter } from 'vue-router';
+import { computed, reactive, ref } from "vue";
+import { useStore } from "vuex";
+import Constant from "../Constant";
+import { useRouter } from "vue-router";
 
-import CarouselVue from '../components/Carousel.vue';
-import Card_meals from '../components/Card_meals.vue';
-import CountUp from 'vue-countup-v2';
+import CarouselVue from "../components/Carousel.vue";
+import Card_meals from "../components/Card_meals.vue";
+import Search from "../components/Search.vue";
+import { useMealsInfinite } from "../composables/meals/useMeals";
 
-   export default{
-    components: { CarouselVue, Card_meals, CountUp },
-    setup() { 
+export default {
+  components: { CarouselVue, Card_meals, Search },
+  setup() {
+    const router = useRouter();
+    const store = useStore();
 
-        const router = useRouter();
-        const store = useStore();
+    const menuNumber = ref(1);
 
-       
-        store.dispatch(`menus/${Constant.INITIALIZE_MENU}`)
+    store.dispatch(`menus/${Constant.INITIALIZE_MENU}`);
 
-        const state = reactive({
-            menus: computed(()=> store.getters['menus/GetMenu'])
-        })
+    const updateMenuNumber = (newMenuNumber) => {
+      menuNumber.value = newMenuNumber;
+      state.mealsInfinite = useMealsInfinite(1, menuNumber.value, 3);
 
+      // Actualiza el valor
+    };
+    const state = reactive({
+      menus: computed(() => store.getters["menus/GetMenu"]),
 
-        const redirectBookings = (item) => {
+      // menusInfinite: useMenusInfinite(1, menuNumber.value, 3),
 
-            const filters = {
-                
-                // table_number: 0,
-                // capacity: 0,
-                // category: "",
-                // available: "",
-                // status: "",
-                // img_table: "",
-                menus: [item.id],
-            };
-            
-            const filters_ = btoa(JSON.stringify(filters));
-            router.push({ name: "bookingFilters", params: { filters: filters_ } });
-          }
+      mealsInfinite: useMealsInfinite(1, menuNumber.value, 3),
+    });
 
+    const redirectBookings = (item) => {
+      const filters = {
+        menus: [item.id],
+        page: 1,
+      };
 
-        return {state, redirectBookings}
-        
-    }
-   }
+      const filters_ = btoa(JSON.stringify(filters));
+      router.push({ name: "bookingFilters", params: { filters: filters_ } });
+    };
+
+    const addInfinite = (page) => {
+      state.mealsInfinite = useMealsInfinite(page, menuNumber.value, 3);
+    };
+
+    const searchMeals = (item) => {
+      const filtersSearch = {
+        meals: item,
+      };
+
+      const filtersSearch_ = btoa(JSON.stringify(filtersSearch));
+      router.push({ name: "bookingFilters", params: { filters: filtersSearch_ } });
+    };
+
+    return {
+      state,
+      redirectBookings,
+      addInfinite,
+      updateMenuNumber,
+      menuNumber: reactive(menuNumber),
+      searchMeals
+    };
+  },
+};
 </script>
 
+
 <style lang="scss" scoped>
-
-
-
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
@@ -204,4 +233,52 @@ import CountUp from 'vue-countup-v2';
   }
 }
 
+/*--------------------------------------------------------------
+# Stats Counter Section
+--------------------------------------------------------------*/
+.stats-counter {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../src/assets/img/stats-bg.jpg") center center;
+  background-size: cover;
+  padding: 100px 0;
+}
+
+@media (min-width: 1365px) {
+  .stats-counter {
+    background-attachment: fixed;
+  }
+}
+
+.stats-counter .stats-item {
+  padding: 30px;
+  width: 100%;
+}
+
+.stats-counter .stats-item span {
+  font-size: 48px;
+  display: block;
+  color: #fff;
+  font-weight: 700;
+}
+
+.stats-counter .stats-item p {
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-secondary);
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-nav{
+
+  position: absolute;
+  top: -551px;
+  right: 0;
+  z-index: 999;
+  width: 100%;
+  padding: 0 15px;
+  transition: all 0.5s;
+  height: 60px;
+}
 </style>

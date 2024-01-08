@@ -17,8 +17,20 @@ export const table =  {
                 store.commit(Constant.INITIALIZE_TABLES, response.data);
         },
         [Constant.INITIALIZE_ONE_STATE_TABLES]: async (store, payload) => {
-            const response = await TableService.GetTableById(payload);
-            store.commit(Constant.INITIALIZE_ONE_STATE_TABLES, response.data);
+            try{
+                if(store.state.tables != undefined){
+                    const index = store.state.tables.findIndex(object => {
+                        return object.id == parseInt(payload);
+                    });
+                    store.commit(Constant.INITIALIZE_ONE_STATE_TABLES, store.state.tables[index]);
+                }else{
+                    const response = await TableService.GetTableById(payload);
+                    store.commit(Constant.INITIALIZE_ONE_STATE_TABLES, response.data);
+                }
+            }
+            catch(error){
+                console.log(error);
+            }
              
     },
 },

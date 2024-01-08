@@ -13,4 +13,37 @@ export default{
      ADD_MENU: "AddMenu",
      DELETE_MENU: "DeleteMenu",
      UPDATE_MENU: "UpdateMenu",
+
+     //USER
+     INITIALIZE_USERS: "InitializeUsers",
+     INITIALIZE_USER: "InitializeUser",
+
+     DELETE_USER: "DeleteUser",
+     ADD_USER: "AddUser",
+
+     INITIALIZE_PROFILE: "InitializeProfile",
+     INITIALIZE_PROFILE_ADMIN: "InitializeProfileAdmin",
+     LOGIN_ADMIN: "Login_Admin",
+     LOGIN: "Login",
+     LOGOUT: "Logout",
+     
+
+      
+     // //BOOKING
+     INITIALIZE_BOOKING: "InitializeBooking",
+     INITIALIZE_ONE_BOOKING: "InitializeOneBooking",
+     ADD_BOOKING: "AddBooking",
+
+
+     // RESERVATION
+
+     INITIALIZE_RESERVATIONS: "InitializeReservation",
+     INITIALIZE_ONE_RESERVATION: "InitializeOneReservation",
+     UPDATE_RESERVATION: "UpdateReservation",
+     DELETE_RESERVATION: "DeleteReservation",
+     INITIALIZE_USER_BOOKING: "InitializeUserBooking",
+     DELETE_USER_BOOKING: "DeleteUserBooking",
+     INITIALIZE_TABLES_RESERVATION: "InitializeTablesReservation",
+     UPDATE_USER_BOOKING: "UpdateUserBooking",
+
 }

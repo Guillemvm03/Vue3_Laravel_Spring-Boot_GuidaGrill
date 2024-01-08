@@ -90,7 +90,6 @@ export const menuDashboard = {
        
     },//mutations
     getters: {
-
         GetMenus(state) {
             return state.menu;
         },

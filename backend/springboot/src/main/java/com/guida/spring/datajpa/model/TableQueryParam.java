@@ -20,7 +20,14 @@ public class TableQueryParam {
     private boolean available;
     private String status;
     private String img_table;
-    private String[] menu;  
+    private String[] menu; 
+    private String meal;
+    private boolean all;
+    private Integer page;
+    private Integer limit;
+
+
+
 
     public Integer getTable_number() {
         return table_number;
@@ -77,4 +84,37 @@ public class TableQueryParam {
     public void setMenu(String[] menu) {
         this.menu = menu;
     }
+
+    public String getMeal() {
+        return meal;
+    }
+
+    public void setMeal(String meal){
+        this.meal = meal;
+    }
+    
+    public boolean all() {
+        return all;
+    }
+    
+    public void setAll(boolean all){
+        this.all = all;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getLimit() {
+        return limit;
+    }
+
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+    
 }

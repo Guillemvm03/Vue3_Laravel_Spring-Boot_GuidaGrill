@@ -7,10 +7,10 @@
     <div class="col-lg-3 col-md-6 d-flex">
       <i class="bi bi-geo-alt icon"></i>
       <div>
-        <h4>Address</h4>
+        <h4>Authors</h4>
         <p>
-          A108 Adam Street <br>
-          Ontinyent, O 535022 - US<br>
+          Guillem Vicent <br>
+          David Moreno<br>
         </p>
       </div>
 
@@ -19,10 +19,10 @@
     <div class="col-lg-3 col-md-6 footer-links d-flex">
       <i class="bi bi-telephone icon"></i>
       <div>
-        <h4>Reservations</h4>
+        <h4>Emails</h4>
         <p>
-          <strong>Phone:</strong> +1 5589 55488 55<br>
-          <strong>Email:</strong> info@example.com<br>
+           guillemvicent33@gmail.com<br>
+           davidmpenades@gmail.com<br>
         </p>
       </div>
     </div>
@@ -30,10 +30,10 @@
     <div class="col-lg-3 col-md-6 footer-links d-flex">
       <i class="bi bi-clock icon"></i>
       <div>
-        <h4>Opening Hours</h4>
+        <h4>Education Center</h4>
         <p>
-          <strong>Mon-Sat: 11AM</strong> - 23PM<br>
-          Sunday: Closed
+          IES L'Estacio<br>
+          2º DAW
         </p>
       </div>
     </div>
@@ -41,10 +41,13 @@
     <div class="col-lg-3 col-md-6 footer-links">
       <h4>Follow Us</h4>
       <div class="social-links d-flex">
-        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        
+        <a href="https://www.linkedin.com/in/gvicentmarti/" class="social-links"><img src="../assets/img/linkedin.svg"></a>
+        <a href="https://github.com/Guillemvm03" class="social-links"><img src="../assets/img/github.svg"></a>
+        
+        <a href="https://www.linkedin.com/in/david-moreno-1675a4248/" class="Linkedin"><img src="../assets/img/linkedin.svg"></a>
+        <a href="https://github.com/davidmpenades" class="social-links"><img src="../assets/img/github.svg"></a>
+        
 
         <!-- <a href=""><i class="bi bi-github"></i></a> -->
       </div>
@@ -69,6 +72,7 @@
 
 
 <script>
+
 export default {
   name: "Test",
   created() {},
@@ -134,10 +138,10 @@ export default {
 }
 
 .footer .footer-links ul a:hover {
-  color: #fff;
+  color: #363434;
 }
 
-.footer .social-links a {
+.footer .social-links img{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -146,14 +150,14 @@ export default {
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.2);
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(44, 42, 42, 0.7);
   margin-right: 10px;
   transition: 0.3s;
 }
 
 .footer .social-links a:hover {
-  color: #fff;
-  border-color: #fff;
+  color: #181717;
+  border-color: #201f1f;
 }
 
 .footer .copyright {
