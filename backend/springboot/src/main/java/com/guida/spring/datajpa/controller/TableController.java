@@ -36,8 +36,6 @@ public class TableController {
 	public ResponseEntity<List<Tables>> getAllTable(@ModelAttribute TableQueryParam tableQueryParam) {
 		try {
 
-
-
 			Integer offset = (tableQueryParam.getPage() - 1) * tableQueryParam.getLimit();
 
 			List<Tables> table = new ArrayList<Tables>();
@@ -45,11 +43,9 @@ public class TableController {
 			// Get all tables from menu			
 			if (tableQueryParam.getMenu() != null 
 				&& tableQueryParam.getCategory() == "" || tableQueryParam.getCategory() == null
-				&& tableQueryParam.all() == false 
-   
+				&& tableQueryParam.all() == false    
 				) {
 
-				System.out.println("menu");
 				table = tableRepository.findMenusOnTable(tableQueryParam.getMenu(),tableQueryParam.getLimit(), offset);
 			}
 			//get all tables from category
@@ -58,8 +54,6 @@ public class TableController {
 					&& tableQueryParam.all() == false
 					){
 
-				System.out.println("category");
-
 				table = tableRepository.findCategoriesOnTable(tableQueryParam.getCategory(),tableQueryParam.getLimit(), offset);
 			}
 			//get all tables from category and menu
@@ -67,8 +61,6 @@ public class TableController {
 					&& tableQueryParam.getCategory() != null
 					&& tableQueryParam.all() == false
 					){
-
-				System.out.println("category and menu");
 
 				table = tableRepository.findTablesByMenuAndCategory(tableQueryParam.getMenu(), tableQueryParam.getCategory());
 			}					
@@ -100,14 +92,10 @@ public class TableController {
 		try {
 			Integer total = 0;
 
-			// System.out.println("limit" + tableQueryParam.getLimit());
-			// System.out.println("page" + tableQueryParam.getPage());
-
 			if (tableQueryParam.getMenu() != null && (tableQueryParam.getCategory() == null || tableQueryParam.getCategory().isEmpty())
 					|| tableQueryParam.getCategory() == null && !tableQueryParam.all()) {
 				
 				total = tableRepository.findMenusOnTableAndPaginate(tableQueryParam.getMenu());
-				// System.out.println(total);
 			}else if(
 			tableQueryParam.getMenu() == null 
 					&& tableQueryParam.getCategory() != "" 
@@ -115,9 +103,7 @@ public class TableController {
 				){
 				total = tableRepository.findCategoryPaginate(tableQueryParam.getCategory());
 			} else {
-				// System.out.println("all pag");
 				total = tableRepository.findTablesPaginate();
-				// System.out.println(total);
 			}
 	
 			return new ResponseEntity<>(total, HttpStatus.OK);

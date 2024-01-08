@@ -10,7 +10,6 @@
 						<div class="col-sm-6">
 							<router-link to="/Dashboard/Tables/tableCreate"><a class="btn btn-success"><span>Add New
 										Table</span></a> </router-link>
-							<!-- <a class="btn btn-success" @click=" tableCreate()"><span>Add New Table</span></a> -->
 						</div>
 					</div>
 				</div>
@@ -202,4 +201,5 @@ table.table td a.edit {
 
 table.table td a.delete {
 	color: #F44336;
-}</style>
+}
+</style>

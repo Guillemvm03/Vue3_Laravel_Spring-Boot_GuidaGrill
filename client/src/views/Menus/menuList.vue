@@ -1,9 +1,8 @@
 <template>
+	<br><br>
 
-<br><br>
 
-
-<div class="container-xl">
+	<div class="container-xl">
 		<div class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
@@ -18,36 +17,35 @@
 					</div>
 				</div>
 				<table class="table table-striped table-hover">
-    
-                    <div class="col-sm-6 text-center d-flex align-items-center justify-content-end"> <!-- Clases Bootstrap para centrar y alinear al final -->
-                        <button @click="updateMenu()" class="btn btn-primary mr-2">Update</button>
-                        <button @click="deleteMenu()" class="btn btn-danger">Delete</button>
-                    </div>
 
-                    <DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.menu" ref="tablete">
+					<div class="col-sm-6 text-center d-flex align-items-center justify-content-end">
+						<button @click="updateMenu()" class="btn btn-primary mr-2">Update</button>
+						<button @click="deleteMenu()" class="btn btn-danger">Delete</button>
+					</div>
 
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>type</th>
-                            <th>img_Menu</th>
-                        </tr>
-                    </thead>
-					<tbody>
-						
-					</tbody>
-                </DataTable>
-                
+					<DataTable class="display" :options="{ select: true }" :columns="columns" :data="state.menu"
+						ref="tablete">
+
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>type</th>
+								<th>img_Menu</th>
+							</tr>
+						</thead>
+						<tbody>
+
+						</tbody>
+					</DataTable>
+
 				</table>
 			</div>
 		</div>
 	</div>
-
-
 </template>
 
 <script>
-import {reactive, computed, ref, onMounted} from 'vue';
+import { reactive, computed, ref, onMounted } from 'vue';
 import DataTable from 'datatables.net-vue3';
 import DataTablesLib from 'datatables.net';
 import 'datatables.net-select';
@@ -59,56 +57,53 @@ import { useStore } from 'vuex';
 
 
 export default {
-    components: { DataTable },
-    
-    setup() {
+	components: { DataTable },
 
-        // const toaster = createToaster({ "position": "top-right", "duration": 1500 });
-        const store = useStore();
-        const router = useRouter();
-        DataTable.use(DataTablesLib);
+	setup() {
+		const store = useStore();
+		const router = useRouter();
+		DataTable.use(DataTablesLib);
 
-        store.dispatch(`menuDashboard/${Constant.INITIALIZE_MENU}`);
+		store.dispatch(`menuDashboard/${Constant.INITIALIZE_MENU}`);
 
-        const state = reactive({
-            menu: computed(() => store.getters['menuDashboard/GetMenus'])
-        });
+		const state = reactive({
+			menu: computed(() => store.getters['menuDashboard/GetMenus'])
+		});
 
-        const columns = [
-            { data: 'id' },
-            { data: 'type' },
-            { data: 'img_Menu' },
-        ];
+		const columns = [
+			{ data: 'id' },
+			{ data: 'type' },
+			{ data: 'img_Menu' },
+		];
 
-        let dt;
-        const tablete = ref();
-        onMounted(() => {
-            dt = tablete.value.dt;
-        });
+		let dt;
+		const tablete = ref();
+		onMounted(() => {
+			dt = tablete.value.dt;
+		});
 
 
-        function updateMenu() {
-            const indexs = dt.rows({ selected: true })[0];
-            if (indexs.length === 1) {
-                const id = state.menu[indexs[0]].id;
-                router.push({ name: 'updateMenu', params: { id } })
-            } else {
-                // toaster.info('You have to select ONE category');
-            }
-        };
+		function updateMenu() {
+			const indexs = dt.rows({ selected: true })[0];
+			if (indexs.length === 1) {
+				const id = state.menu[indexs[0]].id;
+				router.push({ name: 'updateMenu', params: { id } })
+			} else {
+			}
+		};
 
-        function deleteMenu() {
-            const indexs = dt.rows({ selected: true })[0];
-            if (indexs.length > 0) {
-                dt.rows({ selected: true }).every(index => store.dispatch(`menuDashboard/${Constant.DELETE_MENU}`, state.menu[index].id));
-                router.push('/dashboard/menus');
-            } else {
-                // toaster.info('You have to at last ONE Menu');
-            }
-        };
-        return { state, columns,tablete, deleteMenu, updateMenu};
+		function deleteMenu() {
+			const indexs = dt.rows({ selected: true })[0];
+			if (indexs.length > 0) {
+				dt.rows({ selected: true }).every(index => store.dispatch(`menuDashboard/${Constant.DELETE_MENU}`, state.menu[index].id));
+				router.push('/dashboard/menus');
+			} else {
+				// toaster.info('You have to at last ONE Menu');
+			}
+		};
+		return { state, columns, tablete, deleteMenu, updateMenu };
 
-    }
+	}
 }
 </script>
 
@@ -231,5 +226,4 @@ table.table td a.edit {
 table.table td a.delete {
 	color: #F44336;
 }
-
 </style>

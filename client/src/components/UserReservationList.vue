@@ -1,99 +1,87 @@
 <template>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
-
-<section class="restaurants" id="restaurants">
-  <!-- <h2 class="restaurants__title">Your Bookings</h2> -->
-
-  <div class="restaurants__block--container">
-  
-    <div class="card__restaurant--link" v-for="booking in state.bookings">
-      <article class="card" >
-        <a href="#" v-if="booking.approved==true">
-          <img class="card__restaurant--img" src="https://c8.alamy.com/compes/2bkwnxd/sello-reservado-signo-redondo-reservado-etiqueta-2bkwnxd.jpg" alt="Photo d'un plat au restaurant - Le délice des sens">
-        </a>
-        <a href="" v-else>
-          <img class="card__restaurant--img" src="        https://imgs.search.brave.com/pWqKZ1Kq8PE8XlPW7jFgdMxA58UBbY4zkSPOxxonL00/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAyLzIyLzAxLzQw/LzM2MF9GXzIyMjAx/NDA5NF9qaDltY1pU/SHpzdzcxQWtoZWZP/RUd5UUgzNkVqalBM/Si5qcGc
+  <section class="restaurants" id="restaurants">
+    <div class="restaurants__block--container">
+      <div class="card__restaurant--link" v-for="booking in state.bookings">
+        <article class="card">
+          <a href="#" v-if="booking.approved == true">
+            <img class="card__restaurant--img"
+              src="https://c8.alamy.com/compes/2bkwnxd/sello-reservado-signo-redondo-reservado-etiqueta-2bkwnxd.jpg"
+              alt="Photo d'un plat au restaurant - Le délice des sens">
+          </a>
+          <a href="" v-else>
+            <img class="card__restaurant--img" src="        https://imgs.search.brave.com/pWqKZ1Kq8PE8XlPW7jFgdMxA58UBbY4zkSPOxxonL00/rs:fit:500:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAyLzIyLzAxLzQw/LzM2MF9GXzIyMjAx/NDA5NF9qaDltY1pU/SHpzdzcxQWtoZWZP/RUd5UUgzNkVqalBM/Si5qcGc
             " alt="Photo d'un plat au restaurant - Le délice des sens">
-        </a>
-        <div class="card__restaurant--content">
-          <h3 class="card__restaurant--title">Your Booking</h3>
-         
-          <p class="card__restaurant--subtitle"><b>Day: </b>{{booking.reservationDay}}</p>
-          <p class="card__restaurant--subtitle"><strong>Hour: </strong> {{booking.reservationTime}}</p>
-          <p class="card__restaurant--subtitle"><b>People: </b>{{booking.capacity}}</p>
-          <!-- <p class="card__restaurant--subtitle"><b>Manu</b>{{ booking.menu }}</p> -->
+          </a>
+          <div class="card__restaurant--content">
+            <h3 class="card__restaurant--title">Your Booking</h3>
 
-          <div class="icons">
-          <i v-if="booking.approved==false" class="fa-solid fa-check" style="color: red;">  Pending approval </i>
-         <i v-else class="fa-solid fa-check-double" style="color: green;">    APPROVED</i>
-        </div>
+            <p class="card__restaurant--subtitle"><b>Day: </b>{{ booking.reservationDay }}</p>
+            <p class="card__restaurant--subtitle"><strong>Hour: </strong> {{ booking.reservationTime }}</p>
+            <p class="card__restaurant--subtitle"><b>People: </b>{{ booking.capacity }}</p>
 
-        <div class="buttons" v-if="booking.approved==false">
-          <button type="button" @click="deleteBooking(booking.id)" class="btn btn-danger">Cancel</button>
-          <!-- <button type="button" @click="updateBooking(booking.id)" class="btn btn-primary">Update</button> -->
-        </div>
+            <div class="icons">
+              <i v-if="booking.approved == false" class="fa-solid fa-check" style="color: red;"> Pending approval </i>
+              <i v-else class="fa-solid fa-check-double" style="color: green;"> APPROVED</i>
+            </div>
 
-        </div>
-
-      </article>
+            <div class="buttons" v-if="booking.approved == false">
+              <button type="button" @click="deleteBooking(booking.id)" class="btn btn-danger">Cancel</button>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
-    
-  </div>
-</section>
-
-
-
-
-
-  </template>
+  </section>
+</template>
   
-  <script>
-  import { computed, reactive } from "vue";
-  import { useStore } from "vuex";
-  import { useRouter } from "vue-router";
-  import Constant from "../Constant";
-  
-  export default {
-    setup() {
-      const store = useStore();
-      const router = useRouter();
+<script>
+import { computed, reactive } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+import Constant from "../Constant";
 
-      const deleteBooking = (id) => {
-        store.dispatch(`booking/${Constant.DELETE_USER_BOOKING}`, id);
-        window.location.reload();
-      };
+export default {
+  setup() {
+    const store = useStore();
+    const router = useRouter();
 
-      const updateBooking = (id) => {
-        router.push({ name: "updateReservationUser", params: { id } })
-      };
-  
-      store.dispatch(`booking/${Constant.INITIALIZE_USER_BOOKING}`);
-      const state = reactive({
-        bookings: computed(() => store.getters["booking/GetUserBooking"]),
-      });
-  
-      
-      return { state, deleteBooking, updateBooking };
-    },
-  };
-  </script>
-  
-  <style lang="scss" scoped>
+    const deleteBooking = (id) => {
+      store.dispatch(`booking/${Constant.DELETE_USER_BOOKING}`, id);
+      window.location.reload();
+    };
 
-  .icons {
-    position: absolute;
-    top: 189px;
-    right: 8px;
-}
+    const updateBooking = (id) => {
+      router.push({ name: "updateReservationUser", params: { id } })
+    };
 
-.buttons{
+    store.dispatch(`booking/${Constant.INITIALIZE_USER_BOOKING}`);
+    const state = reactive({
+      bookings: computed(() => store.getters["booking/GetUserBooking"]),
+    });
+
+    return { state, deleteBooking, updateBooking };
+  },
+};
+</script>
+  
+<style lang="scss" scoped>
+.icons {
   position: absolute;
-    top: 304px;
-    right: 16px;
+  top: 189px;
+  right: 8px;
 }
 
-  /*=============== GOOGLE FONT ===============*/
+.buttons {
+  position: absolute;
+  top: 304px;
+  right: 16px;
+}
+
+/*=============== GOOGLE FONT ===============*/
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Shrikhand&display=swap");
 
 /*=============== VARIABLES CSS ===============*/
@@ -128,12 +116,10 @@ $Large-desktop-width: 1440px;
 /*=============== MIXIN ===============*/
 
 /*========== Flexbox ==========*/
-@mixin flex(
-  $direction: initial,
+@mixin flex($direction: initial,
   $justify: initial,
   $align: initial,
-  $gap: initial
-) {
+  $gap: initial) {
   display: flex;
   flex-direction: $direction;
   justify-content: $justify;
@@ -207,51 +193,12 @@ p {
   -webkit-text-fill-color: transparent;
 }
 
-/* Désactive l'icône de base de checking  */
-.heart input {
-  display: none;
-}
-
-/* Taille des icônes de cœur */
-.fa-heart {
-  width: 1.62rem;
-  font-size: 1.5rem;
-}
-
-/* Style du cœur au survole de l'élément */
-.far:hover {
-  @extend %color-heart;
-}
-
-/* Couleur du cœur une fois cliqué */
-.fas {
-  @extend %color-heart;
-}
-
-/* Les actions aux cliques des icônes de cœur */
-.heart input:not(:checked) + label > i.far {
-  display: block;
-  cursor: pointer;
-}
-
-.heart input:checked + label > i.far {
-  display: none;
-}
-
-.heart input:not(:checked) + label > i.fas {
-  display: none;
-}
-
-.heart input:checked + label > i.fas {
-  display: block;
-  cursor: pointer;
-}
-
 /*=============== PAGE RESTAURANTS ===============*/
 /* Style de l'ensemble de la section restaurants */
 .restaurants {
   @include flex(column, center, center, 1.62rem);
   padding: 3.37rem 1.09rem 4.12rem 1.09rem;
+
   @include desktop {
     padding-top: 1.87rem;
   }
@@ -269,9 +216,11 @@ p {
     flex-wrap: wrap;
     width: 100%;
     max-width: 67.5rem;
+
     @include tablet {
       gap: 1.25rem;
     }
+
     @include desktop {
       justify-content: space-between;
       gap: 3.12rem;
@@ -288,6 +237,7 @@ p {
   background-color: white;
   box-shadow: 0 0.25rem 0.93rem rgba(0, 0, 0, 0.1);
   transition: box-shadow, transform, 0.5s;
+
   &:hover {
     box-shadow: 0 0.25rem 1.25rem $Color-shadows2-button;
   }
@@ -297,9 +247,11 @@ p {
     &:hover::before {
       box-shadow: 0.06rem 0.25rem 1.25rem rgba($Badge-text-color, 0.3);
     }
+
     &:hover::before {
       background-color: $Tertiary-color;
     }
+
     &::before {
       content: "Nouveau";
       font-family: $Body-font-text;
@@ -322,9 +274,11 @@ p {
   &__restaurant--link {
     width: 100%;
     position: relative;
+
     @include tablet {
       width: calc((100% - 1.25rem) / 2);
     }
+
     @include desktop {
       width: calc((100% - 3.12rem) / 2);
       max-width: 30.6rem;
@@ -367,7 +321,5 @@ p {
     bottom: 2rem;
   }
 }
-
-
-  </style>
+</style>
   

@@ -1,8 +1,7 @@
 <template>
-    <form_table_dashVue :table="stateOneTable.table" :key="stateOneTable.table?.id" @data="updateTable"/>
+    <form_table_dashVue :table="stateOneTable.table" :key="stateOneTable.table?.id" @data="updateTable" />
 </template>
 <script>
-import Form_table_dash from '../../components/form_table_dash.vue';
 import { createToaster } from "@meforma/vue-toaster";
 import Constant from '../../Constant';
 import { useRouter, useRoute } from 'vue-router';
@@ -22,7 +21,7 @@ export default {
 
         store.dispatch(`tableDashboard/${Constant.INITIALIZE_ONE_STATE_TABLES}`, id);
 
-        const stateOneTable = reactive( {
+        const stateOneTable = reactive({
             table: computed(() => store.getters['tableDashboard/getOneTable'])
         });
 
@@ -30,7 +29,6 @@ export default {
             store.dispatch(`tableDashboard/${Constant.UPDATE_TABLE}`, table)
             toaster.success("Table updated")
             router.push("/Dashboard/tables")
-            // window.location.reload();
         }
         return { updateTable, stateOneTable }
     }

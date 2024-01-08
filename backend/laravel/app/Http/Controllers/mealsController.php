@@ -14,7 +14,6 @@ class mealsController extends Controller
     public function index()
     {
         return mealsResource::collection(Meals::all());
-
     }
 
     /**
@@ -36,7 +35,7 @@ class mealsController extends Controller
         foreach ($meals as $c) {
             array_push($meals_id, $c->id);
         }
-  
+
         if (count($meals_id) > 0) {
             $meals = Meals::create($data);
             $meals->meals()->sync($meals_id);
@@ -54,7 +53,6 @@ class mealsController extends Controller
     public function show(string $id)
     {
         return mealsResource::make(Meals::where('id', $id)->firstOrFail());
-
     }
 
     /**
@@ -72,14 +70,14 @@ class mealsController extends Controller
     {
         if (Meals::where('id', $id)->exists()) {
             $meals = Meals::find($id);
-    
-          $meals->update($request->validated());
-          return mealsResource::make($meals);
-          }else {
-          return response()->json([
-            "message" => "Meal not found"
-          ], 404);
-        } 
+
+            $meals->update($request->validated());
+            return mealsResource::make($meals);
+        } else {
+            return response()->json([
+                "message" => "Meal not found"
+            ], 404);
+        }
     }
 
     /**
@@ -87,16 +85,16 @@ class mealsController extends Controller
      */
     public function destroy(string $id)
     {
-        if(Meals::where('id', $id)->exists()) {
+        if (Meals::where('id', $id)->exists()) {
             $meals = Meals::find($id);
             $meals->delete();
             return response()->json([
-              "message" => "Meal deleted"
+                "message" => "Meal deleted"
             ], 202);
-          } else {
+        } else {
             return response()->json([
-              "message" => "Meal not found"
+                "message" => "Meal not found"
             ], 404);
-          }
+        }
     }
 }

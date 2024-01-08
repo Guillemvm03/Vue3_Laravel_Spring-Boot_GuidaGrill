@@ -3,11 +3,9 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
         <router-link to="/home" class="link">
           <img src="../assets/img/logoletra.png" alt="" />
         </router-link>
-        <!-- <h1>GUIDA GRILL<span>.</span></h1> -->
       </a>
 
       <nav id="navbar" class="navbar">

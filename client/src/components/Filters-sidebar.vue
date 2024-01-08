@@ -6,7 +6,7 @@
       <option value="double">Double</option>
       <option value="Outside">Outside</option>
       <option value="VIP">VIP</option>
-    </select>   
+    </select>
     <label>Type of food:</label>
     <select v-model="state.filters.menus">
       <option :value=[1]>Breakfast</option>
@@ -25,24 +25,24 @@ import { getCurrentInstance, reactive } from 'vue';
 
 export default {
   props: {
-  filters: Object,
+    filters: Object,
   },
-  emit:{
-    filters1 : Object,
-    deleteFilters : Object,
+  emit: {
+    filters1: Object,
+    deleteFilters: Object,
   },
-  setup(props){
+  setup(props) {
     const filters_ = props.filters;
     const { emit } = getCurrentInstance();
-    
 
-    const state  = reactive({
-      filters : {
+
+    const state = reactive({
+      filters: {
         ...filters_
       }
     })
     const sendData = () => {
-      emit('filters1', state.filters);    
+      emit('filters1', state.filters);
     }
 
     const deleteFilters = () => {
@@ -54,9 +54,9 @@ export default {
       emit('deleteFilters', state.filters);
     }
 
-    return {state , sendData, deleteFilters}
+    return { state, sendData, deleteFilters }
   }
-  
+
 };
 </script>
 
@@ -66,11 +66,13 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
-button{
+
+button {
   margin-top: 10px;
-  margin-left: 10px;}
-label{
+  margin-left: 10px;
+}
+
+label {
   margin-left: 30px;
   margin-right: 10px;
-}
-</style>
+}</style>

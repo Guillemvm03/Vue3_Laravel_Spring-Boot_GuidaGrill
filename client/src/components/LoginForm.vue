@@ -1,58 +1,40 @@
 <template>
   <body>
     <div class="wrapper" :class="{ 'flipped': !isLogin }">
-      <div :class="{'content': !isLogin}">
+      <div :class="{ 'content': !isLogin }">
         <h1>{{ isLogin ? 'Login' : 'Register' }}</h1>
-
-
-        <!-- <errorList v-if="hasErrors()" :fieldErrors="state.errors"/> -->
-        
-
         <div class="input-box" v-if="isLogin">
-        <input type="text" placeholder="Username" v-model="state.user.username" required>
+          <input type="text" placeholder="Username" v-model="state.user.username" required>
+        </div>
+        <div class="input-box" v-else="!isLogin">
+          <input type="text" placeholder="Username" v-model="state.useRegister.username" required>
+          <p class="field-error">{{ state.errors.username }}</p>
+        </div>
+        <div class="input-box" v-show="!isLogin">
+          <input type="text" placeholder="Email" v-model="state.useRegister.email" required>
+          <p class="field-error">{{ state.errors.email }}</p>
+        </div>
+        <div class="input-box" v-if="isLogin">
+          <input type="password" placeholder="Password" v-model="state.user.password" required>
+        </div>
+        <div class="input-box" v-else="!isLogin">
+          <input type="password" placeholder="Password" v-model="state.useRegister.password" required>
+          <p class="field-error">{{ state.errors.password }}</p>
+        </div>
+        <div class="input-box" v-show="!isLogin">
+          <input type="password" placeholder="Repeat Password" v-model="state.useRegister.password2" required>
+        </div>
+        <button v-if="isLogin" class="btn" @click="login" @keydown.enter="login">Login</button>
+        <button v-else="!isLogin" @click="register" class="btn">Register</button>
+        <div class="register-link">
+          <p>
+            {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
+            <a @click="isLogin = !isLogin" href="#">
+              {{ isLogin ? 'Register Here' : 'Login Here' }}
+            </a>
+          </p>
+        </div>
       </div>
-      
-      <div class="input-box" v-else="!isLogin">
-        <input type="text" placeholder="Username" v-model="state.useRegister.username" required>
-        <p class="field-error">{{ state.errors.username }}</p>
-      </div>
-
-      <div class="input-box" v-show="!isLogin">
-        <input type="text" placeholder="Email" v-model="state.useRegister.email" required>
-        <p class="field-error">{{ state.errors.email }}</p>
-      </div>
-
-      <div class="input-box" v-if="isLogin">
-        <input type="password" placeholder="Password" v-model="state.user.password" required>
-      </div>
-      <div class="input-box" v-else="!isLogin">
-        <input type="password" placeholder="Password" v-model="state.useRegister.password" required>
-        <p class="field-error">{{ state.errors.password }}</p>
-      </div>
-
-      <div class="input-box" v-show="!isLogin">
-        <input type="password" placeholder="Repeat Password" v-model="state.useRegister.password2" required>
-      </div>
-
-      <!-- <div class="input-box"></div>
-      <div class="remember-forgot">
-        <label><input type="checkbox">Remember me</label>
-        <a href="#">Forgot password?</a>
-      </div> -->
-
-      <!-- <button @click="isLogin ? login : register" class="btn">{{ isLogin ? 'Login' : 'Register' }}</button> -->
-      <button v-if="isLogin" class="btn" @click="login" @keydown.enter="login">Login</button>
-      <button v-else="!isLogin" @click="register" class="btn">Register</button>
-
-      <div class="register-link">
-        <p>
-          {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
-          <a @click="isLogin = !isLogin" href="#">
-            {{ isLogin ? 'Register Here' : 'Login Here' }}
-          </a>
-        </p>
-      </div>
-    </div>
     </div>
   </body>
 </template>
@@ -77,9 +59,7 @@ export default {
   setup(props) {
     const { emit } = getCurrentInstance();
     const router = useRouter();
-    
     const isLogin = ref(props.isLogin);
-
     const state = reactive({
       user: {
         username: '',
@@ -117,8 +97,8 @@ export default {
     const validateUsername = () => {
       const usernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
       if (!usernameRegex.test(state.useRegister.username)) {
-          state.errors.username = 'The username format is invalid';
-        } else {
+        state.errors.username = 'The username format is invalid';
+      } else {
         state.errors.username = '';
       }
     };
@@ -126,8 +106,8 @@ export default {
     const validateEmail = () => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(state.useRegister.email)) {
-          state.errors.email = 'The email format is invalid';
-        } else {
+        state.errors.email = 'The email format is invalid';
+      } else {
         state.errors.email = '';
       }
     };
@@ -136,23 +116,22 @@ export default {
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
       if (!passwordRegex.test(state.useRegister.password)) {
         state.errors.password = 'The password format is invalid';
-      }else if(state.useRegister.password != state.useRegister.password2){
+      } else if (state.useRegister.password != state.useRegister.password2) {
         state.errors.password = "The password doesn't match";
-      }else {
+      } else {
         state.errors.password = '';
       }
     };
 
     const hasErrors = () => {
-  return Object.values(state.errors).some(error => error !== '');
-};
+      return Object.values(state.errors).some(error => error !== '');
+    };
 
 
     return { state, login, register, isLogin, hasErrors };
   }
 }
 </script>
-
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
@@ -177,8 +156,8 @@ body {
 
 .wrapper {
   position: relative;
-  perspective: 1000px; 
-  transition: transform 0.5s ease; 
+  perspective: 1000px;
+  transition: transform 0.5s ease;
 
   width: 420px;
   background: transparent;
@@ -192,9 +171,9 @@ body {
 
 }
 
-.content{
+.content {
   /* transform: rotateZ(180deg);  */
-transform: rotate3d(0, 1, 0, 180deg);
+  transform: rotate3d(0, 1, 0, 180deg);
 }
 
 .flipped {
@@ -247,20 +226,6 @@ transform: rotate3d(0, 1, 0, 180deg);
   margin: -15px 0 15px;
 }
 
-.remember-forgot label input {
-  accent-color: #fff;
-  margin-right: 3px;
-}
-
-.remember-forgot a {
-  color: #fff;
-  text-decoration: none;
-
-}
-
-.remember-forgot a:hover {
-  text-decoration: underline;
-}
 
 .wrapper .btn {
   width: 100%;
@@ -297,6 +262,5 @@ transform: rotate3d(0, 1, 0, 180deg);
   color: red;
   font-family: 'Roboto', sans-serif;
   font-style: italic;
-} 
-
+}
 </style>

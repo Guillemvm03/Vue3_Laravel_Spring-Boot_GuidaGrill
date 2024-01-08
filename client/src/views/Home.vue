@@ -6,8 +6,7 @@
 
       <div class="row justify-content-between gy-5">
         <div
-          class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start"
-        >
+          class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
           <h2 data-aos="fade-up">Enjoy Your Healthy<br />Delicious Food</h2>
           <p data-aos="fade-up" data-aos-delay="100">
             Sed autem laudantium dolores. Voluptatem itaque ea consequatur eveniet. Eum
@@ -26,57 +25,54 @@
   </section>
 
 
-<!-- ======= Stats Counter Section ======= -->
-<section id="stats-counter" class="stats-counter">
-      <div class="container" data-aos="zoom-out">
+  <!-- ======= Stats Counter Section ======= -->
+  <section id="stats-counter" class="stats-counter">
+    <div class="container" data-aos="zoom-out">
 
-        <div class="row gy-4">
+      <div class="row gy-4">
 
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Clients</p>
-            </div>
-          </div><!-- End Stats Item -->
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-item text-center w-100 h-100">
+            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
+              class="purecounter"></span>
+            <p>Clients</p>
+          </div>
+        </div><!-- End Stats Item -->
 
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Projects</p>
-            </div>
-          </div><!-- End Stats Item -->
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-item text-center w-100 h-100">
+            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
+              class="purecounter"></span>
+            <p>Projects</p>
+          </div>
+        </div><!-- End Stats Item -->
 
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Hours Of Support</p>
-            </div>
-          </div><!-- End Stats Item -->
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-item text-center w-100 h-100">
+            <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1"
+              class="purecounter"></span>
+            <p>Hours Of Support</p>
+          </div>
+        </div><!-- End Stats Item -->
 
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item text-center w-100 h-100">
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p>Workers</p>
-            </div>
-          </div><!-- End Stats Item -->
-
-        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="stats-item text-center w-100 h-100">
+            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1"
+              class="purecounter"></span>
+            <p>Workers</p>
+          </div>
+        </div><!-- End Stats Item -->
 
       </div>
-    </section><!-- End Stats Counter Section -->
 
+    </div>
+  </section><!-- End Stats Counter Section -->
 
   <!-- End Hero -->
 
   <!-- <Card_meals v-if="state.menus" :data="state.menus" :dataMeals="state.menusInfinite" @page="addInfinite"/> -->
-  <Card_meals
-    v-if="state.menus"
-    :data="state.menus"
-    :dataMeals="state.mealsInfinite"
-    @page="addInfinite"
-    @menu_number="updateMenuNumber"
-  />
-  <!-- :dataMeals="state.menusInfinite" -->
+  <Card_meals v-if="state.menus" :data="state.menus" :dataMeals="state.mealsInfinite" @page="addInfinite"
+    @menu_number="updateMenuNumber" />
 </template>
 
 <script>
@@ -95,7 +91,6 @@ export default {
   setup() {
     const router = useRouter();
     const store = useStore();
-
     const menuNumber = ref(1);
 
     store.dispatch(`menus/${Constant.INITIALIZE_MENU}`);
@@ -108,9 +103,6 @@ export default {
     };
     const state = reactive({
       menus: computed(() => store.getters["menus/GetMenu"]),
-
-      // menusInfinite: useMenusInfinite(1, menuNumber.value, 3),
-
       mealsInfinite: useMealsInfinite(1, menuNumber.value, 3),
     });
 
@@ -270,7 +262,7 @@ export default {
   color: rgba(255, 255, 255, 0.6);
 }
 
-.search-nav{
+.search-nav {
 
   position: absolute;
   top: -551px;

@@ -10,8 +10,8 @@ export default {
   deteleTable(id) {
     return Api(secrets.URL_LARAVEL).delete("tables/" + id);
   },
-  UpdateTable(table){
-    return Api(secrets.URL_LARAVEL).put(`/tables/${table.id}` ,table);
+  UpdateTable(table) {
+    return Api(secrets.URL_LARAVEL).put(`/tables/${table.id}`, table);
   },
   createTable(table) {
     return Api(secrets.URL_LARAVEL).post("tables", table);

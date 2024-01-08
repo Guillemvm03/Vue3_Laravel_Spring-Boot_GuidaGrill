@@ -37,7 +37,6 @@
                                     Reservation</button>
                                 <button v-else class="btn btn-danger" @click="deleteReservation(reservation.id)">Delete
                                     Reservation</button>
-
                             </td>
                         </tr>
                     </tbody>
@@ -67,16 +66,12 @@ export default {
         const updateReservation = (id) => {
             store.dispatch(`reservationDashboard/${Constant.UPDATE_RESERVATION}`, id)
             toaster.success('Reservation Accepted');
-            // console.log(id);
             router.push('/Dashboard');
 
         }
         const deleteReservation = (id) => {
             store.dispatch(`reservationDashboard/${Constant.DELETE_RESERVATION}`, id)
             toaster.success('Reservation Deleted');
-            // window.location.reload();
-            //  router.push('/Dashboard');
-            
         }
         return {
             updateReservation,

@@ -16,13 +16,12 @@
   </section>
 
   <h1 class="titleaa">Your Bookings</h1>
-  <div v-if="state.bookings.length===0">
+  <div v-if="state.bookings.length === 0">
     <p class="nobookings">No bookings yet</p>
   </div>
   <div v-else>
-    <UserReservationList/>
+    <UserReservationList />
   </div>
-
 </template>
 
 <script>
@@ -33,8 +32,8 @@ import { useRouter } from 'vue-router';
 import UserReservationList from '../components/UserReservationList.vue';
 
 export default {
-  
-    components: { UserReservationList },
+
+  components: { UserReservationList },
 
   setup() {
     const store = useStore();
@@ -42,13 +41,13 @@ export default {
 
     store.dispatch(`user/${Constant.INITIALIZE_PROFILE}`);
     store.dispatch(`booking/${Constant.INITIALIZE_USER_BOOKING}`);
-    
+
     const state = reactive({
       user: computed(() => store.getters["user/GetProfile"]),
       bookings: computed(() => store.getters["booking/GetUserBooking"]),
     });
 
-   return {
+    return {
       state
     }
   },
@@ -63,7 +62,7 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
-.titleaa{
+.titleaa {
   text-align: center;
   font-size: 3rem;
   margin-top: 2rem;
@@ -75,7 +74,7 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.nobookings{
+.nobookings {
   text-align: center;
   font-size: 2rem;
   margin-top: 2rem;
@@ -96,7 +95,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
 }
 
 .details {
@@ -111,19 +110,10 @@ body {
   border: 2px solid #fff;
   box-shadow: 5px 4px 20px 0px rgb(77, 75, 75);
 }
-
-.location p {
-  display: inline-block;
-}
-
-.location svg {
-  vertical-align: middle;
-}
-
 .stats {
   display: flex;
   justify-content: space-around;
-  padding:1rem;
+  padding: 1rem;
 }
 
 .stats .col-4 {
@@ -136,13 +126,13 @@ body {
   font-size: 2.3rem;
   margin: 1rem 0;
 }
-.admin{
+
+.admin {
   font-size: 1.8rem;
   color: red;
-  border:solid 1px red;
+  border: solid 1px red;
   border-radius: 6px;
   background-color: white;
   box-shadow: 5px 4px 20px 0px rgb(77, 75, 75);
 }
-
 </style>
