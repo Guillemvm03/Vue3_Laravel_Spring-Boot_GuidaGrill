@@ -78,7 +78,7 @@ Bienvenido a GuidaGrill, un sistema completo para la gestión de menús y reserv
   <a href="https://github.com/davidmpenades">
    <img src="https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/bb865d0d-a866-4341-b6ad-b72b9594806e" alt="GitHub">
   </a>
-  <a href="www.linkedin.com/in/david-moreno-1675a4248">
+  <a href="https://www.linkedin.com/in/david-moreno-1675a4248">
    <img src="https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/e9ab5c51-52b2-448e-9290-f676161bc077" alt="LinkedIn">
   </a>
   
