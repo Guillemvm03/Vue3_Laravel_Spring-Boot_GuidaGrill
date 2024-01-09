@@ -4,61 +4,48 @@
     <h4 class="border-bottom pt-3">ADD USER <span class="badge badge-secondary mb-1">Form</span></h4>
     <p style="text-align: left; font-style: italic; font-weight: 100;">Please fill the form below...</p>
 
-    <div id="form">
-
-      <div class="mb-3">
-        <label for="type" class="form-label">USERNAME</label>
-        <input type="text" v-model="state.userLocal.username" id="type" class="form-control"
-          placeholder="Please enter a valid name for the menu" required>
-        <div class="invalid-feedback">
-          Please enter Menu.
+        <div class="mb-3">
+          <label for="type" class="form-label">USERNAME</label>
+          <input type="text" v-model="state.userLocal.username" id="type"  class="form-control" placeholder="Please enter a valid name for the user" required >
+          <div class="invalid-feedback">
+          </div>
         </div>
-      </div>
+      
 
-      <div class="mb-3">
-        <label for="item" class="form-label">PASSOWRD</label>
-        <input type="text" v-model="state.userLocal.password" class="form-control"
-          placeholder="Please enter a valid IMG URL" required>
-        <div class="invalid-feedback">
-          Please enter a valid URL.
+        <div class="mb-3">
+          <label for="item" class="form-label">PASSOWRD</label>
+          <input type="text" v-model="state.userLocal.password" class="form-control" placeholder="Please enter a valid Password" required>
+          <div class="invalid-feedback">
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="item" class="form-label">EMAIL</label>
-        <input type="text" v-model="state.userLocal.email" class="form-control" placeholder="Please enter a valid IMG URL"
-          required>
-        <div class="invalid-feedback">
-          Please enter a valid URL.
+        <div class="mb-3">
+          <label for="item" class="form-label">EMAIL</label>
+          <input type="text" v-model="state.userLocal.email" class="form-control" placeholder="Please enter a valid email adress" required>
+          <div class="invalid-feedback">
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="item" class="form-label">TYPE</label>
-        <input type="text" v-model="state.userLocal.type" class="form-control" placeholder="Please enter a valid IMG URL"
-          required>
-        <div class="invalid-feedback">
-          Please enter a valid URL.
+        <div class="mb-3">
+          <label for="item" class="form-label">TYPE</label>
+          <input type="text" v-model="state.userLocal.type" class="form-control" placeholder="Please enter a valid type(user/admin)" required>
+          <div class="invalid-feedback">
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="item" class="form-label">IS ACTIVE</label>
-        <input type="text" v-model="state.userLocal.is_active" class="form-control"
-          placeholder="Please enter a valid IMG URL" required>
-        <div class="invalid-feedback">
-          Please enter a valid URL.
+        <div class="mb-3">
+          <label for="item" class="form-label">IS ACTIVE</label>
+          <input type="text" v-model="state.userLocal.is_active" class="form-control" placeholder="Please enter a valid boolean(0/1)" required>
+          <div class="invalid-feedback">
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="item" class="form-label">PHOTO</label>
-        <input type="text" v-model="state.userLocal.photo" class="form-control" placeholder="Please enter a valid IMG URL"
-          required>
-        <div class="invalid-feedback">
-          Please enter a valid URL.
+        <div class="mb-3">
+          <label for="item" class="form-label">PHOTO</label>
+          <input type="text" v-model="state.userLocal.photo" class="form-control" placeholder="Please enter a valid IMG URL" required>
+          <div class="invalid-feedback">
+          </div>
         </div>
-      </div>
 
 
       <a @click="sendData()" v-if="user" class="btn btn-primary">
@@ -82,9 +69,7 @@
         <span></span>
         Cancel
       </a>
-
     </div>
-  </div>
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </template>
 

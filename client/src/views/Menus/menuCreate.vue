@@ -16,8 +16,11 @@ export default {
         const createMenu = (data) => {
 
             store.dispatch(`menuDashboard/${Constant.ADD_MENU}`, data);
-            router.push('/dashboard/menus');
-        }
+            // toaster.success('Category added');
+            router.push('/dashboard');
+        }//createCategory
+
+
         return { createMenu };
     }
 }
