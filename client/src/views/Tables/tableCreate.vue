@@ -1,5 +1,5 @@
 <template>
-    <Form_table_dash @data="create_emit"/>
+    <Form_table_dash @data="create_emit" />
 </template>
 <script>
 import Form_table_dash from '../../components/form_table_dash.vue';

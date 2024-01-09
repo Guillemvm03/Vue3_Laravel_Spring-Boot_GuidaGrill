@@ -2,80 +2,77 @@
   <div>
     <footer id="footer" class="footer">
 
-<div class="container">
-  <div class="row gy-3">
-    <div class="col-lg-3 col-md-6 d-flex">
-      <i class="bi bi-geo-alt icon"></i>
-      <div>
-        <h4>Authors</h4>
-        <p>
-          Guillem Vicent <br>
-          David Moreno<br>
-        </p>
+      <div class="container">
+        <div class="row gy-3">
+          <div class="col-lg-3 col-md-6 d-flex">
+            <i class="bi bi-geo-alt icon"></i>
+            <div>
+              <h4>Authors</h4>
+              <p>
+                Guillem Vicent <br>
+                David Moreno<br>
+              </p>
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links d-flex">
+            <i class="bi bi-telephone icon"></i>
+            <div>
+              <h4>Emails</h4>
+              <p>
+                guillemvicent33@gmail.com<br>
+                davidmpenades@gmail.com<br>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links d-flex">
+            <i class="bi bi-clock icon"></i>
+            <div>
+              <h4>Education Center</h4>
+              <p>
+                IES L'Estacio<br>
+                2º DAW
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Follow Us</h4>
+            <div class="social-links d-flex">
+
+              <a href="https://www.linkedin.com/in/gvicentmarti/" class="social-links"><img
+                  src="../assets/img/linkedin.svg"></a>
+              <a href="https://github.com/Guillemvm03" class="social-links"><img src="../assets/img/github.svg"></a>
+              <a href="https://www.linkedin.com/in/david-moreno-1675a4248/" class="Linkedin"><img
+                  src="../assets/img/linkedin.svg"></a>
+              <a href="https://github.com/davidmpenades" class="social-links"><img src="../assets/img/github.svg"></a>
+
+            </div>
+          </div>
+
+        </div>
       </div>
 
-    </div>
-
-    <div class="col-lg-3 col-md-6 footer-links d-flex">
-      <i class="bi bi-telephone icon"></i>
-      <div>
-        <h4>Emails</h4>
-        <p>
-           guillemvicent33@gmail.com<br>
-           davidmpenades@gmail.com<br>
-        </p>
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>GUIDA GRILL</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+          Designed by <a href="http://localhost:5173/Bookings">GUIDA</a>
+        </div>
       </div>
-    </div>
 
-    <div class="col-lg-3 col-md-6 footer-links d-flex">
-      <i class="bi bi-clock icon"></i>
-      <div>
-        <h4>Education Center</h4>
-        <p>
-          IES L'Estacio<br>
-          2º DAW
-        </p>
-      </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 footer-links">
-      <h4>Follow Us</h4>
-      <div class="social-links d-flex">
-        
-        <a href="https://www.linkedin.com/in/gvicentmarti/" class="social-links"><img src="../assets/img/linkedin.svg"></a>
-        <a href="https://github.com/Guillemvm03" class="social-links"><img src="../assets/img/github.svg"></a>
-        
-        <a href="https://www.linkedin.com/in/david-moreno-1675a4248/" class="Linkedin"><img src="../assets/img/linkedin.svg"></a>
-        <a href="https://github.com/davidmpenades" class="social-links"><img src="../assets/img/github.svg"></a>
-        
-
-        <!-- <a href=""><i class="bi bi-github"></i></a> -->
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="container">
-  <div class="copyright">
-    &copy; Copyright <strong><span>GUIDA GRILL</span></strong>. All Rights Reserved
-  </div>
-  <div class="credits">
-    Designed by <a href="http://localhost:5173/Bookings">GUIDA</a>
-  </div>
-</div>
-
-</footer>
+    </footer>
   </div>
 </template>
-
-
 
 <script>
 
 export default {
   name: "Test",
-  created() {},
+  created() { },
   data() {
     return {};
   },
@@ -88,7 +85,6 @@ export default {
 
 
 <style lang="scss" >
-
 .footer {
   font-size: 14px;
   background-color: #1f1f24;
@@ -141,7 +137,7 @@ export default {
   color: #363434;
 }
 
-.footer .social-links img{
+.footer .social-links img {
   display: flex;
   align-items: center;
   justify-content: center;

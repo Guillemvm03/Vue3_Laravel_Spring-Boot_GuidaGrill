@@ -79,14 +79,6 @@ nav {
   z-index: 100;
 }
 
-.logo a {
-  width: 160px;
-  margin-right: 45px;
-  color: #fff;
-  text-decoration: none;
-}
-
-
 .nav-left ul li {
   list-style: none;
   display: inline-block;
@@ -137,20 +129,13 @@ h2 {
   color: #f7f5f4;
   padding: 1rem;
 }
-.row{
+
+.row {
   height: 100%;
-  
+
 }
 
-
-
-
-
-
-
-
 /* ///......media query....../// */
-
 
 @media(min-width: 280px) and (max-width: 868px) {
   /* .nav-right .search-box{

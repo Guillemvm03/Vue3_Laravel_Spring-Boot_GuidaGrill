@@ -75,7 +75,6 @@
         </div>
       </div>
 
-
       <button @click="sendData()" v-if="table" class="btn btn-outline-primary">Update</button>
       <button @click="sendData()" v-else class="btn btn-outline-success">Create</button>
       <button @click="cancel()" class="btn btn-outline-danger">Cancel</button>

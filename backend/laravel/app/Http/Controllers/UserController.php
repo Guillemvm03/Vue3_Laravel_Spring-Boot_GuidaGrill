@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUserRequest;
+
 class UserController extends Controller
 {
     protected User $user;
@@ -68,13 +69,6 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    // public function show($id) //get user by id
-    // {
-    //     return UserResource::collection(User::where('id', $id)->firstOrFail());
-    // }
     public function show($id)
     {
         return UserResource::make(User::findOrFail($id));
@@ -92,7 +86,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update( $request, $id)
+    public function update($request, $id)
     {
         $user = User::where('id', $id)->firstOrFail();
         if (isset($request->validated()['username'])) {
@@ -119,8 +113,8 @@ class UserController extends Controller
         if (isset($request->validated()['is_active'])) {
             // Rest of the code...
         }
-    
-    
+
+
 
 
         $user->save();
@@ -154,11 +148,6 @@ class UserController extends Controller
                 'message' => 'Invalid credentials'
             ], 400);
         }
-        // if(auth()->user()->type != 'admin'){
-        //     return response()->json([
-        //         'message' => 'Invalid credentials'
-        //     ], 400);
-        // }
         return response()->json([
             'token' => $token,
             'user' => UserResource::make(auth()->user())
@@ -192,9 +181,10 @@ class UserController extends Controller
             ], 401);
         }
     }
-    public function isAdmin(){
+    public function isAdmin()
+    {
         try {
-            if(auth()-> user() == null || auth()->user()->type != 'admin'){
+            if (auth()->user() == null || auth()->user()->type != 'admin') {
                 return response()->json([
                     'error' => 'Not authorized'
                 ], 401);
@@ -202,7 +192,6 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'Authorized'
             ], 200);
-
         } catch (\Throwable $th) {
             return response()->json([
                 'error' => 'Not authorized'

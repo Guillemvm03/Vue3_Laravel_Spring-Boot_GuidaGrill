@@ -58,12 +58,9 @@ public class MenuController {
 	public ResponseEntity<List<Menu>> getMealsInfinite(@ModelAttribute MenuQueryParam menuQueryParam) {
 		try {
 			
-			System.out.println(menuQueryParam.getType());
 			List<Menu> menu = new ArrayList<Menu>();
 			Integer limit = menuQueryParam.getPage() * menuQueryParam.getLimit();  
-			// System.out.println(limit);
 			menurepository.findMenusInfinite(limit, menuQueryParam.getType()).forEach(menu::add);
-
 			
 			return new ResponseEntity<>(menu, HttpStatus.OK);
 

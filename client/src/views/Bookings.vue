@@ -2,7 +2,7 @@
   <div class="booking-card">
     <h1>BOOKINGS</h1>
     <div class="filters">
-      <Filters_sidebar @filters1="ApplyFilters" @deleteFilters="deleteFilters" :filters="filter_url"/>
+      <Filters_sidebar @filters1="ApplyFilters" @deleteFilters="deleteFilters" :filters="filter_url" />
     </div>
     <br>
     <div v-if="state.tables.length > 0" class="row row-cols-1 row-cols-md-3 g-4">
@@ -15,11 +15,11 @@
     <br>
   </div>
   <div class="pag-a">
-  <paginate v-model="state.page" :page-count="state.totalPages" :page-range="3" :margin-pages="2"
-            :click-handler="clickCallback" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination'"
-            :page-class="'page-item'">
-        </paginate>
-      </div>
+    <paginate v-model="state.page" :page-count="state.totalPages" :page-range="3" :margin-pages="2"
+      :click-handler="clickCallback" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination'"
+      :page-class="'page-item'">
+    </paginate>
+  </div>
 </template>
 
 
@@ -37,7 +37,7 @@ import Paginate from 'vuejs-paginate-next';
 import { useTablePaginate } from '../composables/tables/useTable';
 
 export default {
-  components: { Card_tables , Filters_sidebar, Search, Paginate},
+  components: { Card_tables, Filters_sidebar, Search, Paginate },
 
 
 
@@ -51,16 +51,12 @@ export default {
 
 
     let filter_url = {
-      // table_number: 0,
-      // capacity: 0,
       category: "",
       available: 0,
-      // status: "",
-      // img_table: "",
       menus: [],
       all: true,
-      page:1,
-      limit:3,
+      page: 1,
+      limit: 3,
     };
 
     try {
@@ -78,33 +74,33 @@ export default {
     });
 
     const ApplyFilters = (filters1) => {
-      filters1.all=false
-        const filters_64 = btoa(JSON.stringify(filters1));
-        router.push({ name: "bookingFilters", params: { filters: filters_64 } });
-        state.tables = useTableFilters(filters1);
-        state.totalPages = useTablePaginate(filters1);
+      filters1.all = false
+      const filters_64 = btoa(JSON.stringify(filters1));
+      router.push({ name: "bookingFilters", params: { filters: filters_64 } });
+      state.tables = useTableFilters(filters1);
+      state.totalPages = useTablePaginate(filters1);
 
     }
 
     const deleteFilters = (deleteFilters) => {
-        router.push({ name: "Bookings" });
-        state.tables = useTableFilters(deleteFilters);
-        state.page = 1;
-        filter_url = deleteFilters;
-        state.totalPages = useTablePaginate(deleteFilters);
+      router.push({ name: "Bookings" });
+      state.tables = useTableFilters(deleteFilters);
+      state.page = 1;
+      filter_url = deleteFilters;
+      state.totalPages = useTablePaginate(deleteFilters);
     }
 
     const clickCallback = (pageNum) => {
-            try {
-                if (route.params.filters !== '') {
-                  filter_url = JSON.parse(atob(route.params.filters));
-                }
-            } catch (error) {
-            }
-            filter_url.page = pageNum;
-            state.page = pageNum;
-            ApplyFilters(filter_url)
+      try {
+        if (route.params.filters !== '') {
+          filter_url = JSON.parse(atob(route.params.filters));
         }
+      } catch (error) {
+      }
+      filter_url.page = pageNum;
+      state.page = pageNum;
+      ApplyFilters(filter_url)
+    }
 
     return { state, filter_url, ApplyFilters, deleteFilters, clickCallback }
   }
@@ -118,18 +114,17 @@ export default {
   padding: 2rem;
   text-align: center;
 }
-h2{
+
+h2 {
   color: red;
   padding: 40px;
   text-align: center;
   font-size: 30px;
 }
 
-.pag-a{
-display: flex;
-justify-content: center;
-margin: 0;
+.pag-a {
+  display: flex;
+  justify-content: center;
+  margin: 0;
 }
-
-
 </style>
