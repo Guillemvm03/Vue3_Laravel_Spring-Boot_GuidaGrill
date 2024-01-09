@@ -8,7 +8,8 @@ Bienvenido a GuidaGrill, un sistema completo para la gestión de menús y reserv
 ![vue_button_icon_151943](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/ae3c5749-330f-4a09-8327-69fba01ca565) <img src="https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/208cb9b0-e32f-462f-afcc-aeb18f1a68ea" alt="Logo del Proyecto" width="100px"> ![laravel_button_icon_151953](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/9556eed5-399c-4139-b046-0fe5fac4e3dd)<br>
 ![javascript_horizontal_logo_icon_170553](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/30ed6bad-d41d-429f-a62f-6ead4188f57a) ![java_button_icon_151928](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/2406f7db-8d34-4d22-890a-e7675fbb846c)  ![php_button_icon_151926](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/43f1b47b-fb66-435c-b07a-148755955c3a)<br>
 ![html_button_icon_151929](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/4787c172-c0b6-4c54-8f8b-a8405b0c2f0f) ![css_button_icon_151935](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/bb63a1b3-ab0a-435f-93e1-e743c636f3d5) ![bootstrap_button_icon_151958 (1)](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/0aa2c9b9-068d-41f7-a75e-b31793feb9b8) 
-
+<br>
+![mysql_horizontal_logo_icon_170929](https://github.com/Guillemvm03/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/128723799/05cca730-614a-4d9b-b2e3-58555360dd7c)
 
 ## Características Principales
 
