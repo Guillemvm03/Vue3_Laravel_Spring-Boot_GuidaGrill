@@ -62,6 +62,11 @@ Bienvenido a GuidaGrill, un sistema completo para la gestión de menús y reserv
 
   ![Peek 2024-01-09 12-48](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/bed2473c-f5e7-49e8-a16e-02ee71bf5d01)
 
+-  Borrar menu
+
+  ![Peek 2024-01-09 12-53](https://github.com/Guillemvm03/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/128723799/0deb63a4-0211-4c55-b185-9af3955f1ce7)
+
+
 ### Autores
 
 - Guillem Vicent Martí
