@@ -1,14 +1,13 @@
-# RestauranteX - Sistema de Gestión de Menús y Reservas
+# GuidaGrill - Sistema de Gestión de Menús y Reservas
 
-Bienvenido a RestauranteX, un sistema completo para la gestión de menús y reservas en tu restaurante. Este proyecto utiliza tecnologías modernas para ofrecer una experiencia eficiente y atractiva tanto para clientes como para administradores.
+  ![logo](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/0f7788c2-d3c5-4f28-be6b-1da3da39a083)
+
+Bienvenido a GuidaGrill, un sistema completo para la gestión de menús y reservas en tu restaurante. Este proyecto utiliza tecnologías modernas para ofrecer una experiencia eficiente y atractiva tanto para clientes como para administradores.
 
 ## Tecnologías Utilizadas
 ![vue_button_icon_151943](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/ae3c5749-330f-4a09-8327-69fba01ca565) <img src="https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/208cb9b0-e32f-462f-afcc-aeb18f1a68ea" alt="Logo del Proyecto" width="100px"> ![laravel_button_icon_151953](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/9556eed5-399c-4139-b046-0fe5fac4e3dd)<br>
 ![javascript_horizontal_logo_icon_170553](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/30ed6bad-d41d-429f-a62f-6ead4188f57a) ![java_button_icon_151928](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/2406f7db-8d34-4d22-890a-e7675fbb846c)  ![php_button_icon_151926](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/43f1b47b-fb66-435c-b07a-148755955c3a)<br>
 ![html_button_icon_151929](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/4787c172-c0b6-4c54-8f8b-a8405b0c2f0f) ![css_button_icon_151935](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/bb63a1b3-ab0a-435f-93e1-e743c636f3d5) ![bootstrap_button_icon_151958 (1)](https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/0aa2c9b9-068d-41f7-a75e-b31793feb9b8) 
-
-
-
 
 
 ## Características Principales
@@ -76,10 +75,10 @@ Bienvenido a RestauranteX, un sistema completo para la gestión de menús y rese
 
 - David Moreno
 
-  <a href="[https://github.com/Guillemvm03](https://github.com/davidmpenades)">
+  <a href="https://github.com/davidmpenades">
    <img src="https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/bb865d0d-a866-4341-b6ad-b72b9594806e" alt="GitHub">
   </a>
-  <a href="[https://github.com/Guillemvm03](https://www.linkedin.com/in/gvicentmarti/](https://www.linkedin.com/in/david-moreno-1675a4248/)">
+  <a href="www.linkedin.com/in/david-moreno-1675a4248">
    <img src="https://github.com/davidmpenades/Vue3_Laravel_Spring-Boot_GuidaGrill/assets/118437119/e9ab5c51-52b2-448e-9290-f676161bc077" alt="LinkedIn">
   </a>
   
