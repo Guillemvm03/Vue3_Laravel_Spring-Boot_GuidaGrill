@@ -19,7 +19,7 @@ export default {
             
             store.dispatch(`menuDashboard/${Constant.ADD_MENU}`, data);
             // toaster.success('Category added');
-            router.push('/dashboard/menus');
+            router.push('/dashboard');
         }//createCategory
 
 

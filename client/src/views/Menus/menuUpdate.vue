@@ -26,9 +26,9 @@ export default {
         });
 
         const updateMenu = (data) => {
-            store.dispatch(`menuDashboard/${Constant.UPDATE_CATEGORY}`, data);
+            store.dispatch(`menuDashboard/${Constant.UPDATE_MENU}`, data);
             // toaster.success('Category updated');
-            router.push('/dashboard/menus');
+            router.push('/dashboard');
         }//updateCategory
         return { state, updateMenu };
     }
